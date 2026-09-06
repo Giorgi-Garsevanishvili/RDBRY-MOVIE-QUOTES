@@ -2,10 +2,10 @@
 
 Last updated: 2026-09-06
 
-- Phase: Foundation
-- Active slice: PR 01 — Bootstrap + quality baseline
-- State: Committed locally; ready for remote review
-- Blocker: None for PR 01
+- Phase: Foundation stabilization
+- Active slice: CI hotfix — Wayfinder generation order
+- State: Verified locally; ready for review
+- Blocker: None
 
 ## Completed
 
@@ -22,13 +22,17 @@ Last updated: 2026-09-06
 - Added ESLint, Prettier, self-contained Wayfinder generation, and a PHP 8.5.9/SQLite GitHub Actions test workflow.
 - Switched development, test, CI, and deployment database policy from MySQL to SQLite by explicit user decision.
 - Passed the complete local `composer ci:check` gate.
+- Reproduced the remote ESLint failure from a clean checkout without generated Wayfinder modules.
+- Made lint and lint-fix generate Wayfinder modules before type-aware ESLint resolves their imports.
+- Verified `npm run check` from a temporary clean checkout.
+- Recorded the mandatory full `composer ci:check` gate before every commit and every push.
 
 ## Next
 
-1. Add the repository remote and open PR 01 when the user provides the URL and requests it.
-2. When work resumes, replace starter defaults that are outside the Movie Quotes product scope.
-3. Begin PR 03 with the design system, localization foundation, and landing page.
-4. Resolve domain questions only when their owning slice becomes active.
+1. Publish and merge the focused CI hotfix.
+2. Resume PR 03 on `codex/feat/design-system-landing` with its preserved documentation work.
+3. Confirm the landing copy, mobile locale control, and frontend verification targets.
+4. Implement the design system, localization foundation, and responsive landing page.
 
 ## Known risks
 

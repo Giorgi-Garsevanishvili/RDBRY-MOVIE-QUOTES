@@ -12,8 +12,8 @@
         "check:fix": "npm run lint:fix && npm run format",
         "format": "prettier --write .",
         "format:check": "prettier --check .",
-        "lint": "eslint . --max-warnings=0",
-        "lint:fix": "eslint . --fix",
+        "lint": "npm run routes:generate && eslint . --max-warnings=0",
+        "lint:fix": "npm run routes:generate && eslint . --fix",
         "routes:generate": "php artisan wayfinder:generate --with-form",
         "types:check": "npm run routes:generate && tsc --noEmit"
     },

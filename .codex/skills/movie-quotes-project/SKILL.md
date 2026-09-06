@@ -27,6 +27,6 @@ Ask when a required decision is open. Only make a reversible assumption when it 
 
 ## Verify and close
 
-Run focused checks while iterating and the full applicable PR gate before completion. Verify validation, authorization, failure states, and relevant desktop/mobile layouts.
+Run focused checks while iterating and the full applicable PR gate before completion. Before every commit and again immediately before every push, run `composer ci:check`; never commit or push with a failing check. Verify validation, authorization, failure states, and relevant desktop/mobile layouts.
 
-Update docs/status.md, traceability statuses, and changed contracts. Report behavior, check results, Figma nodes, migrations or operations, risks, and semantic commits. The project is complete only when every required traceability row is verified and the deployed acceptance test passes.
+Update docs/status.md, traceability statuses, and changed contracts. Report behavior, check results, Figma nodes, migrations or operations, risks, and semantic commits. Use concise bullet points in commit bodies for non-trivial changes. The project is complete only when every required traceability row is verified and the deployed acceptance test passes.
