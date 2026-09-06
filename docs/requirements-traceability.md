@@ -1,0 +1,61 @@
+# Requirements traceability
+
+Status values are confirmed, decision needed, implemented, and verified.
+
+| ID         | Requirement                                                                                     | Source                                         | Status                              |       PR |
+| ---------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------- | ----------------------------------- | -------: |
+| LAND-01    | Cinematic landing with movie stills and quotes                                                  | Assignment Landing + Figma 337:29589/346:43181 | confirmed                           |       03 |
+| LAND-02    | Landing links to registration and login                                                         | Assignment Landing + Figma                     | confirmed                           |       03 |
+| I18N-01    | English and Georgian platform                                                                   | Additional features                            | confirmed                           |       03 |
+| AUTH-01    | Username required, 3–15, lowercase Latin letters/digits                                         | Registration I                                 | confirmed                           |       04 |
+| AUTH-02    | Email required and valid                                                                        | Registration I                                 | confirmed                           |       04 |
+| AUTH-03    | Password required, 8–15, lowercase Latin letters/digits                                         | Registration I                                 | confirmed                           |       04 |
+| AUTH-04    | Password confirmation required and matching                                                     | Registration I                                 | confirmed                           |       04 |
+| AUTH-05    | Invalid inputs show error visual and localized field message                                    | Registration I + Figma                         | confirmed                           |       04 |
+| AUTH-06    | Valid registration sends activation link and shows check-email page                             | Registration I–II                              | confirmed                           |       05 |
+| AUTH-07    | Valid activation shows account-activated page                                                   | Registration III                               | confirmed                           |       05 |
+| AUTH-08    | Google registration/login                                                                       | Registration + additional features             | confirmed                           |       06 |
+| AUTH-09    | Login by username/password or email/password                                                    | Authorization                                  | confirmed                           |       04 |
+| AUTH-10    | Login identity required, minimum 3; password required                                           | Authorization                                  | confirmed                           |       04 |
+| RESET-01   | Recovery email required, valid, and registered                                                  | Password reset I                               | confirmed                           |       05 |
+| RESET-02   | Recovery sends link and shows check-email state                                                 | Password reset II–III                          | confirmed                           |       05 |
+| RESET-03   | New password follows password rule and matching confirmation                                    | Password reset IV                              | confirmed                           |       05 |
+| RESET-04   | Success and expired-link states                                                                 | Password reset V + Figma                       | confirmed                           |       05 |
+| FEED-01    | Feed contains all members' quotes, newest first                                                 | News feed                                      | confirmed                           |       12 |
+| FEED-02    | Progressive infinite loading on scroll                                                          | News feed                                      | confirmed                           |       12 |
+| FEED-03    | Posts support likes and comments                                                                | News feed                                      | confirmed                           |    13/15 |
+| SEARCH-01  | Plain query performs general search                                                             | News feed                                      | confirmed                           |       12 |
+| SEARCH-02  | @ searches movie names only                                                                     | News feed                                      | confirmed                           |       12 |
+| SEARCH-03  | # searches quote text only                                                                      | News feed                                      | confirmed                           |       12 |
+| PROFILE-01 | Show username/email and allow avatar upload                                                     | Profile                                        | confirmed                           |       16 |
+| PROFILE-02 | Password-based user can change password                                                         | Profile                                        | confirmed                           |       16 |
+| PROFILE-03 | Email change requires activation of new address                                                 | Profile                                        | confirmed                           |       16 |
+| PROFILE-04 | Google email is read-only and password UI is absent                                             | Profile                                        | confirmed                           |       16 |
+| MOVIE-01   | List only the authenticated member's movies                                                     | Movie list                                     | confirmed                           |       09 |
+| MOVIE-02   | Card shows name, year, poster, and quote count                                                  | Movie list                                     | confirmed                           |       09 |
+| MOVIE-03   | Details show name, poster, year, genres, description, director, quotes                          | Movie details                                  | confirmed                           |       09 |
+| MOVIE-04   | Owner can edit/delete movie                                                                     | Movie details                                  | confirmed                           |    08/09 |
+| MOVIE-05   | Movie field validation beyond visible fields                                                    | Incomplete prose                               | decision needed                     |       08 |
+| QUOTE-01   | Feed composer requires Georgian-only and English-only text                                      | Quote from feed                                | confirmed                           |    10/11 |
+| QUOTE-02   | Composer includes drag-and-drop image                                                           | Quote from feed                                | requiredness open                   |    10/11 |
+| QUOTE-03   | Movie selector contains only the member's movies                                                | Quote from feed                                | confirmed                           |    10/11 |
+| QUOTE-04   | Movie-page composer preselects/disables current movie                                           | Quote from movie                               | confirmed                           |       11 |
+| QUOTE-05   | Quote page shows movie, image, translations, likes/comments                                     | Quote page                                     | confirmed                           |    11/15 |
+| QUOTE-06   | Only creator can edit/delete quote                                                              | Quote page                                     | confirmed                           |    10/11 |
+| NOTIFY-01  | Like/comment notifications arrive in real time                                                  | Notifications + additional features            | confirmed                           |    14/15 |
+| ERROR-01   | Unauthenticated protected-route access shows 403                                                | 403 page                                       | confirmed                           |       07 |
+| ERROR-02   | Unknown route shows 404                                                                         | 404 page                                       | confirmed                           |       07 |
+| TECH-01    | Laravel + SQLite; SQLite explicitly supersedes the original MySQL requirement                   | Technical requirements + D-015                 | verified                            |       01 |
+| TECH-02    | PHP-CS-Fixer using Redberry config                                                              | Technical requirements + resource              | verified                            |       01 |
+| TECH-03    | Sanctum is present; first-party Inertia flows use session authentication and Pest feature tests | Technical requirements + D-002                 | implemented                         |    01/04 |
+| TECH-04    | Spatie Media Library and Query Builder                                                          | Technical requirements                         | implemented                         |    01/08 |
+| TECH-05    | Inertia and Wayfinder                                                                           | Technical requirements                         | verified                            |       01 |
+| TECH-06    | React + TypeScript + Tailwind + ESLint/Prettier                                                 | Technical requirements                         | verified                            |       01 |
+| DOC-01     | English README with setup/development/deployment/resources                                      | General quality criteria                       | implemented                         |    01/18 |
+| DOC-02     | Database relationship diagram                                                                   | General quality criteria                       | confirmed                           |       08 |
+| DOC-03     | Swagger/OpenAPI when API routes exist                                                           | General quality criteria                       | not applicable under D-002          |       18 |
+| GIT-01     | Small semantic commits with specified grammar                                                   | Semantic commits resource                      | confirmed                           |      all |
+| CD-01      | GitHub Actions checks then SSH deployment from main                                             | CD resource                                    | checks implemented; deployment open |    01/18 |
+| CODE-01    | Follow Redberry React structure and quality rules                                               | React quality criteria                         | confirmed                           | frontend |
+
+Every implemented row must gain automated-test or visual-verification evidence before it becomes verified.
