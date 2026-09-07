@@ -55,7 +55,7 @@ Status values are confirmed, decision needed, implemented, and verified.
 | DOC-02     | Database relationship diagram                                                                   | General quality criteria                       | confirmed                           |       08 |
 | DOC-03     | Swagger/OpenAPI when API routes exist                                                           | General quality criteria                       | not applicable under D-002          |       18 |
 | GIT-01     | Small semantic commits with specified grammar                                                   | Semantic commits resource                      | confirmed                           |      all |
-| CD-01      | GitHub Actions checks then SSH deployment from main                                             | CD resource                                    | checks implemented; deployment open |    01/18 |
+| CD-01      | GitHub Actions checks then SSH deployment from main                                             | CD resource                                    | checks verified; deployment is open |    01/18 |
 | CODE-01    | Follow Redberry React structure and quality rules                                               | React quality criteria                         | confirmed                           | frontend |
 
 Every implemented row must gain automated-test or visual-verification evidence before it becomes verified.

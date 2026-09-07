@@ -53,8 +53,10 @@ Load the Figma design-to-code guidance and request the exact desktop/mobile node
 - Pest feature tests cover happy paths, validation, authorization, localization, uploads, notifications, and database effects.
 - Add focused frontend interaction tests once the runner is accepted; avoid snapshot-only proof.
 - Run focused checks while iterating and the full applicable PR gate before completion.
+- Before every commit and again immediately before every push, run the full `composer ci:check` gate. Never commit or push while any check is failing.
 - Keep comments rare and explanatory; never leave commented-out code.
 - Update docs/status.md and traceability for every completed slice.
 - A slice is complete only when behavior, tests, formatting, linting, type checks, build, relevant Figma checks, and documentation pass.
 
 Semantic commit format is type(scope): present-tense description, lowercase except proper names/protocols, no terminal punctuation, and at most 50 characters in the subject. Breaking changes include an exclamation mark and a BREAKING_CHANGE body.
+Use concise bullet points in the commit body whenever the change needs explanation, including its outcome and verification evidence.
