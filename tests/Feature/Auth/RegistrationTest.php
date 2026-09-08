@@ -33,8 +33,7 @@ test('a guest can create an unverified account without being authenticated', fun
 	]));
 
 	$response
-		->assertRedirect(route('login'))
-		->assertSessionHas('status', __('auth.registration_pending'));
+		->assertRedirect(route('activation.notice'));
 	$this->assertGuest();
 
 	$user = User::query()->sole();

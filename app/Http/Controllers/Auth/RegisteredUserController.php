@@ -27,6 +27,6 @@ class RegisteredUserController extends Controller
 
 		event(new Registered($user));
 
-		return to_route('login')->with('status', __('auth.registration_pending'));
+		return to_route('activation.notice');
 	}
 }

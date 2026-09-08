@@ -4,94 +4,71 @@ use App\Models\User;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
-use Laravel\Fortify\Features;
+use Inertia\Testing\AssertableInertia as Assert;
 
-beforeEach(function () {
-	$this->skipUnlessFortifyHas(Features::emailVerification());
+test('activation pending screen can be rendered by a guest', function () {
+	$this->get(route('activation.notice'))
+		->assertOk()
+		->assertInertia(fn (Assert $page) => $page->component('auth/VerificationPending'));
 });
 
-test('email verification screen can be rendered', function () {
+test('a valid signed activation link verifies the account without logging in', function () {
 	$user = User::factory()->unverified()->create();
+	Event::fake([Verified::class]);
 
-	$this->actingAs($user)
-		->get(route('verification.notice'))
-		->assertOk();
-});
-
-test('email can be verified', function () {
-	$user = User::factory()->unverified()->create();
-	Event::fake();
-
-	$verificationUrl = URL::temporarySignedRoute(
-		'verification.verify',
+	$response = $this->get(URL::temporarySignedRoute(
+		'activation.verify',
 		now()->addMinutes(60),
-		['id' => $user->id, 'hash' => sha1($user->email)],
-	);
+		['user' => $user, 'hash' => sha1($user->email)],
+	));
 
-	$response = $this->actingAs($user)->get($verificationUrl);
-
-	Event::assertDispatched(Verified::class);
+	$response->assertRedirect(route('activation.success'));
+	$this->assertGuest();
 	expect($user->fresh()->hasVerifiedEmail())->toBeTrue();
-	$response->assertRedirect(route('dashboard', absolute: false) . '?verified=1');
+	Event::assertDispatched(Verified::class, fn (Verified $event) => $event->user->is($user));
 });
 
-test('email is not verified with an invalid hash', function () {
+test('activation fails when the signed hash does not match the account', function () {
 	$user = User::factory()->unverified()->create();
-	Event::fake();
+	Event::fake([Verified::class]);
 
-	$verificationUrl = URL::temporarySignedRoute(
-		'verification.verify',
+	$this->get(URL::temporarySignedRoute(
+		'activation.verify',
 		now()->addMinutes(60),
-		['id' => $user->id, 'hash' => sha1('wrong-email')],
-	);
+		['user' => $user, 'hash' => sha1('wrong@example.com')],
+	))->assertForbidden();
 
-	$this->actingAs($user)->get($verificationUrl);
-
+	expect($user->fresh()->hasVerifiedEmail())->toBeFalse();
 	Event::assertNotDispatched(Verified::class);
+});
+
+test('an expired activation link is rejected', function () {
+	$user = User::factory()->unverified()->create();
+
+	$this->get(URL::temporarySignedRoute(
+		'activation.verify',
+		now()->subMinute(),
+		['user' => $user, 'hash' => sha1($user->email)],
+	))->assertForbidden();
+
 	expect($user->fresh()->hasVerifiedEmail())->toBeFalse();
 });
 
-test('email is not verified with an invalid user id', function () {
-	$user = User::factory()->unverified()->create();
-	Event::fake();
-
-	$verificationUrl = URL::temporarySignedRoute(
-		'verification.verify',
-		now()->addMinutes(60),
-		['id' => 123, 'hash' => sha1($user->email)],
-	);
-
-	$this->actingAs($user)->get($verificationUrl);
-
-	Event::assertNotDispatched(Verified::class);
-	expect($user->fresh()->hasVerifiedEmail())->toBeFalse();
-});
-
-test('verified users are redirected from the verification prompt', function () {
+test('an already verified account is not verified twice', function () {
 	$user = User::factory()->create();
-	Event::fake();
+	Event::fake([Verified::class]);
 
-	$this->actingAs($user)
-		->get(route('verification.notice'))
-		->assertRedirect(route('dashboard', absolute: false));
+	$this->get(URL::temporarySignedRoute(
+		'activation.verify',
+		now()->addMinutes(60),
+		['user' => $user, 'hash' => sha1($user->email)],
+	))->assertRedirect(route('activation.success'));
 
 	Event::assertNotDispatched(Verified::class);
 });
 
-test('already verified users do not fire the verified event again', function () {
-	$user = User::factory()->create();
-	Event::fake();
-
-	$verificationUrl = URL::temporarySignedRoute(
-		'verification.verify',
-		now()->addMinutes(60),
-		['id' => $user->id, 'hash' => sha1($user->email)],
-	);
-
-	$this->actingAs($user)
-		->get($verificationUrl)
-		->assertRedirect(route('dashboard', absolute: false) . '?verified=1');
-
-	Event::assertNotDispatched(Verified::class);
-	expect($user->fresh()->hasVerifiedEmail())->toBeTrue();
+test('activation success screen can be rendered by a guest', function () {
+	$this->get(route('activation.success'))
+		->assertOk()
+		->assertInertia(fn (Assert $page) => $page->component('auth/VerificationSuccess'));
 });
