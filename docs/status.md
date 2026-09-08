@@ -2,10 +2,10 @@
 
 Last updated: 2026-09-08
 
-- Phase: Public experience
-- Active slice: PR 03 — Design system + landing
-- State: Verified locally; ready for review
-- Blocker: None
+- Phase: Authentication
+- Active slice: PR 04 — registration and login
+- State: Backend and responsive auth UI implemented; exact remaining Figma comparison pending
+- Blocker: The Figma plan limit currently blocks exact login/mobile design context
 
 ## Completed
 
@@ -26,26 +26,25 @@ Last updated: 2026-09-08
 - Made lint and lint-fix generate Wayfinder modules before type-aware ESLint resolves their imports.
 - Verified `npm run check` from a temporary clean checkout.
 - Recorded the mandatory full `composer ci:check` gate before every commit and every push.
-- Pushed the focused hotfix to `origin/codex/fix/wayfinder-ci-order` after a second full gate.
-- Kept the published PR 01 bootstrap and PR 02 quality-gate work combined by explicit user decision.
-- Created `codex/feat/design-system-landing` from synchronized `origin/main`.
-- Inspected exact Figma landing nodes `337:29589` (desktop) and `346:43181` (mobile).
-- Recorded the accepted landing copy, mobile localization, supplied-font, browser, accessibility, and minimum-width decisions.
-- Added the exact three Figma stills and the supplied Helvetica Georgian/Latin font files as local assets.
-- Added bilingual design tokens, natural English/Georgian landing content, session-persisted locale handling, and typed Inertia props.
-- Implemented the public header, hero, three cinematic quote sections, footer, and Wayfinder registration/login navigation.
+- Created the isolated `codex/feat/registration-login` worktree without committing or pushing.
+- Added unique usernames, exact registration validation, username/email login, localized validation messages, and guest registration that leaves the account unverified.
+- Prevented every password login for unverified accounts, whether the member submits an email or username, while preserving a generic authentication failure.
+- Recorded that Google-authenticated accounts become verified automatically in PR 06 and that 2FA/passkeys are outside the product UI.
+- Stacked PR 04 on the committed PR 03 fonts, design tokens, localization foundation, and landing backdrop.
+- Implemented the fetched desktop registration geometry with a 601px auth surface, 360px content column, `#222030` modal surface, responsive full-height mobile fallback, and supplied Helvetica font files.
+- Localized registration/login copy and password visibility labels in English and Georgian while preserving server-localized validation feedback.
+- Added an accessible auth-dialog shell whose dimmed backdrop returns to the landing page when clicked outside the modal.
+- Moved auth UI types into dedicated global/component type files and isolated form and visibility behavior in matching hooks.
+- Live-verified the desktop registration, validation-error, login, Georgian locale, password-toggle, navigation, and outside-click flows in the in-app browser.
+- Live-verified that successful registration remains unauthenticated, shows the localized pending-verification status, and rejects subsequent username/password login until verification.
 - Standardized the retained PHP suite on native Pest syntax and removed the unrequired frontend/browser test runner layer.
 - Removed starter-only two-factor authentication, passkeys, Chisel, and Pao while retaining required verification, recovery, profile, and password-change behavior.
-- Verified the live page in the connected browser at 1920px, 428px, and 320px; dimensions, fonts, locale persistence, and horizontal overflow match the accepted contract.
-- Inspected the Must Awards 2016 source and live behavior, then added its desktop fixed-backdrop and 1.2× exit-parallax motion with mobile and reduced-motion fallbacks.
-- Moved landing types into dedicated global/component type files and isolated stateful page/component behavior in matching `useLanding`, `useLocaleMenu`, and `useQuoteSection` hooks.
-- Reviewed the settled responsive page for accessibility, route targets, locale persistence, document language, and horizontal overflow.
-- Passed the complete PR 03 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 38 Pest tests with 128 assertions.
+- Passed the complete PR 04 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 61 Pest tests with 194 assertions.
 
 ## Next
 
-1. Review PR 03.
-2. Continue with the stacked PR 04 authentication slice.
+1. Fetch exact Figma contexts for desktop login and both mobile auth screens when the plan limit allows it.
+2. Compare and refine those provisional layouts manually.
 
 ## Known risks
 
@@ -53,3 +52,4 @@ Last updated: 2026-09-08
 - Production SQLite requires a persistent writable path, serialized migration deployment, and a tested backup/restore policy.
 - The generic Redberry CD sample is frontend-only and incomplete for a safe Laravel production deployment without adaptation.
 - Several Figma names and labels contain typos or review metadata and cannot alone define product behavior.
+- The login and mobile auth layouts are responsible responsive derivations, not claimed pixel matches, until their exact Figma contexts are available.

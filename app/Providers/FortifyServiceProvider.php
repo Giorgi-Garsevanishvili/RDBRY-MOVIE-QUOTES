@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use App\Actions\Fortify\CreateNewUser;
+use App\Actions\Auth\AuthenticateUser;
 use App\Actions\Fortify\ResetUserPassword;
+use App\Http\Requests\Auth\LoginRequest as MovieQuotesLoginRequest;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -13,6 +14,7 @@ use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
 use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,7 @@ class FortifyServiceProvider extends ServiceProvider
 	 */
 	public function register(): void
 	{
+		$this->app->bind(FortifyLoginRequest::class, MovieQuotesLoginRequest::class);
 	}
 
 	/**
@@ -39,7 +42,12 @@ class FortifyServiceProvider extends ServiceProvider
 	private function configureActions(): void
 	{
 		Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
-		Fortify::createUsersUsing(CreateNewUser::class);
+		Fortify::authenticateUsing(
+			fn (Request $request) => app(AuthenticateUser::class)->handle(
+				$request->string(Fortify::username())->toString(),
+				$request->string('password')->toString(),
+			),
+		);
 	}
 
 	/**
@@ -47,7 +55,7 @@ class FortifyServiceProvider extends ServiceProvider
 	 */
 	private function configureViews(): void
 	{
-		Fortify::loginView(fn (Request $request) => Inertia::render('auth/login', [
+		Fortify::loginView(fn (Request $request) => Inertia::render('auth/Login', [
 			'canResetPassword' => Features::enabled(Features::resetPasswords()),
 			'status'           => $request->session()->get('status'),
 		]));
@@ -66,10 +74,6 @@ class FortifyServiceProvider extends ServiceProvider
 			'status' => $request->session()->get('status'),
 		]));
 
-		Fortify::registerView(fn () => Inertia::render('auth/register', [
-			'passwordRules' => Password::defaults()->toPasswordRulesString(),
-		]));
-
 		Fortify::confirmPasswordView(fn () => Inertia::render('auth/confirm-password'));
 	}
 
@@ -79,7 +83,8 @@ class FortifyServiceProvider extends ServiceProvider
 	private function configureRateLimiting(): void
 	{
 		RateLimiter::for('login', function (Request $request) {
-			$throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())) . '|' . $request->ip());
+			$identity = $request->string(Fortify::username())->toString();
+			$throttleKey = Str::transliterate(Str::lower($identity) . '|' . $request->ip());
 
 			return Limit::perMinute(5)->by($throttleKey);
 		});

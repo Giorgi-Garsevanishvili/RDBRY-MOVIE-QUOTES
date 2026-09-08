@@ -15,15 +15,15 @@ test('profile information can be updated', function () {
 
 	$this->actingAs($user)
 		->patch(route('profile.update'), [
-			'name'  => 'Test User',
-			'email' => 'test@example.com',
+			'username' => 'testuser',
+			'email'    => 'test@example.com',
 		])
 		->assertSessionHasNoErrors()
 		->assertRedirect(route('profile.edit'));
 
 	$user->refresh();
 
-	expect($user->name)->toBe('Test User')
+	expect($user->username)->toBe('testuser')
 		->and($user->email)->toBe('test@example.com')
 		->and($user->email_verified_at)->toBeNull();
 });
@@ -33,8 +33,8 @@ test('email verification remains when the email address is unchanged', function 
 
 	$this->actingAs($user)
 		->patch(route('profile.update'), [
-			'name'  => 'Test User',
-			'email' => $user->email,
+			'username' => 'testuser',
+			'email'    => $user->email,
 		])
 		->assertSessionHasNoErrors()
 		->assertRedirect(route('profile.edit'));

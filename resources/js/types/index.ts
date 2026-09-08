@@ -1,4 +1,5 @@
 export type * from './auth';
+export type * from './authMessages';
 export type * from './landing';
 export type * from './locale';
 export type * from './navigation';

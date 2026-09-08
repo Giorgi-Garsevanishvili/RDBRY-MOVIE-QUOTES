@@ -1,0 +1,28 @@
+export type AuthMessages = {
+    registerPageTitle: string;
+    registerTitle: string;
+    registerDescription: string;
+    loginPageTitle: string;
+    loginTitle: string;
+    loginDescription: string;
+    username: string;
+    usernamePlaceholder: string;
+    email: string;
+    emailPlaceholder: string;
+    password: string;
+    passwordPlaceholder: string;
+    confirmPassword: string;
+    confirmPasswordPlaceholder: string;
+    loginIdentity: string;
+    loginIdentityPlaceholder: string;
+    rememberMe: string;
+    forgotPassword: string;
+    getStarted: string;
+    logIn: string;
+    alreadyHaveAccount: string;
+    doNotHaveAccount: string;
+    signUp: string;
+    showPassword: string;
+    hidePassword: string;
+    closeModal: string;
+};

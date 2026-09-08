@@ -10,7 +10,7 @@ Answer by ID; short answers, rules, examples, and links are welcome.
 4. **Q-004 — resolved:** Node 24 and npm 12.0.2.
 5. **Q-005 — resolved:** Use the best-fit Laravel adaptation: resources/js, camelCase variables, and pragmatic barrels.
 6. **Q-016 — resolved:** Pest is the accepted automated test runner. No separate frontend or browser runner is included without an explicit requirement.
-7. **Q-017 — resolved:** Chromium, Firefox, mobile WebKit, WCAG 2.2 AA, and a 320px minimum width.
+7. **Q-017 — resolved:** Review Chromium, Firefox, mobile WebKit, WCAG 2.2 AA, and the 320px minimum manually until a frontend runner is explicitly accepted.
 
 ## P1 — domain rules needed before their slices
 
