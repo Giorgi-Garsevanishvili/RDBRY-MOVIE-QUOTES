@@ -4,9 +4,9 @@ Status values are confirmed, decision needed, implemented, and verified.
 
 | ID         | Requirement                                                                                     | Source                                         | Status                              |       PR |
 | ---------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------- | ----------------------------------- | -------: |
-| LAND-01    | Cinematic landing with movie stills and quotes                                                  | Assignment Landing + Figma 337:29589/346:43181 | confirmed                           |       03 |
-| LAND-02    | Landing links to registration and login                                                         | Assignment Landing + Figma                     | confirmed                           |       03 |
-| I18N-01    | English and Georgian platform                                                                   | Additional features                            | confirmed                           |       03 |
+| LAND-01    | Cinematic landing with movie stills and quotes                                                  | Assignment Landing + Figma 337:29589/346:43181 | verified                            |       03 |
+| LAND-02    | Landing links to registration and login                                                         | Assignment Landing + Figma                     | verified                            |       03 |
+| I18N-01    | English and Georgian platform                                                                   | Additional features                            | verified                            |       03 |
 | AUTH-01    | Username required, 3–15, lowercase Latin letters/digits                                         | Registration I                                 | confirmed                           |       04 |
 | AUTH-02    | Email required and valid                                                                        | Registration I                                 | confirmed                           |       04 |
 | AUTH-03    | Password required, 8–15, lowercase Latin letters/digits                                         | Registration I                                 | confirmed                           |       04 |

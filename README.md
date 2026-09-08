@@ -42,6 +42,7 @@ Composer and npm lockfiles are authoritative for exact transitive versions.
 - [Architecture proposal](docs/architecture.md)
 - [Delivery and PR plan](docs/delivery-plan.md)
 - [Figma inventory](docs/figma-inventory.md)
+- [Design system foundation](docs/design-system.md)
 - [Redberry code standards](docs/redberry-standards.md)
 - [Working agreement](docs/working-agreement.md)
 - [Decision log](docs/decisions.md)

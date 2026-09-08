@@ -1,9 +1,9 @@
 # Project status
 
-Last updated: 2026-09-06
+Last updated: 2026-09-08
 
-- Phase: Foundation stabilization
-- Active slice: CI hotfix — Wayfinder generation order
+- Phase: Public experience
+- Active slice: PR 03 — Design system + landing
 - State: Verified locally; ready for review
 - Blocker: None
 
@@ -26,13 +26,26 @@ Last updated: 2026-09-06
 - Made lint and lint-fix generate Wayfinder modules before type-aware ESLint resolves their imports.
 - Verified `npm run check` from a temporary clean checkout.
 - Recorded the mandatory full `composer ci:check` gate before every commit and every push.
+- Pushed the focused hotfix to `origin/codex/fix/wayfinder-ci-order` after a second full gate.
+- Kept the published PR 01 bootstrap and PR 02 quality-gate work combined by explicit user decision.
+- Created `codex/feat/design-system-landing` from synchronized `origin/main`.
+- Inspected exact Figma landing nodes `337:29589` (desktop) and `346:43181` (mobile).
+- Recorded the accepted landing copy, mobile localization, supplied-font, browser, accessibility, and minimum-width decisions.
+- Added the exact three Figma stills and the supplied Helvetica Georgian/Latin font files as local assets.
+- Added bilingual design tokens, natural English/Georgian landing content, session-persisted locale handling, and typed Inertia props.
+- Implemented the public header, hero, three cinematic quote sections, footer, and Wayfinder registration/login navigation.
+- Standardized the retained PHP suite on native Pest syntax and removed the unrequired frontend/browser test runner layer.
+- Removed starter-only two-factor authentication, passkeys, Chisel, and Pao while retaining required verification, recovery, profile, and password-change behavior.
+- Verified the live page in the connected browser at 1920px, 428px, and 320px; dimensions, fonts, locale persistence, and horizontal overflow match the accepted contract.
+- Inspected the Must Awards 2016 source and live behavior, then added its desktop fixed-backdrop and 1.2× exit-parallax motion with mobile and reduced-motion fallbacks.
+- Moved landing types into dedicated global/component type files and isolated stateful page/component behavior in matching `useLanding`, `useLocaleMenu`, and `useQuoteSection` hooks.
+- Reviewed the settled responsive page for accessibility, route targets, locale persistence, document language, and horizontal overflow.
+- Passed the complete PR 03 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 38 Pest tests with 128 assertions.
 
 ## Next
 
-1. Publish and merge the focused CI hotfix.
-2. Resume PR 03 on `codex/feat/design-system-landing` with its preserved documentation work.
-3. Confirm the landing copy, mobile locale control, and frontend verification targets.
-4. Implement the design system, localization foundation, and responsive landing page.
+1. Review PR 03.
+2. Continue with the stacked PR 04 authentication slice.
 
 ## Known risks
 

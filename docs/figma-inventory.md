@@ -47,3 +47,11 @@ The canvas mixes final screens, component studies, validation variants, hidden a
 Primary red is #E31221; brand gold is #DDCCAA; body text is white; surfaces are near-black purple gradients. Helvetica Neue and Montserrat appear in the file. Extract exact tokens, assets, and responsive rules per slice.
 
 Figma URLs for assets expire. Save exact raster assets locally. Preserve exported SVG vector data while converting it to a typed React component to satisfy the Redberry asset convention.
+
+## PR 03 asset map
+
+- `resources/js/assets/landing/interstellar.png` — shared desktop/mobile source still.
+- `resources/js/assets/landing/royal-tenenbaums.png` — shared desktop/mobile source still.
+- `resources/js/assets/landing/lord-of-the-rings.png` — shared desktop/mobile source still.
+- `resources/js/assets/fonts/helvetica-neue-lt-geo-{roman,medium,bold}.ttf` — selected from the user-supplied Georgian archive after confirming both Latin and Georgian glyph coverage.
+- The landing caret and quote rule preserve Figma's exported vector geometry as typed React/CSS components; raw SVG files are not stored.
