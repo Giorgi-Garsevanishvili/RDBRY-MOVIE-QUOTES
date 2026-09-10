@@ -57,6 +57,8 @@ Laravel broadcasting delivers like/comment notifications. The provider is open. 
 ## Security
 
 - Session/token invalidation, email-verification middleware, throttling, policies, and signed URLs are explicit.
+- Protected Inertia routes require both an authenticated session and a verified email. Invalid browser access renders the product 403 page, while JSON requests keep Laravel's standard status payloads.
+- Browser 403/404 responses use one typed Inertia boundary. The selected locale is mirrored to an allow-listed, non-sensitive cookie so unmatched routes can still render localized errors before route middleware runs.
 - Search/filter input is allow-listed and never becomes raw SQL identifiers.
 - Uploads validate MIME, actual image content, size, and collection ownership.
 - Google OAuth uses state validation, silently links a normalized matching email, and rejects a conflicting Google identity.

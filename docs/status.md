@@ -3,9 +3,9 @@
 Last updated: 2026-09-10
 
 - Phase: Authentication
-- Active slice: PR 06 — Google authentication
-- State: Implementation and full automated gate complete; user review, real-provider verification, and exact Figma comparison pending
-- Blocker: The Figma Starter-plan limit blocks a fresh auth-screen context and exact visual comparison
+- Active slice: PR 07 — protected shell and error pages
+- State: Implemented, fully verified, committed, and published for review
+- Dependency: PR 07 targets `codex/feat/google-auth`
 
 ## Completed
 
@@ -54,12 +54,21 @@ Last updated: 2026-09-10
 - Added focused Pest coverage for creation, repeat login, linking, password preservation, collisions, invalid callbacks, cancellation, and username generation.
 - Live-verified the desktop English and Georgian Google controls, localized cancellation feedback, and outside-click dismissal in the in-app browser.
 - Passed the complete PR 06 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 93 Pest tests with 371 assertions.
+- Created the isolated `codex/feat/protected-shell-errors` worktree without changing the uncommitted PR 06 worktree.
+- Added verified-member protection for feed, movie-list, notification, and settings routes while rendering product 403 pages for guest or unverified browser access.
+- Added designed English/Georgian 403 and 404 pages with exact matched artwork and preserved normal JSON 401/404 responses.
+- Added the responsive authenticated header/sidebar and mobile drawer with Wayfinder navigation, active states, profile access, locale selection, and logout.
+- Moved the shared locale selector out of the landing page and colocated shell components, hooks, types, and exact vector icons according to the React structure contract.
+- Added a non-sensitive locale cookie alongside the existing session locale so unmatched routes retain the user's language on the 404 response.
+- Live-verified desktop and 360px mobile shell/navigation, Georgian switching, drawer outside-click closing, and English/Georgian error experiences.
+- Added focused Pest coverage for guest, verified, unverified, localized error, and JSON response behavior.
+- Passed the complete PR 07 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 103 Pest tests with 501 assertions.
 
 ## Next
 
-1. Complete user review and the remaining mobile auth review without committing or pushing.
-2. Configure temporary Google OAuth credentials for a real-provider callback check when credentials are available.
-3. Fetch the exact auth contexts when the Figma Starter-plan limit resets or is upgraded, then finish pixel comparison.
+1. Review PR 07 against `codex/feat/google-auth`.
+2. Stack and publish PR 08 on PR 07 while preserving its movie-only pull-request diff.
+3. Configure temporary Google OAuth credentials for a real-provider callback check when credentials are available.
 
 ## Known risks
 
@@ -70,3 +79,4 @@ Last updated: 2026-09-10
 - The login and mobile auth layouts are responsible responsive derivations, not claimed pixel matches, until their exact Figma contexts are available.
 - PR 05 activation/recovery screens reuse the accepted auth system but are not claimed as exact Figma matches until the remaining nodes can be fetched.
 - PR 06 Google controls reuse the established auth geometry and official Google artwork but still require exact Figma comparison when tool access returns.
+- Structured PR 07 Figma context/export remained blocked by the Starter-plan request limit; supplied frames were inspected directly and compared with the running desktop/mobile implementation.
