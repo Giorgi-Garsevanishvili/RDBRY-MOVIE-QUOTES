@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\ResendVerificationEmailController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\VerificationPendingController;
 use App\Http\Controllers\LocaleController;
+use App\Http\Middleware\RequireVerifiedEmail;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Landing/Landing')->name('home');
@@ -29,8 +30,10 @@ Route::get('account/activate/{user}/{hash}', VerifyEmailController::class)
 	->middleware(['signed', 'throttle:6,1'])
 	->name('activation.verify');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-	Route::inertia('dashboard', 'dashboard')->name('dashboard');
+Route::middleware(['auth', RequireVerifiedEmail::class])->group(function () {
+	Route::inertia('dashboard', 'protected/ProtectedPlaceholder', ['section' => 'feed'])->name('dashboard');
+	Route::inertia('movies', 'protected/ProtectedPlaceholder', ['section' => 'movies'])->name('movies.index');
+	Route::inertia('notifications', 'protected/ProtectedPlaceholder', ['section' => 'notifications'])->name('notifications.index');
 });
 
 require __DIR__ . '/settings.php';
