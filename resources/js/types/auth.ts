@@ -10,5 +10,9 @@ export type User = {
 };
 
 export type Auth = {
+    user: User | null;
+};
+
+export type AuthenticatedAuth = {
     user: User;
 };
