@@ -2,10 +2,10 @@
 
 Last updated: 2026-09-10
 
-- Phase: Authentication
-- Active slice: PR 07 — protected shell and error pages
+- Phase: Movie domain
+- Active slice: PR 08 — movie backend
 - State: Implemented, fully verified, committed, and published for review
-- Dependency: PR 07 targets `codex/feat/google-auth`
+- Dependency: PR 08 targets `codex/feat/protected-shell-errors`
 
 ## Completed
 
@@ -63,11 +63,18 @@ Last updated: 2026-09-10
 - Live-verified desktop and 360px mobile shell/navigation, Georgian switching, drawer outside-click closing, and English/Georgian error experiences.
 - Added focused Pest coverage for guest, verified, unverified, localized error, and JSON response behavior.
 - Passed the complete PR 07 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 103 Pest tests with 501 assertions.
+- Recorded the exact movie validation and hard-delete cascade decisions supplied by the user.
+- Added movie, genre, pivot, and Media Library tables with owner and cascade constraints.
+- Added owner-only movie mutations through Form Requests, a policy, thin controller, and focused actions.
+- Added a named single-file poster collection accepting JPEG, PNG, and WebP images up to 10 MB through validated uploads.
+- Added an owner-scoped Spatie Query Builder boundary with explicit fields, filters, sorts, and includes.
+- Added the implemented database relationship diagram and focused movie Pest coverage.
+- Passed the complete stacked PR 08 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 134 Pest tests with 589 assertions.
 
 ## Next
 
-1. Review PR 07 against `codex/feat/google-auth`.
-2. Stack and publish PR 08 on PR 07 while preserving its movie-only pull-request diff.
+1. Review PR 08 against `codex/feat/protected-shell-errors`.
+2. Start PR 09 movie-list UI only after the backend boundary is accepted.
 3. Configure temporary Google OAuth credentials for a real-provider callback check when credentials are available.
 
 ## Known risks

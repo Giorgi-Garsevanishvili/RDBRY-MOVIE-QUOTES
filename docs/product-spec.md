@@ -74,7 +74,9 @@ Unauthenticated access to a protected route renders the designed 403 page. An un
 - The owner can edit all movie information and delete the movie.
 - The owner can start quote creation from the movie details page and navigate from the list to a quote.
 
-The create/edit design contains English and Georgian name, director, and description fields, genres, release year, and poster upload. Exact validation beyond visible language intent remains to be confirmed.
+The create/edit design contains required English and Georgian name, director, and description fields. Names and directors accept at most 255 characters, descriptions at most 2,000, and each localized value must use its respective English or Georgian script. Release year is required from 1888 through the current year, and at least one existing genre is required. A JPEG, PNG, or WebP poster up to 10 MB is required on create and optional on update.
+
+Movies are hard-deleted. Deletion cascades genre links, quotes, quote comments and likes, movie/quote media, and related notifications.
 
 ## 8. Quotes
 
