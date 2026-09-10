@@ -23,6 +23,7 @@ export function useAppLayout() {
     const feedUrl = dashboard();
     const moviesUrl = moviesIndex();
     const notificationUrl = notificationsIndex();
+    const currentPath = page.url.split('?')[0];
 
     function openMobileMenu(): void {
         setIsMobileMenuOpen(true);
@@ -47,9 +48,9 @@ export function useAppLayout() {
         notificationUrl,
         profileUrl: profileEdit(),
         logoutUrl: logout(),
-        isFeedActive: page.url === feedUrl.url,
-        isMoviesActive: page.url === moviesUrl.url,
-        isNotificationActive: page.url === notificationUrl.url,
+        isFeedActive: currentPath === feedUrl.url,
+        isMoviesActive: currentPath === moviesUrl.url,
+        isNotificationActive: currentPath === notificationUrl.url,
         isMobileMenuOpen,
         openMobileMenu,
         closeMobileMenu,

@@ -51,4 +51,47 @@ class MovieIndexQuery
 			)
 			->defaultSort('-created_at');
 	}
+
+	/**
+	 * @return array{
+	 *     movies: list<array{id: int, name: array{en: string, ka: string}, releaseYear: int, posterUrl: string|null, quoteCount: int}>,
+	 *     filters: array{search: string}
+	 * }
+	 */
+	public function pageProps(User $owner, Request $request): array
+	{
+		$movies = $this->build($owner, $request)
+			->with('media')
+			->get();
+
+		return [
+			'movies' => array_values($movies
+				->map(static fn (Movie $movie): array => [
+					'id'   => $movie->id,
+					'name' => [
+						'en' => $movie->name_en,
+						'ka' => $movie->name_ka,
+					],
+					'releaseYear' => $movie->release_year,
+					'posterUrl'   => $movie->getFirstMediaUrl(Movie::POSTER_COLLECTION) ?: null,
+					'quoteCount'  => 0,
+				])
+				->all()),
+			'filters' => [
+				'search' => $this->searchValue($request),
+			],
+		];
+	}
+
+	private function searchValue(Request $request): string
+	{
+		$filters = $request->query('filter');
+
+		if (!is_array($filters) || !is_string($filters['search'] ?? null))
+		{
+			return '';
+		}
+
+		return trim($filters['search']);
+	}
 }

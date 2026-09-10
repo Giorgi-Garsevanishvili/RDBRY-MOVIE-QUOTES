@@ -4,5 +4,7 @@ export type * from './appShellMessages';
 export type * from './errorMessages';
 export type * from './landing';
 export type * from './locale';
+export type * from './movie';
+export type * from './movieMessages';
 export type * from './navigation';
 export type * from './ui';

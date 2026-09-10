@@ -29,7 +29,6 @@ test('verified members can visit protected application destinations', function (
 			->where('auth.user.id', $user->id));
 })->with([
 	'feed'          => ['dashboard', 'feed'],
-	'movies'        => ['movies.index', 'movies'],
 	'notifications' => ['notifications.index', 'notifications'],
 ]);
 

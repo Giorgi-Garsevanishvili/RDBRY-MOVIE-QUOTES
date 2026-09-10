@@ -2,10 +2,11 @@
 
 Last updated: 2026-09-10
 
-- Phase: Movie domain
-- Active slice: PR 08 — movie backend
-- State: Implemented, fully verified, committed, and published for review
-- Dependency: PR 08 targets `codex/feat/protected-shell-errors`
+- Phase: Movie experience
+- Active slice: PR 09 — movie list UI
+- State: Implemented and fully automated-gate verified; exact mobile Figma comparison remains blocked
+- Dependency: PR 09 is stacked on `codex/feat/movie-backend`
+- Blocker: Figma's Starter-plan limit prevents retrieval of mobile movie-list node `5319:33337`
 
 ## Completed
 
@@ -70,11 +71,15 @@ Last updated: 2026-09-10
 - Added an owner-scoped Spatie Query Builder boundary with explicit fields, filters, sorts, and includes.
 - Added the implemented database relationship diagram and focused movie Pest coverage.
 - Passed the complete stacked PR 08 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 134 Pest tests with 589 assertions.
+- Added the owner-scoped movie-list Inertia boundary with newest-first ordering, localized names, poster URLs, and quote-count placeholders for the future quote domain.
+- Added bilingual movie-name search, typed page props, controlled list components, and a coordinating `useMovieList` hook using generated Wayfinder routes.
+- Added focused Pest coverage for ownership, ordering, localized data, poster presentation, query filtering, and preserved search state.
+- Passed the complete PR 09 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 135 Pest tests with 617 assertions.
 
 ## Next
 
-1. Review PR 08 against `codex/feat/protected-shell-errors`.
-2. Start PR 09 movie-list UI only after the backend boundary is accepted.
+1. Review PR 09 against `codex/feat/movie-backend` and complete its mobile comparison when Figma access returns.
+2. Fetch the exact movie form and detail nodes, then implement create/edit/detail/delete UI in PR 10.
 3. Configure temporary Google OAuth credentials for a real-provider callback check when credentials are available.
 
 ## Known risks
@@ -87,3 +92,4 @@ Last updated: 2026-09-10
 - PR 05 activation/recovery screens reuse the accepted auth system but are not claimed as exact Figma matches until the remaining nodes can be fetched.
 - PR 06 Google controls reuse the established auth geometry and official Google artwork but still require exact Figma comparison when tool access returns.
 - Structured PR 07 Figma context/export remained blocked by the Starter-plan request limit; supplied frames were inspected directly and compared with the running desktop/mobile implementation.
+- PR 09 exact desktop movie-list context was retrieved, but the Starter-plan limit blocked the remaining movie nodes. Their UI is intentionally not implemented from inference alone.

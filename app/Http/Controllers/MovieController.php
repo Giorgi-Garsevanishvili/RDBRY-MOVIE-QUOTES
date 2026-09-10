@@ -10,11 +10,23 @@ use App\Http\Requests\Movies\StoreMovieRequest;
 use App\Http\Requests\Movies\UpdateMovieRequest;
 use App\Models\Movie;
 use App\Models\User;
+use App\Queries\Movies\MovieIndexQuery;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class MovieController extends Controller
 {
+	public function index(Request $request, MovieIndexQuery $movieIndexQuery): Response
+	{
+		$owner = $request->user();
+		abort_unless($owner instanceof User, 401);
+
+		return Inertia::render('movies/MovieList', $movieIndexQuery->pageProps($owner, $request));
+	}
+
 	public function store(StoreMovieRequest $request, CreateMovie $createMovie): RedirectResponse
 	{
 		/** @var User $owner */
