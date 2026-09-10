@@ -2,6 +2,7 @@ import { useForm } from '@inertiajs/react';
 import type { ChangeEvent, FormEvent } from 'react';
 import { useLocale } from '@/hooks/useLocale';
 import { AUTH_MESSAGES } from '@/locales/auth';
+import { redirect as googleRedirect } from '@/routes/auth/google';
 import { store } from '@/routes/register';
 
 export function useRegister() {
@@ -38,6 +39,7 @@ export function useRegister() {
 
     return {
         messages: AUTH_MESSAGES[locale],
+        googleAuthUrl: googleRedirect().url,
         data,
         processing,
         errors,

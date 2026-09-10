@@ -3,9 +3,9 @@
 Last updated: 2026-09-10
 
 - Phase: Authentication
-- Active slice: PR 05 — activation and password recovery
-- State: Backend flows, bilingual functional screens, activation resend, and Pest coverage implemented; exact Figma refinement pending
-- Blocker: The Figma Starter-plan limit blocks the remaining PR 05 screen contexts
+- Active slice: PR 06 — Google authentication
+- State: Implementation and full automated gate complete; user review, real-provider verification, and exact Figma comparison pending
+- Blocker: The Figma Starter-plan limit blocks a fresh auth-screen context and exact visual comparison
 
 ## Completed
 
@@ -48,12 +48,18 @@ Last updated: 2026-09-10
 - Added focused Pest coverage for mail dispatch, signed links, activation expiry, reset-token expiry, invalid tokens, localized validation, and database effects.
 - Added guest-safe activation resend bound to the registration session, with localized feedback, silent verified/missing-account handling, and a six-request-per-minute limit.
 - Passed the complete automated PR 05 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 84 Pest tests with 326 assertions; visual verification remains pending.
+- Installed Laravel Socialite 5.31.0 with the current Laravel 13-compatible dependency set.
+- Added stateful Google redirect/callback authentication, passwordless Google-created users, immediate verification, and silent same-email linking that preserves an existing password.
+- Added unique Google username generation, provider-identity collision protection, bilingual controls/failure feedback, environment configuration, and official Google logo artwork.
+- Added focused Pest coverage for creation, repeat login, linking, password preservation, collisions, invalid callbacks, cancellation, and username generation.
+- Live-verified the desktop English and Georgian Google controls, localized cancellation feedback, and outside-click dismissal in the in-app browser.
+- Passed the complete PR 06 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 93 Pest tests with 371 assertions.
 
 ## Next
 
-1. Fetch the remaining desktop/mobile PR 05 Figma contexts when the Starter-plan limit resets or is upgraded.
-2. Refine the provisional activation/recovery screens and email presentation against those exact nodes.
-3. Run the complete PR 05 gate and manual responsive/Figma review.
+1. Complete user review and the remaining mobile auth review without committing or pushing.
+2. Configure temporary Google OAuth credentials for a real-provider callback check when credentials are available.
+3. Fetch the exact auth contexts when the Figma Starter-plan limit resets or is upgraded, then finish pixel comparison.
 
 ## Known risks
 
@@ -63,3 +69,4 @@ Last updated: 2026-09-10
 - Several Figma names and labels contain typos or review metadata and cannot alone define product behavior.
 - The login and mobile auth layouts are responsible responsive derivations, not claimed pixel matches, until their exact Figma contexts are available.
 - PR 05 activation/recovery screens reuse the accepted auth system but are not claimed as exact Figma matches until the remaining nodes can be fetched.
+- PR 06 Google controls reuse the established auth geometry and official Google artwork but still require exact Figma comparison when tool access returns.

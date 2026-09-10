@@ -15,13 +15,14 @@ use Illuminate\Support\Carbon;
  * @property int         $id
  * @property string      $username
  * @property string      $email
+ * @property string|null $google_id
  * @property Carbon|null $email_verified_at
- * @property string      $password
+ * @property string|null $password
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['username', 'email', 'password'])]
+#[Fillable(['username', 'email', 'google_id', 'email_verified_at', 'password'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements MustVerifyEmail
 {

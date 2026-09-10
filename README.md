@@ -54,8 +54,9 @@ Composer and npm lockfiles are authoritative for exact transitive versions.
 2. Install PHP dependencies with `composer install`.
 3. Generate the application key with `php artisan key:generate`.
 4. Create the database with `touch database/database.sqlite`, then run `php artisan migrate`.
-5. Install frontend dependencies with npm 12.0.2 using `npm install`.
-6. Start the application with `composer dev`.
+5. Create a Google OAuth web client, set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`, and register `APP_URL/auth/google/callback` as its authorized redirect URI. Keep `GOOGLE_REDIRECT_URI` aligned with that URI.
+6. Install frontend dependencies with npm 12.0.2 using `npm install`.
+7. Start the application with `composer dev`.
 
 Run `composer ci:check` for the complete local gate: PHP-CS-Fixer, PHPStan, Pest, ESLint, Prettier, TypeScript, Wayfinder generation, and a production build.
 

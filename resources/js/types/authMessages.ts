@@ -19,6 +19,8 @@ export type AuthMessages = {
     forgotPassword: string;
     getStarted: string;
     logIn: string;
+    signInWithGoogle: string;
+    signUpWithGoogle: string;
     alreadyHaveAccount: string;
     doNotHaveAccount: string;
     signUp: string;

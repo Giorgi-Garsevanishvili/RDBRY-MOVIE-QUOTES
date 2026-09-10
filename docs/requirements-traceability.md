@@ -14,7 +14,7 @@ Status values are confirmed, decision needed, implemented, and verified.
 | AUTH-05    | Invalid inputs show error visual and localized field message                                    | Registration I + Figma                         | implemented                         |       04 |
 | AUTH-06    | Valid registration sends activation link and shows check-email page                             | Registration I–II                              | implemented                         |       05 |
 | AUTH-07    | Valid activation shows account-activated page                                                   | Registration III                               | implemented                         |       05 |
-| AUTH-08    | Google registration/login                                                                       | Registration + additional features             | confirmed                           |       06 |
+| AUTH-08    | Google registration/login                                                                       | Registration + additional features             | verified                            |       06 |
 | AUTH-09    | Login by username/password or email/password; password login requires verified email            | Authorization + D-017                          | implemented                         |       04 |
 | AUTH-10    | Login identity required, minimum 3; password required                                           | Authorization                                  | implemented                         |       04 |
 | AUTH-11    | Registration session can resend a rate-limited activation email without authenticating          | Registration II + D-024                        | verified                            |       05 |

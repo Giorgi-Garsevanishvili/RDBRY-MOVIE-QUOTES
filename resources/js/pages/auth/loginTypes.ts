@@ -1,5 +1,6 @@
 export type LoginProps = {
     status?: string;
+    googleError?: string;
     canResetPassword: boolean;
 };
 

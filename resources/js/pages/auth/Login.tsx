@@ -14,6 +14,7 @@ import {
     AUTH_INPUT_CLASSES,
     AUTH_PRIMARY_BUTTON_CLASSES,
     AUTH_TEXT_LINK_CLASSES,
+    GoogleAuthButton,
 } from './components';
 import type { LoginProps } from './loginTypes';
 import { useLogin } from './useLogin';
@@ -22,6 +23,8 @@ export default function Login(props: LoginProps) {
     const {
         messages,
         status,
+        googleError,
+        googleAuthUrl,
         canResetPassword,
         data,
         processing,
@@ -43,6 +46,15 @@ export default function Login(props: LoginProps) {
                     className="mt-5 rounded border border-emerald-600/40 bg-emerald-950/40 px-3 py-2 text-center text-sm text-emerald-300"
                 >
                     {status}
+                </div>
+            )}
+
+            {googleError && (
+                <div
+                    role="alert"
+                    className="mt-5 rounded border border-[#dc3545]/50 bg-[#dc3545]/10 px-3 py-2 text-center text-sm text-[#ff8b94]"
+                >
+                    {googleError}
                 </div>
             )}
 
@@ -126,6 +138,8 @@ export default function Login(props: LoginProps) {
                             {processing && <Spinner />}
                             {messages.logIn}
                         </Button>
+
+                        <GoogleAuthButton href={googleAuthUrl} label={messages.signInWithGoogle} />
                     </div>
 
                     <div className="text-center text-base text-[#a5a5ad]">

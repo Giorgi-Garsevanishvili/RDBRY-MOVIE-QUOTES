@@ -3,6 +3,7 @@
 return [
 	'failed'               => 'These credentials do not match our records.',
 	'password'             => 'The provided password is incorrect.',
+	'google_failed'        => 'Google authentication could not be completed. Please try again.',
 	'throttle'             => 'Too many login attempts. Please try again in :seconds seconds.',
 	'verification_link_sent' => 'A new activation link has been sent to your email.',
 	'validation'           => [

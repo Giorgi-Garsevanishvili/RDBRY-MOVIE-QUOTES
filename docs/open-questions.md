@@ -11,11 +11,11 @@ Answer by ID; short answers, rules, examples, and links are welcome.
 5. **Q-005 — resolved:** Use the best-fit Laravel adaptation: resources/js, camelCase variables, and pragmatic barrels.
 6. **Q-016 — resolved:** Pest is the accepted automated test runner. No separate frontend or browser runner is included without an explicit requirement.
 7. **Q-017 — resolved:** Review Chromium, Firefox, mobile WebKit, WCAG 2.2 AA, and the 320px minimum manually until a frontend runner is explicitly accepted.
+8. **Q-007 — resolved:** Silently link a matching password account, keep its password, and make only Google-created accounts passwordless.
 
 ## P1 — domain rules needed before their slices
 
-8. **Q-006 — activation access:** May an unverified email/password account log in, or is feed access blocked until activation?
-9. **Q-007 — Google email collision:** If Google returns an email already registered with a password, auto-link, require confirmation while logged in, or reject?
+9. **Q-006 — activation access:** May an unverified email/password account log in, or is feed access blocked until activation?
 10. **Q-008 — movie validation:** What are the exact required, minimum, maximum, script, year, genre, poster type, and size rules for movie create/edit?
 11. **Q-009 — quote image:** Is an image mandatory? What file types, dimensions, and maximum size apply?
 12. **Q-010 — deletion:** Hard or soft delete? When a movie is deleted, cascade-delete its quotes, comments, likes, media, and notifications, or block deletion until quotes are removed?

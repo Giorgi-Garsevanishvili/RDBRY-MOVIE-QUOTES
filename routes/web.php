@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\ResendVerificationEmailController;
 use App\Http\Controllers\Auth\VerifyEmailController;
@@ -13,6 +14,8 @@ Route::post('locale/{locale}', LocaleController::class)->name('locale.update');
 Route::middleware('guest')->group(function () {
 	Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
 	Route::post('register', [RegisteredUserController::class, 'store'])->name('register.store');
+	Route::get('auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
+	Route::get('auth/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
 	Route::get('email/verify', VerificationPendingController::class)->name('activation.notice');
 	Route::post('account/activation/resend', ResendVerificationEmailController::class)
 		->middleware('throttle:6,1')
