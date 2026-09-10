@@ -7,6 +7,7 @@ A password-based member receives a signed activation link after registration, ac
 ## Included
 
 - Registration redirects to the activation check-email screen and dispatches Laravel's verification notification.
+- The registration session can resend the activation email from the check-email screen without authenticating or accepting a guest-supplied address.
 - Activation links are temporary, signed, hash-bound to the account email, rate-limited, and usable without an existing session.
 - Valid activation records `email_verified_at`, emits Laravel's `Verified` event, and redirects to the activated screen.
 - Recovery accepts only a required, valid, registered email address and normalizes surrounding whitespace and case.
@@ -26,7 +27,7 @@ A password-based member receives a signed activation link after registration, ac
 
 ## Required proof
 
-- Pest tests for registration notification delivery, signed-link validation, expiry, repeated activation, and database effects.
+- Pest tests for registration notification delivery, session-bound resend behavior and throttling, signed-link validation, expiry, repeated activation, and database effects.
 - Pest tests for recovery validation, localization, notification delivery, valid/invalid/expired tokens, password rules, and success redirects.
 - ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and the complete Pest suite.
 - Manual desktop/mobile comparison with Figma nodes `369:31166`, `2943:31973`, `2943:31604`, `2943:31809`, `17043:30119`, `346:43068`, `2968:32184`, `2968:32353`, `2968:32304`, `2968:32449`, `17043:31053`, and `17043:30961`.

@@ -1,10 +1,10 @@
 # Project status
 
-Last updated: 2026-09-08
+Last updated: 2026-09-10
 
 - Phase: Authentication
 - Active slice: PR 05 — activation and password recovery
-- State: Backend flows, bilingual functional screens, and Pest coverage implemented; exact Figma refinement pending
+- State: Backend flows, bilingual functional screens, activation resend, and Pest coverage implemented; exact Figma refinement pending
 - Blocker: The Figma Starter-plan limit blocks the remaining PR 05 screen contexts
 
 ## Completed
@@ -46,7 +46,8 @@ Last updated: 2026-09-08
 - Added English and Georgian activation/recovery copy and reused the accepted PR 04 auth shell and form primitives.
 - Moved activation/recovery types into dedicated files and isolated every page form/state flow in its matching hook.
 - Added focused Pest coverage for mail dispatch, signed links, activation expiry, reset-token expiry, invalid tokens, localized validation, and database effects.
-- Passed the complete automated PR 05 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 78 Pest tests with 289 assertions; visual verification remains pending.
+- Added guest-safe activation resend bound to the registration session, with localized feedback, silent verified/missing-account handling, and a six-request-per-minute limit.
+- Passed the complete automated PR 05 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 84 Pest tests with 326 assertions; visual verification remains pending.
 
 ## Next
 

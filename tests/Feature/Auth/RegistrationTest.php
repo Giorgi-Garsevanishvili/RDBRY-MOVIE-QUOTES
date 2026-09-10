@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\VerificationPendingController;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -33,7 +34,8 @@ test('a guest can create an unverified account without being authenticated', fun
 	]));
 
 	$response
-		->assertRedirect(route('activation.notice'));
+		->assertRedirect(route('activation.notice'))
+		->assertSessionHas(VerificationPendingController::EMAIL_SESSION_KEY, 'viewer@example.com');
 	$this->assertGuest();
 
 	$user = User::query()->sole();

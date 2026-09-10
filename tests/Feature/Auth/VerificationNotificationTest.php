@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\VerificationPendingController;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Notifications\ResetPassword;
@@ -47,6 +48,81 @@ test('the registered event sends no activation email to an already verified acco
 	event(new Registered($user));
 
 	Notification::assertNothingSent();
+});
+
+test('a guest can resend activation to the account stored in the registration session', function () {
+	Notification::fake();
+	$user = User::factory()->unverified()->create();
+
+	$this->from(route('activation.notice'))
+		->withSession([
+			VerificationPendingController::EMAIL_SESSION_KEY => $user->email,
+		])
+		->post(route('activation.resend'))
+		->assertRedirect(route('activation.notice'))
+		->assertSessionHas('status', 'A new activation link has been sent to your email.');
+
+	Notification::assertSentTo($user, VerifyEmail::class);
+});
+
+test('activation resend silently sends nothing without a registration session', function () {
+	Notification::fake();
+	User::factory()->unverified()->create();
+
+	$this->from(route('activation.notice'))
+		->post(route('activation.resend'))
+		->assertRedirect(route('activation.notice'))
+		->assertSessionHas('status', 'A new activation link has been sent to your email.');
+
+	Notification::assertNothingSent();
+});
+
+test('activation resend silently sends nothing when the account is already verified', function () {
+	Notification::fake();
+	$user = User::factory()->create();
+
+	$this->from(route('activation.notice'))
+		->withSession([
+			VerificationPendingController::EMAIL_SESSION_KEY => $user->email,
+		])
+		->post(route('activation.resend'))
+		->assertRedirect(route('activation.notice'));
+
+	Notification::assertNothingSent();
+});
+
+test('activation resend status is localized in Georgian', function () {
+	Notification::fake();
+	$user = User::factory()->unverified()->create();
+
+	$this->from(route('activation.notice'))
+		->withSession([
+			'locale'                                         => 'ka',
+			VerificationPendingController::EMAIL_SESSION_KEY => $user->email,
+		])
+		->post(route('activation.resend'))
+		->assertSessionHas('status', 'აქტივაციის ახალი ბმული თქვენს ელფოსტაზე გაიგზავნა.');
+
+	Notification::assertSentTo($user, VerifyEmail::class);
+});
+
+test('activation resend is rate limited', function () {
+	Notification::fake();
+	$user = User::factory()->unverified()->create();
+	$session = [VerificationPendingController::EMAIL_SESSION_KEY => $user->email];
+
+	for ($attempt = 0; $attempt < 6; $attempt++)
+	{
+		$this->withSession($session)
+			->post(route('activation.resend'))
+			->assertRedirect();
+	}
+
+	$this->withSession($session)
+		->post(route('activation.resend'))
+		->assertTooManyRequests();
+
+	Notification::assertSentToTimes($user, VerifyEmail::class, 6);
 });
 
 test('activation and recovery emails are localized in Georgian', function () {

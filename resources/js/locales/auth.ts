@@ -33,6 +33,8 @@ export const AUTH_MESSAGES: Record<Locale, AuthMessages> = {
         activationPendingTitle: 'Check your email',
         activationPendingDescription:
             'Please check your email and follow the instructions to activate your account.',
+        resendEmail: 'Resend email',
+        resendingEmail: 'Sending email...',
         activationSuccessPageTitle: 'Account activated',
         activationSuccessTitle: 'Thank you!',
         activationSuccessDescription: 'Your account has been activated.',
@@ -88,6 +90,8 @@ export const AUTH_MESSAGES: Record<Locale, AuthMessages> = {
         activationPendingTitle: 'შეამოწმეთ ელფოსტა',
         activationPendingDescription:
             'გთხოვთ, შეამოწმოთ ელფოსტა და მიჰყვეთ ინსტრუქციებს ანგარიშის გასააქტიურებლად.',
+        resendEmail: 'ელფოსტის ხელახლა გაგზავნა',
+        resendingEmail: 'ელფოსტა იგზავნება...',
         activationSuccessPageTitle: 'ანგარიში გააქტიურებულია',
         activationSuccessTitle: 'გმადლობთ!',
         activationSuccessDescription: 'თქვენი ანგარიში გააქტიურებულია.',

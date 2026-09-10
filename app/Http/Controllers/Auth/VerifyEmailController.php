@@ -18,6 +18,7 @@ class VerifyEmailController extends Controller
 		);
 
 		$verifyEmail->handle($user);
+		$request->session()->forget(VerificationPendingController::EMAIL_SESSION_KEY);
 
 		return to_route('activation.success');
 	}

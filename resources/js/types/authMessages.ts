@@ -28,6 +28,8 @@ export type AuthMessages = {
     activationPendingPageTitle: string;
     activationPendingTitle: string;
     activationPendingDescription: string;
+    resendEmail: string;
+    resendingEmail: string;
     activationSuccessPageTitle: string;
     activationSuccessTitle: string;
     activationSuccessDescription: string;

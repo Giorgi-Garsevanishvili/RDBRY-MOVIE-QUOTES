@@ -17,6 +17,7 @@ Status values are confirmed, decision needed, implemented, and verified.
 | AUTH-08    | Google registration/login                                                                       | Registration + additional features             | confirmed                           |       06 |
 | AUTH-09    | Login by username/password or email/password; password login requires verified email            | Authorization + D-017                          | implemented                         |       04 |
 | AUTH-10    | Login identity required, minimum 3; password required                                           | Authorization                                  | implemented                         |       04 |
+| AUTH-11    | Registration session can resend a rate-limited activation email without authenticating          | Registration II + D-024                        | verified                            |       05 |
 | RESET-01   | Recovery email required, valid, and registered                                                  | Password reset I                               | implemented                         |       05 |
 | RESET-02   | Recovery sends link and shows check-email state                                                 | Password reset II–III                          | implemented                         |       05 |
 | RESET-03   | New password follows password rule and matching confirmation                                    | Password reset IV                              | implemented                         |       05 |

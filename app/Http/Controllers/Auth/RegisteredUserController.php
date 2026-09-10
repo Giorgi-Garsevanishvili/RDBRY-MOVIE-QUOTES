@@ -26,6 +26,7 @@ class RegisteredUserController extends Controller
 		);
 
 		event(new Registered($user));
+		$request->session()->put(VerificationPendingController::EMAIL_SESSION_KEY, $user->email);
 
 		return to_route('activation.notice');
 	}
