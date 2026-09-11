@@ -1,5 +1,7 @@
 import { Head } from '@inertiajs/react';
-import { MovieActions, MovieFormModal } from './components';
+import { PlusSquareIcon } from 'lucide-react';
+import { QuoteFormModal } from '@/components/quotes';
+import { MovieActions, MovieFormModal, QuoteCard } from './components';
 import type { MovieDetailsProps } from './movieDetailsTypes';
 import { useMovieDetails } from './useMovieDetails';
 
@@ -9,10 +11,15 @@ export default function MovieDetails(props: MovieDetailsProps) {
         genres,
         localizedMovie,
         messages,
+        quoteMessages,
+        quoteCards,
         isEditMovieOpen,
+        isAddQuoteOpen,
         isDeleting,
         openEditMovie,
         handleEditMovieOpenChange,
+        openAddQuote,
+        handleAddQuoteOpenChange,
         deleteMovie,
     } = useMovieDetails(props);
 
@@ -75,11 +82,33 @@ export default function MovieDetails(props: MovieDetailsProps) {
                 </article>
 
                 <section className="mt-8 max-w-[809px] border-t border-white/20 pt-8 lg:mt-10">
-                    <h2 className="text-2xl leading-9 font-medium">
-                        <span className="lg:hidden">{messages.allQuotes}</span>
-                        <span className="hidden lg:inline">{messages.quotes}</span> (
-                        {messages.total} {localizedMovie.quoteCount})
-                    </h2>
+                    <div className="flex flex-wrap items-center gap-4 lg:gap-6">
+                        <h2 className="text-2xl leading-9 font-medium">
+                            <span className="lg:hidden">{messages.allQuotes}</span>
+                            <span className="hidden lg:inline">{messages.quotes}</span> (
+                            {messages.total} {localizedMovie.quoteCount})
+                        </h2>
+                        <button
+                            type="button"
+                            onClick={openAddQuote}
+                            className="inline-flex h-12 items-center gap-2 rounded-[4px] bg-brand-red px-4 text-base transition-opacity hover:opacity-90 lg:text-xl"
+                        >
+                            <PlusSquareIcon className="size-4" aria-hidden="true" />
+                            {quoteMessages.addQuote}
+                        </button>
+                    </div>
+
+                    <div className="mt-8 grid gap-10">
+                        {quoteCards.map((quote) => (
+                            <QuoteCard
+                                key={quote.id}
+                                quote={quote}
+                                viewLabel={quoteMessages.viewQuote}
+                                commentsLabel={quoteMessages.comments}
+                                likesLabel={quoteMessages.likes}
+                            />
+                        ))}
+                    </div>
                 </section>
             </section>
 
@@ -89,6 +118,12 @@ export default function MovieDetails(props: MovieDetailsProps) {
                 genres={genres}
                 movie={movie}
                 onOpenChange={handleEditMovieOpenChange}
+            />
+            <QuoteFormModal
+                open={isAddQuoteOpen}
+                mode="create"
+                fixedMovie={movie}
+                onOpenChange={handleAddQuoteOpenChange}
             />
         </>
     );

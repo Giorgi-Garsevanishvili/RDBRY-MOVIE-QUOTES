@@ -62,6 +62,7 @@ class MovieIndexQuery
 	{
 		$movies = $this->build($owner, $request)
 			->with('media')
+			->withCount('quotes')
 			->get();
 
 		return [
@@ -74,7 +75,7 @@ class MovieIndexQuery
 					],
 					'releaseYear' => $movie->release_year,
 					'posterUrl'   => $movie->getFirstMediaUrl(Movie::POSTER_COLLECTION) ?: null,
-					'quoteCount'  => 0,
+					'quoteCount'  => $movie->quotes_count,
 				])
 				->all()),
 			'filters' => [

@@ -2,6 +2,7 @@ export { default as MovieCard } from './MovieCard';
 export { default as MovieActions } from './MovieActions';
 export { default as MovieFormModal } from './MovieFormModal';
 export { default as MovieSearch } from './MovieSearch';
+export { default as QuoteCard } from './QuoteCard';
 export { default as CloseIcon } from './CloseIcon';
 export { default as PencilIcon } from './PencilIcon';
 export { default as PhotoIcon } from './PhotoIcon';

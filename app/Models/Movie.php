@@ -23,6 +23,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property string      $description_en
  * @property string      $description_ka
  * @property int         $release_year
+ * @property int|null    $quotes_count
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */

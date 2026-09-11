@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\ResendVerificationEmailController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\VerificationPendingController;
+use App\Http\Controllers\FeedController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\QuoteController;
@@ -33,7 +34,7 @@ Route::get('account/activate/{user}/{hash}', VerifyEmailController::class)
 	->name('activation.verify');
 
 Route::middleware(['auth', RequireVerifiedEmail::class])->group(function () {
-	Route::inertia('dashboard', 'protected/ProtectedPlaceholder', ['section' => 'feed'])->name('dashboard');
+	Route::get('dashboard', FeedController::class)->name('dashboard');
 	Route::get('movies', [MovieController::class, 'index'])->name('movies.index');
 	Route::get('movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
 	Route::inertia('notifications', 'protected/ProtectedPlaceholder', ['section' => 'notifications'])->name('notifications.index');
@@ -41,6 +42,7 @@ Route::middleware(['auth', RequireVerifiedEmail::class])->group(function () {
 	Route::patch('movies/{movie}', [MovieController::class, 'update'])->name('movies.update');
 	Route::delete('movies/{movie}', [MovieController::class, 'destroy'])->name('movies.destroy');
 	Route::post('quotes', [QuoteController::class, 'store'])->name('quotes.store');
+	Route::get('quotes/{quote}', [QuoteController::class, 'show'])->name('quotes.show');
 	Route::patch('quotes/{quote}', [QuoteController::class, 'update'])->name('quotes.update');
 	Route::delete('quotes/{quote}', [QuoteController::class, 'destroy'])->name('quotes.destroy');
 });

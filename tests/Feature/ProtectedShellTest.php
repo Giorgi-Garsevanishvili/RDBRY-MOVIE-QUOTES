@@ -17,20 +17,29 @@ test('protected application destinations reject guests', function (string $route
 	'profile'       => 'profile.edit',
 ]);
 
-test('verified members can visit protected application destinations', function (string $routeName, string $section) {
+test('verified members can visit the protected feed', function () {
 	$user = User::factory()->create();
 
 	$this->actingAs($user)
-		->get(route($routeName))
+		->get(route('dashboard'))
+		->assertOk()
+		->assertInertia(fn (Assert $page) => $page
+			->component('feed/Feed')
+			->has('movies', 0)
+			->where('auth.user.id', $user->id));
+});
+
+test('verified members can visit protected placeholder destinations', function () {
+	$user = User::factory()->create();
+
+	$this->actingAs($user)
+		->get(route('notifications.index'))
 		->assertOk()
 		->assertInertia(fn (Assert $page) => $page
 			->component('protected/ProtectedPlaceholder')
-			->where('section', $section)
+			->where('section', 'notifications')
 			->where('auth.user.id', $user->id));
-})->with([
-	'feed'          => ['dashboard', 'feed'],
-	'notifications' => ['notifications.index', 'notifications'],
-]);
+});
 
 test('unverified members cannot enter the protected application', function () {
 	$user = User::factory()->unverified()->create();

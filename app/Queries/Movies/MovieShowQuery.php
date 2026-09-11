@@ -4,6 +4,7 @@ namespace App\Queries\Movies;
 
 use App\Models\Genre;
 use App\Models\Movie;
+use App\Models\Quote;
 
 class MovieShowQuery
 {
@@ -17,13 +18,24 @@ class MovieShowQuery
 	 *         releaseYear: int,
 	 *         genres: list<array{id: int, name: array{en: string, ka: string}}>,
 	 *         posterUrl: string|null,
-	 *         quoteCount: int
+	 *         quoteCount: int,
+	 *         quotes: list<array{
+	 *             id: int,
+	 *             text: array{en: string, ka: string},
+	 *             imageUrl: string|null,
+	 *             commentCount: int,
+	 *             likeCount: int
+	 *         }>
 	 *     }
 	 * }
 	 */
 	public function pageProps(Movie $movie): array
 	{
-		$movie->load(['genres', 'media']);
+		$movie->load([
+			'genres',
+			'media',
+			'quotes' => static fn ($query) => $query->with('media')->latest(),
+		]);
 
 		return [
 			'movie' => [
@@ -51,7 +63,19 @@ class MovieShowQuery
 					])
 					->all()),
 				'posterUrl'  => $movie->getFirstMediaUrl(Movie::POSTER_COLLECTION) ?: null,
-				'quoteCount' => 0,
+				'quoteCount' => $movie->quotes->count(),
+				'quotes'     => array_values($movie->quotes
+					->map(static fn (Quote $quote): array => [
+						'id'   => $quote->id,
+						'text' => [
+							'en' => $quote->text_en,
+							'ka' => $quote->text_ka,
+						],
+						'imageUrl'     => $quote->getFirstMediaUrl(Quote::IMAGE_COLLECTION) ?: null,
+						'commentCount' => 0,
+						'likeCount'    => 0,
+					])
+					->all()),
 			],
 		];
 	}

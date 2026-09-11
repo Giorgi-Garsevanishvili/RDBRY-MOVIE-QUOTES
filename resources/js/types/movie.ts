@@ -1,4 +1,5 @@
 import type { Locale } from './locale';
+import type { QuoteListItem } from './quote';
 
 export type LocalizedMovieText = Record<Locale, string>;
 
@@ -28,4 +29,5 @@ export type MovieDetailsItem = {
     genres: readonly MovieGenre[];
     posterUrl: string | null;
     quoteCount: number;
+    quotes: readonly QuoteListItem[];
 };
