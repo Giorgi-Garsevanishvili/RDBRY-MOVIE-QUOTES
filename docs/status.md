@@ -3,9 +3,9 @@
 Last updated: 2026-09-11
 
 - Phase: Quote experience
-- Active slice: PR 11 — quote backend
+- Active slice: PR 12 — quote UI
 - State: Implemented and fully automated-gate verified; ready for review
-- Dependency: PR 11 is stacked on `codex/feat/movie-management-ui`
+- Dependency: PR 12 is stacked on `codex/feat/quote-backend`
 - Blocker: None
 
 ## Completed
@@ -91,12 +91,23 @@ Last updated: 2026-09-11
 - Preserved movie hard-delete cleanup by deleting quote models through their Media Library lifecycle before deleting the movie.
 - Added localized English/Georgian validation and focused Pest coverage for CRUD mutations, ownership, scripts, uploads, protection, and cascade effects.
 - Passed the complete PR 11 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 158 Pest tests with 734 assertions.
+- Pushed PR 11 on `codex/feat/quote-backend` with focused mutation and test commits.
+- Added a typed feed boundary that supplies only the signed-in member's movies to the quote composer.
+- Added responsive quote creation from the feed and movie details, including bilingual fields, required drag-and-drop image input, and fixed movie context when launched from a movie.
+- Replaced movie quote-count placeholders with real counts and added newest-first quote cards to movie details.
+- Added a verified-member quote view with movie context, both translations, image, social-count placeholders, and creator-only edit/delete controls.
+- Added responsive quote editing with optional image replacement and preserved creator/movie ownership enforcement from PR 11.
+- Added focused Pest coverage for feed movie ownership, quote presentation, real quote counts, ordering, media URLs, creator controls, and unverified access.
+- Live-verified the mobile feed composer, bilingual fields, localized movie selector, movie-fixed composer, and responsive movie details against the supplied local Figma source.
+- Live-verified localized required-field feedback and red error states in the quote composer.
+- Passed the complete PR 12 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 164 Pest tests with 839 assertions.
 
 ## Next
 
-1. Review PR 11 against `codex/feat/movie-management-ui` before committing or pushing.
-2. Implement quote create/view/edit/delete UI and movie quote lists in PR 12 using the exact supplied Figma source.
-3. Configure temporary Google OAuth credentials for a real-provider callback check when credentials are available.
+1. Review the uncommitted `codex/feat/quote-ui` changes.
+2. Commit and push PR 12 only after explicit approval.
+3. Implement the newest-first feed and search behavior in PR 13.
+4. Configure temporary Google OAuth credentials for a real-provider callback check when credentials are available.
 
 ## Known risks
 
@@ -108,4 +119,4 @@ Last updated: 2026-09-11
 - PR 05 activation/recovery screens reuse the accepted auth system but are not claimed as exact Figma matches until the remaining nodes can be fetched.
 - PR 06 Google controls reuse the established auth geometry and official Google artwork but still require exact Figma comparison when tool access returns.
 - Structured PR 07 Figma context/export remained blocked by the Starter-plan request limit; supplied frames were inspected directly and compared with the running desktop/mobile implementation.
-- The connected Figma Starter-plan limit blocks structured context for the remaining movie nodes; PR 10 uses the exact supplied local `.fig` frames and exported vector paths instead.
+- The connected Figma Starter-plan limit blocks structured context for the remaining movie and quote nodes; PR 10 and PR 12 use the exact supplied local `.fig` frames instead.
