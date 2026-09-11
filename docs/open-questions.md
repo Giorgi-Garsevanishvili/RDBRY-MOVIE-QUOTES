@@ -19,7 +19,7 @@ Answer by ID; short answers, rules, examples, and links are welcome.
 10. **Q-008 — resolved:** All bilingual movie fields are required. Names/directors are at most 255 characters; descriptions are at most 2,000; English/Georgian inputs use their respective scripts; year is 1888 through the current year; at least one existing genre is required; and a JPEG/PNG/WebP poster up to 10 MB is required on create and optional on update.
 11. **Q-009 — resolved:** A quote image is required on create and optional on update. Accept JPEG, PNG, or WebP up to 10 MB, with no dimension restriction.
 12. **Q-010 — resolved:** Hard-delete movies and cascade their genre links, quotes, comments, likes, media, and related notifications.
-13. **Q-011 — comments:** Can authors edit/delete comments? Can quote owners remove other users' comments?
+13. **Q-011 — resolved:** Comments are create-only. Comment authors cannot edit/delete them, and quote owners cannot remove other members' comments.
 14. **Q-012 — resolved:** Unprefixed search checks movie names and quote text across both English and Georgian fields.
 15. **Q-013 — notifications:** Suppress self-like/self-comment notifications? Does opening a notification mark only it read and navigate to the quote?
 16. **Q-014 — profile security:** Require current-password confirmation for username, email, and password changes? Can Google users change username?

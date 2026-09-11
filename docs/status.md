@@ -2,10 +2,10 @@
 
 Last updated: 2026-09-11
 
-- Phase: Feed and search
-- Active slice: PR 13 — feed + search
-- State: Implemented and full-gate verified; ready to commit and push for review
-- Dependency: PR 13 is stacked on pushed branch `codex/feat/quote-ui`
+- Phase: Social interactions
+- Active slice: PR 14 — likes + comments
+- State: Implemented and full-gate verified; awaiting commit and push confirmation
+- Dependency: PR 14 is stacked on pushed branch `codex/feat/feed-search`
 - Blocker: None
 
 ## Completed
@@ -110,13 +110,20 @@ Last updated: 2026-09-11
 - Added unprefixed general search across movie names and quote text in both languages under accepted decision D-026.
 - Passed focused PR 13 Pest coverage for feed presentation, stable duplicate-free cursors, query count, prefixed search, and rejected filters.
 - Passed the complete PR 13 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 172 Pest tests with 898 assertions.
+- Committed PR 13 as two reviewable commits covering searchable feed delivery and responsive UI.
+- Pushed the verified PR 13 stack on `codex/feat/feed-search`.
+- Accepted create-only comments: no edit/delete behavior for comment authors or quote owners.
+- Added comment and like tables with cascade constraints plus a unique member/quote like invariant.
+- Added policy-authorized comment creation and idempotent like/unlike actions through thin controllers and generated Wayfinder routes.
+- Replaced quote interaction-count placeholders with real counts on feed, quote, and movie pages.
+- Passed focused PR 14 coverage for bilingual comment content, localized validation, authorization, like idempotency, database uniqueness, cascade cleanup, and presentation counts.
+- Passed the complete PR 14 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 183 Pest tests with 967 assertions.
 
 ## Next
 
-1. Commit and push PR 13 in reviewable backend and frontend/documentation commits.
-2. Review PR 13 responsive feed/search behavior against the supplied local Figma source.
-3. Resolve Q-011 before implementing the comment-management portion of PR 14.
-4. Configure temporary Google OAuth credentials for a real-provider callback check when credentials are available.
+1. Commit and push PR 14 after explicit confirmation.
+2. Resolve Q-013 before implementing PR 15 notification behavior.
+3. Configure temporary Google OAuth credentials for a real-provider callback check when credentials are available.
 
 ## Known risks
 

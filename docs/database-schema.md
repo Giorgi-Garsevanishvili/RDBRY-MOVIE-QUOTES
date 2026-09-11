@@ -1,6 +1,6 @@
 # Database schema
 
-This diagram reflects the Movie Quotes tables implemented through PR 11. Migration files remain the executable source of truth.
+This diagram reflects the Movie Quotes tables implemented through PR 14. Migration files remain the executable source of truth.
 
 ```mermaid
 erDiagram
@@ -8,9 +8,13 @@ erDiagram
 
     USER ||--o{ MOVIE : owns
     USER ||--o{ QUOTE : authors
+    USER ||--o{ COMMENT : writes
+    USER ||--o{ LIKE : gives
     MOVIE ||--o{ GENRE_MOVIE : categorized_by
     GENRE ||--o{ GENRE_MOVIE : classifies
     MOVIE ||--o{ QUOTE : contains
+    QUOTE ||--o{ COMMENT : receives
+    QUOTE ||--o{ LIKE : receives
     MOVIE ||..o{ MEDIA : stores_poster
     QUOTE ||..o{ MEDIA : stores_image
 
@@ -56,6 +60,21 @@ erDiagram
         datetime created_at
         datetime updated_at
     }
+    COMMENT {
+        bigint id PK
+        bigint user_id FK
+        bigint quote_id FK
+        text body
+        datetime created_at
+        datetime updated_at
+    }
+    LIKE {
+        bigint id PK
+        bigint user_id FK
+        bigint quote_id FK
+        datetime created_at
+        datetime updated_at
+    }
     MEDIA {
         bigint id PK
         string model_type
@@ -71,4 +90,4 @@ erDiagram
 
 `media.model_type` and `media.model_id` form Media Library's polymorphic association, so they are indexed but are not a database foreign key. A movie owns one item in the named `poster` collection and a quote owns one item in the named `image` collection. Their model lifecycles remove files and media rows on hard deletion.
 
-Deleting a movie explicitly deletes its quote models before the database removes the movie, allowing Media Library to clean every quote image. Later social migrations must extend this diagram and preserve D-023 for quote comments, likes, and related notifications.
+Deleting a movie explicitly deletes its quote models before the database removes the movie, allowing Media Library to clean every quote image. Deleting a quote cascades its comments and likes; deleting a member cascades interactions authored by that member. The database permits at most one like for each member/quote pair.
