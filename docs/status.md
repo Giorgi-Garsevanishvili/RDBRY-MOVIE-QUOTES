@@ -2,10 +2,10 @@
 
 Last updated: 2026-09-11
 
-- Phase: Quote experience
-- Active slice: PR 12 — quote UI
-- State: Implemented and fully automated-gate verified; ready for review
-- Dependency: PR 12 is stacked on `codex/feat/quote-backend`
+- Phase: Feed and search
+- Active slice: PR 13 — feed + search
+- State: Implemented and full-gate verified; ready to commit and push for review
+- Dependency: PR 13 is stacked on pushed branch `codex/feat/quote-ui`
 - Blocker: None
 
 ## Completed
@@ -101,12 +101,21 @@ Last updated: 2026-09-11
 - Live-verified the mobile feed composer, bilingual fields, localized movie selector, movie-fixed composer, and responsive movie details against the supplied local Figma source.
 - Live-verified localized required-field feedback and red error states in the quote composer.
 - Passed the complete PR 12 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 164 Pest tests with 839 assertions.
+- Committed PR 12 as three reviewable commits covering its reusable form, read surfaces, and management view.
+- Pushed the verified PR 12 stack on `codex/feat/quote-ui`.
+- Added an all-member quote feed with deterministic newest-first cursor pagination and a supporting composite order index.
+- Added eager-loaded feed presentation through a dedicated resource with a verified four-query page budget.
+- Added responsive desktop/mobile feed and search structures from the exact connected desktop frame and supplied local Figma export.
+- Added bilingual `@` movie-name and `#` quote-text search across both language fields with explicit Spatie Query Builder filtering.
+- Added unprefixed general search across movie names and quote text in both languages under accepted decision D-026.
+- Passed focused PR 13 Pest coverage for feed presentation, stable duplicate-free cursors, query count, prefixed search, and rejected filters.
+- Passed the complete PR 13 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 172 Pest tests with 898 assertions.
 
 ## Next
 
-1. Review the uncommitted `codex/feat/quote-ui` changes.
-2. Commit and push PR 12 only after explicit approval.
-3. Implement the newest-first feed and search behavior in PR 13.
+1. Commit and push PR 13 in reviewable backend and frontend/documentation commits.
+2. Review PR 13 responsive feed/search behavior against the supplied local Figma source.
+3. Resolve Q-011 before implementing the comment-management portion of PR 14.
 4. Configure temporary Google OAuth credentials for a real-provider callback check when credentials are available.
 
 ## Known risks
