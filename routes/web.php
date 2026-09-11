@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\VerificationPendingController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\QuoteController;
 use App\Http\Middleware\RequireVerifiedEmail;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +40,9 @@ Route::middleware(['auth', RequireVerifiedEmail::class])->group(function () {
 	Route::post('movies', [MovieController::class, 'store'])->name('movies.store');
 	Route::patch('movies/{movie}', [MovieController::class, 'update'])->name('movies.update');
 	Route::delete('movies/{movie}', [MovieController::class, 'destroy'])->name('movies.destroy');
+	Route::post('quotes', [QuoteController::class, 'store'])->name('quotes.store');
+	Route::patch('quotes/{quote}', [QuoteController::class, 'update'])->name('quotes.update');
+	Route::delete('quotes/{quote}', [QuoteController::class, 'destroy'])->name('quotes.destroy');
 });
 
 require __DIR__ . '/settings.php';

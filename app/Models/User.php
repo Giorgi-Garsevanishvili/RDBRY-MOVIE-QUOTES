@@ -36,6 +36,12 @@ class User extends Authenticatable implements MustVerifyEmail
 		return $this->hasMany(Movie::class);
 	}
 
+	/** @return HasMany<Quote, $this> */
+	public function quotes(): HasMany
+	{
+		return $this->hasMany(Quote::class);
+	}
+
 	/**
 	 * Get the attributes that should be cast.
 	 *
