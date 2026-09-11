@@ -154,7 +154,7 @@ test('an owner hard-deletes a movie with its genre links and poster', function (
 	$this->actingAs($owner)
 		->from('/dashboard')
 		->delete(route('movies.destroy', $movie))
-		->assertRedirect('/dashboard');
+		->assertRedirect(route('movies.index'));
 
 	$this->assertDatabaseMissing('movies', ['id' => $movie->id]);
 	$this->assertDatabaseMissing('genre_movie', ['movie_id' => $movie->id]);

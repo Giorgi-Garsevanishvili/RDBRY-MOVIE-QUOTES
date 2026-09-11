@@ -6,11 +6,14 @@ use App\Actions\Movies\CreateMovie;
 use App\Actions\Movies\DeleteMovie;
 use App\Actions\Movies\UpdateMovie;
 use App\Http\Requests\Movies\DestroyMovieRequest;
+use App\Http\Requests\Movies\ShowMovieRequest;
 use App\Http\Requests\Movies\StoreMovieRequest;
 use App\Http\Requests\Movies\UpdateMovieRequest;
 use App\Models\Movie;
 use App\Models\User;
+use App\Queries\Movies\MovieFormOptionsQuery;
 use App\Queries\Movies\MovieIndexQuery;
+use App\Queries\Movies\MovieShowQuery;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -19,12 +22,30 @@ use Inertia\Response;
 
 class MovieController extends Controller
 {
-	public function index(Request $request, MovieIndexQuery $movieIndexQuery): Response
-	{
+	public function index(
+		Request $request,
+		MovieIndexQuery $movieIndexQuery,
+		MovieFormOptionsQuery $movieFormOptionsQuery,
+	): Response {
 		$owner = $request->user();
 		abort_unless($owner instanceof User, 401);
 
-		return Inertia::render('movies/MovieList', $movieIndexQuery->pageProps($owner, $request));
+		return Inertia::render('movies/MovieList', [
+			...$movieIndexQuery->pageProps($owner, $request),
+			...$movieFormOptionsQuery->pageProps(),
+		]);
+	}
+
+	public function show(
+		ShowMovieRequest $request,
+		Movie $movie,
+		MovieShowQuery $movieShowQuery,
+		MovieFormOptionsQuery $movieFormOptionsQuery,
+	): Response {
+		return Inertia::render('movies/MovieDetails', [
+			...$movieShowQuery->pageProps($movie),
+			...$movieFormOptionsQuery->pageProps(),
+		]);
 	}
 
 	public function store(StoreMovieRequest $request, CreateMovie $createMovie): RedirectResponse
@@ -63,6 +84,6 @@ class MovieController extends Controller
 	{
 		$deleteMovie->handle($movie);
 
-		return back();
+		return to_route('movies.index');
 	}
 }

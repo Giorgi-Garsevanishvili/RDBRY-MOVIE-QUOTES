@@ -34,6 +34,7 @@ Route::get('account/activate/{user}/{hash}', VerifyEmailController::class)
 Route::middleware(['auth', RequireVerifiedEmail::class])->group(function () {
 	Route::inertia('dashboard', 'protected/ProtectedPlaceholder', ['section' => 'feed'])->name('dashboard');
 	Route::get('movies', [MovieController::class, 'index'])->name('movies.index');
+	Route::get('movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
 	Route::inertia('notifications', 'protected/ProtectedPlaceholder', ['section' => 'notifications'])->name('notifications.index');
 	Route::post('movies', [MovieController::class, 'store'])->name('movies.store');
 	Route::patch('movies/{movie}', [MovieController::class, 'update'])->name('movies.update');
