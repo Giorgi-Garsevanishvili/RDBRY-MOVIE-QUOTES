@@ -22,6 +22,16 @@ class QuotePolicy
 		return true;
 	}
 
+	public function comment(User $user, Quote $quote): bool
+	{
+		return true;
+	}
+
+	public function like(User $user, Quote $quote): bool
+	{
+		return true;
+	}
+
 	public function update(User $user, Quote $quote): bool
 	{
 		return $this->owns($user, $quote);

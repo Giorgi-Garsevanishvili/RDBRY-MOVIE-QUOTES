@@ -29,7 +29,9 @@ class QuoteShowQuery
 	 */
 	public function pageProps(Quote $quote, User $viewer): array
 	{
-		$quote->load(['media', 'movie.media', 'user']);
+		$quote
+			->load(['media', 'movie.media', 'user'])
+			->loadCount(['comments', 'likes']);
 		$movie = $quote->movie;
 
 		return [
@@ -45,8 +47,8 @@ class QuoteShowQuery
 					'username' => $quote->user->username,
 				],
 				'movie'        => $this->movieData($movie),
-				'commentCount' => 0,
-				'likeCount'    => 0,
+				'commentCount' => (int) $quote->comments_count,
+				'likeCount'    => (int) $quote->likes_count,
 				'canManage'    => $viewer->can('update', $quote),
 			],
 		];

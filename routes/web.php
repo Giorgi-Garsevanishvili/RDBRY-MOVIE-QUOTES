@@ -9,6 +9,8 @@ use App\Http\Controllers\FeedController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\QuoteController;
+use App\Http\Controllers\QuoteCommentController;
+use App\Http\Controllers\QuoteLikeController;
 use App\Http\Middleware\RequireVerifiedEmail;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +47,9 @@ Route::middleware(['auth', RequireVerifiedEmail::class])->group(function () {
 	Route::get('quotes/{quote}', [QuoteController::class, 'show'])->name('quotes.show');
 	Route::patch('quotes/{quote}', [QuoteController::class, 'update'])->name('quotes.update');
 	Route::delete('quotes/{quote}', [QuoteController::class, 'destroy'])->name('quotes.destroy');
+	Route::post('quotes/{quote}/comments', QuoteCommentController::class)->name('quotes.comments.store');
+	Route::put('quotes/{quote}/like', [QuoteLikeController::class, 'store'])->name('quotes.likes.store');
+	Route::delete('quotes/{quote}/like', [QuoteLikeController::class, 'destroy'])->name('quotes.likes.destroy');
 });
 
 require __DIR__ . '/settings.php';

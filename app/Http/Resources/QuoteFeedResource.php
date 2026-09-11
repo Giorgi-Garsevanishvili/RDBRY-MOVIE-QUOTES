@@ -41,8 +41,8 @@ class QuoteFeedResource extends JsonResource
 				],
 				'releaseYear' => $this->movie->release_year,
 			],
-			'commentCount' => 0,
-			'likeCount'    => 0,
+			'commentCount' => (int) $this->comments_count,
+			'likeCount'    => (int) $this->likes_count,
 		];
 	}
 }

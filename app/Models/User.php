@@ -42,6 +42,18 @@ class User extends Authenticatable implements MustVerifyEmail
 		return $this->hasMany(Quote::class);
 	}
 
+	/** @return HasMany<Comment, $this> */
+	public function comments(): HasMany
+	{
+		return $this->hasMany(Comment::class);
+	}
+
+	/** @return HasMany<Like, $this> */
+	public function likes(): HasMany
+	{
+		return $this->hasMany(Like::class);
+	}
+
 	/**
 	 * Get the attributes that should be cast.
 	 *

@@ -25,6 +25,7 @@ class QuoteFeedQuery
 				'movie:id,name_en,name_ka,release_year',
 				'media',
 			])
+			->withCount(['comments', 'likes'])
 			->orderByDesc('created_at')
 			->orderByDesc('id');
 

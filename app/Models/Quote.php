@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -19,6 +20,8 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property string      $text_ka
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property int|null    $comments_count
+ * @property int|null    $likes_count
  */
 #[Fillable(['movie_id', 'text_en', 'text_ka'])]
 class Quote extends Model implements HasMedia
@@ -38,6 +41,18 @@ class Quote extends Model implements HasMedia
 	public function movie(): BelongsTo
 	{
 		return $this->belongsTo(Movie::class);
+	}
+
+	/** @return HasMany<Comment, $this> */
+	public function comments(): HasMany
+	{
+		return $this->hasMany(Comment::class);
+	}
+
+	/** @return HasMany<Like, $this> */
+	public function likes(): HasMany
+	{
+		return $this->hasMany(Like::class);
 	}
 
 	public function registerMediaCollections(): void

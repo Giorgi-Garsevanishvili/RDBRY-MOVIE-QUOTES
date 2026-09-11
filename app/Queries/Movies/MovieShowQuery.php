@@ -34,7 +34,10 @@ class MovieShowQuery
 		$movie->load([
 			'genres',
 			'media',
-			'quotes' => static fn ($query) => $query->with('media')->latest(),
+			'quotes' => static fn ($query) => $query
+				->with('media')
+				->withCount(['comments', 'likes'])
+				->latest(),
 		]);
 
 		return [
@@ -72,8 +75,8 @@ class MovieShowQuery
 							'ka' => $quote->text_ka,
 						],
 						'imageUrl'     => $quote->getFirstMediaUrl(Quote::IMAGE_COLLECTION) ?: null,
-						'commentCount' => 0,
-						'likeCount'    => 0,
+						'commentCount' => (int) $quote->comments_count,
+						'likeCount'    => (int) $quote->likes_count,
 					])
 					->all()),
 			],
