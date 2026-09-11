@@ -2,11 +2,11 @@
 
 Last updated: 2026-09-11
 
-- Phase: Movie experience
-- Active slice: PR 10 — movie management UI
-- State: Implemented and fully automated-gate verified; ready for remote review
-- Dependency: PR 10 is stacked on `codex/feat/movie-ui`
-- Blocker: None; the connected Figma quota is exhausted, so the supplied local `.fig` file is the exact design source
+- Phase: Quote experience
+- Active slice: PR 11 — quote backend
+- State: Implemented and fully automated-gate verified; ready for review
+- Dependency: PR 11 is stacked on `codex/feat/movie-management-ui`
+- Blocker: None
 
 ## Completed
 
@@ -84,11 +84,18 @@ Last updated: 2026-09-11
 - Live-verified desktop/mobile list, detail, create/edit dialog, edit submission, locale switching, and outside-click dismissal without browser errors.
 - Added the required Laravel public-storage link to project setup so Spatie Media Library poster URLs resolve in the browser.
 - Passed the complete PR 10 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 138 Pest tests with 668 assertions.
+- Accepted required quote images using the movie upload boundary: JPEG, PNG, or WebP up to 10 MB on create, optional replacement on edit, and no dimension restriction.
+- Added quote ownership and movie relationships with cascading database constraints and a named single-file Spatie Media Library image collection.
+- Added thin quote mutation routes backed by Form Requests, focused actions, and creator-only update/delete policy checks.
+- Enforced required bilingual script-safe quote text and restricted movie selection to movies owned by the authenticated quote creator.
+- Preserved movie hard-delete cleanup by deleting quote models through their Media Library lifecycle before deleting the movie.
+- Added localized English/Georgian validation and focused Pest coverage for CRUD mutations, ownership, scripts, uploads, protection, and cascade effects.
+- Passed the complete PR 11 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 158 Pest tests with 734 assertions.
 
 ## Next
 
-1. Review PR 10 against `codex/feat/movie-ui` before committing or pushing.
-2. Implement the quote schema, validation, policy, image handling, and movie ownership boundary in PR 11.
+1. Review PR 11 against `codex/feat/movie-management-ui` before committing or pushing.
+2. Implement quote create/view/edit/delete UI and movie quote lists in PR 12 using the exact supplied Figma source.
 3. Configure temporary Google OAuth credentials for a real-provider callback check when credentials are available.
 
 ## Known risks

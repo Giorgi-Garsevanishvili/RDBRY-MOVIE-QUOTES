@@ -85,7 +85,7 @@ Movies are hard-deleted. Deletion cascades genre links, quotes, quote comments a
 - Open a modal from “write new quote”.
 - Georgian quote: required and Georgian-script content only.
 - English quote: required and English-script content only.
-- Provide image upload with drag-and-drop.
+- Provide a required JPEG, PNG, or WebP image up to 10 MB through file selection or drag-and-drop. Replacing the image on edit is optional; no dimension restriction applies.
 - Select a movie only from the authenticated member's movies.
 
 ### Create from movie

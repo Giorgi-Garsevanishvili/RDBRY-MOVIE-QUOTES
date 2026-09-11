@@ -17,7 +17,7 @@ Answer by ID; short answers, rules, examples, and links are welcome.
 
 9. **Q-006 — resolved:** Email/password accounts cannot log in or enter the feed until their email is verified; Google accounts are verified on callback.
 10. **Q-008 — resolved:** All bilingual movie fields are required. Names/directors are at most 255 characters; descriptions are at most 2,000; English/Georgian inputs use their respective scripts; year is 1888 through the current year; at least one existing genre is required; and a JPEG/PNG/WebP poster up to 10 MB is required on create and optional on update.
-11. **Q-009 — quote image:** Is an image mandatory? What file types, dimensions, and maximum size apply?
+11. **Q-009 — resolved:** A quote image is required on create and optional on update. Accept JPEG, PNG, or WebP up to 10 MB, with no dimension restriction.
 12. **Q-010 — resolved:** Hard-delete movies and cascade their genre links, quotes, comments, likes, media, and related notifications.
 13. **Q-011 — comments:** Can authors edit/delete comments? Can quote owners remove other users' comments?
 14. **Q-012 — plain search:** Should an unprefixed query search both movie names and quote text, and in the active locale only or both locales?

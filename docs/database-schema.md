@@ -1,15 +1,18 @@
 # Database schema
 
-This diagram reflects the Movie Quotes tables implemented through PR 08. Migration files remain the executable source of truth.
+This diagram reflects the Movie Quotes tables implemented through PR 11. Migration files remain the executable source of truth.
 
 ```mermaid
 erDiagram
     direction LR
 
     USER ||--o{ MOVIE : owns
+    USER ||--o{ QUOTE : authors
     MOVIE ||--o{ GENRE_MOVIE : categorized_by
     GENRE ||--o{ GENRE_MOVIE : classifies
+    MOVIE ||--o{ QUOTE : contains
     MOVIE ||..o{ MEDIA : stores_poster
+    QUOTE ||..o{ MEDIA : stores_image
 
     USER {
         bigint id PK
@@ -44,6 +47,15 @@ erDiagram
         bigint genre_id PK, FK
         bigint movie_id PK, FK
     }
+    QUOTE {
+        bigint id PK
+        bigint user_id FK
+        bigint movie_id FK
+        text text_en
+        text text_ka
+        datetime created_at
+        datetime updated_at
+    }
     MEDIA {
         bigint id PK
         string model_type
@@ -57,6 +69,6 @@ erDiagram
     }
 ```
 
-`media.model_type` and `media.model_id` form Media Library's polymorphic association, so they are indexed but are not a database foreign key. The movie model owns one item in the named `poster` collection; its model lifecycle removes the file and media row when the movie is hard-deleted.
+`media.model_type` and `media.model_id` form Media Library's polymorphic association, so they are indexed but are not a database foreign key. A movie owns one item in the named `poster` collection and a quote owns one item in the named `image` collection. Their model lifecycles remove files and media rows on hard deletion.
 
-The later quote and social migrations must extend this diagram and implement D-023: deleting a movie cascades its quotes, quote comments and likes, movie/quote media, and related notifications.
+Deleting a movie explicitly deletes its quote models before the database removes the movie, allowing Media Library to clean every quote image. Later social migrations must extend this diagram and preserve D-023 for quote comments, likes, and related notifications.
