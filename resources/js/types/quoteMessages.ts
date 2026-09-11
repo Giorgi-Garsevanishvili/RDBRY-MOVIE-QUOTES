@@ -1,0 +1,26 @@
+export type QuoteMessages = {
+    writeNewQuote: string;
+    addQuote: string;
+    editQuote: string;
+    viewQuote: string;
+    quoteEn: string;
+    quoteKa: string;
+    english: string;
+    georgian: string;
+    dragImage: string;
+    uploadImage: string;
+    chooseFile: string;
+    changePhoto: string;
+    selectedFile: string;
+    chooseMovie: string;
+    post: string;
+    saveChanges: string;
+    close: string;
+    edit: string;
+    delete: string;
+    actions: string;
+    director: string;
+    comments: string;
+    likes: string;
+    noMovies: string;
+};
