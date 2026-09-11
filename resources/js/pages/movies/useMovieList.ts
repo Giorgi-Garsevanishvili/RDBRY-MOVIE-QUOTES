@@ -2,17 +2,27 @@ import { router } from '@inertiajs/react';
 import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { useLocale } from '@/hooks/useLocale';
 import { MOVIE_MESSAGES } from '@/locales/movies';
-import { index as moviesIndex } from '@/routes/movies';
+import { index as moviesIndex, show as movieShow } from '@/routes/movies';
 import type { MovieCardView, MovieListProps } from './movieListTypes';
 
-export function useMovieList({ movies, filters }: MovieListProps) {
+export function useMovieList({ movies, filters, genres }: MovieListProps) {
     const { locale } = useLocale();
     const [searchValue, setSearchValue] = useState(filters.search);
+    const [isCreateMovieOpen, setIsCreateMovieOpen] = useState(false);
     const messages = MOVIE_MESSAGES[locale];
     const localizedMovies: MovieCardView[] = movies.map((movie) => ({
         ...movie,
         name: movie.name[locale],
+        href: movieShow(movie.id).url,
     }));
+
+    function openCreateMovie(): void {
+        setIsCreateMovieOpen(true);
+    }
+
+    function handleCreateMovieOpenChange(open: boolean): void {
+        setIsCreateMovieOpen(open);
+    }
 
     function handleSearchChange(event: ChangeEvent<HTMLInputElement>): void {
         setSearchValue(event.target.value);
@@ -39,8 +49,12 @@ export function useMovieList({ movies, filters }: MovieListProps) {
 
     return {
         messages,
+        genres,
         localizedMovies,
         searchValue,
+        isCreateMovieOpen,
+        openCreateMovie,
+        handleCreateMovieOpenChange,
         handleSearchChange,
         handleSearchSubmit,
     };

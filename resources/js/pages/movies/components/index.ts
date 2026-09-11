@@ -1,2 +1,9 @@
 export { default as MovieCard } from './MovieCard';
+export { default as MovieActions } from './MovieActions';
+export { default as MovieFormModal } from './MovieFormModal';
 export { default as MovieSearch } from './MovieSearch';
+export { default as CloseIcon } from './CloseIcon';
+export { default as PencilIcon } from './PencilIcon';
+export { default as PhotoIcon } from './PhotoIcon';
+export { default as PlusSquareIcon } from './PlusSquareIcon';
+export { default as TrashIcon } from './TrashIcon';

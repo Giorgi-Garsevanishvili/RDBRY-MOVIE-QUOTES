@@ -49,7 +49,8 @@ export function useAppLayout() {
         profileUrl: profileEdit(),
         logoutUrl: logout(),
         isFeedActive: currentPath === feedUrl.url,
-        isMoviesActive: currentPath === moviesUrl.url,
+        isMoviesActive:
+            currentPath === moviesUrl.url || currentPath.startsWith(`${moviesUrl.url}/`),
         isNotificationActive: currentPath === notificationUrl.url,
         isMobileMenuOpen,
         openMobileMenu,

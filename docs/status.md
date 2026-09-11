@@ -1,12 +1,12 @@
 # Project status
 
-Last updated: 2026-09-10
+Last updated: 2026-09-11
 
 - Phase: Movie experience
-- Active slice: PR 09 — movie list UI
-- State: Implemented and fully automated-gate verified; exact mobile Figma comparison remains blocked
-- Dependency: PR 09 is stacked on `codex/feat/movie-backend`
-- Blocker: Figma's Starter-plan limit prevents retrieval of mobile movie-list node `5319:33337`
+- Active slice: PR 10 — movie management UI
+- State: Implemented and fully automated-gate verified; ready for remote review
+- Dependency: PR 10 is stacked on `codex/feat/movie-ui`
+- Blocker: None; the connected Figma quota is exhausted, so the supplied local `.fig` file is the exact design source
 
 ## Completed
 
@@ -75,11 +75,20 @@ Last updated: 2026-09-10
 - Added bilingual movie-name search, typed page props, controlled list components, and a coordinating `useMovieList` hook using generated Wayfinder routes.
 - Added focused Pest coverage for ownership, ordering, localized data, poster presentation, query filtering, and preserved search state.
 - Passed the complete PR 09 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 135 Pest tests with 617 assertions.
+- Decoded the supplied local Figma file and inspected the exact desktop/mobile add, edit, movie-detail, and action-menu frames for PR 10.
+- Added owner-authorized movie-detail delivery with complete bilingual fields, localized genres, poster URL, quote-count placeholder, and edit-form options.
+- Added responsive create/edit movie dialogs with exact supplied vector artwork, localized fields, multi-genre selection, poster drag/drop or file selection, server validation feedback, and outside-click dismissal.
+- Added the responsive movie-detail experience with localized metadata, bilingual descriptions, edit/delete actions, and navigation from movie cards.
+- Preserved PR 11/12 boundaries by leaving quote creation and quote-list behavior out of the movie-management slice.
+- Added focused Pest coverage for detail ownership, bilingual detail data, form genre options, and deletion redirect behavior.
+- Live-verified desktop/mobile list, detail, create/edit dialog, edit submission, locale switching, and outside-click dismissal without browser errors.
+- Added the required Laravel public-storage link to project setup so Spatie Media Library poster URLs resolve in the browser.
+- Passed the complete PR 10 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 138 Pest tests with 668 assertions.
 
 ## Next
 
-1. Review PR 09 against `codex/feat/movie-backend` and complete its mobile comparison when Figma access returns.
-2. Fetch the exact movie form and detail nodes, then implement create/edit/detail/delete UI in PR 10.
+1. Review PR 10 against `codex/feat/movie-ui` before committing or pushing.
+2. Implement the quote schema, validation, policy, image handling, and movie ownership boundary in PR 11.
 3. Configure temporary Google OAuth credentials for a real-provider callback check when credentials are available.
 
 ## Known risks
@@ -92,4 +101,4 @@ Last updated: 2026-09-10
 - PR 05 activation/recovery screens reuse the accepted auth system but are not claimed as exact Figma matches until the remaining nodes can be fetched.
 - PR 06 Google controls reuse the established auth geometry and official Google artwork but still require exact Figma comparison when tool access returns.
 - Structured PR 07 Figma context/export remained blocked by the Starter-plan request limit; supplied frames were inspected directly and compared with the running desktop/mobile implementation.
-- PR 09 exact desktop movie-list context was retrieved, but the Starter-plan limit blocked the remaining movie nodes. Their UI is intentionally not implemented from inference alone.
+- The connected Figma Starter-plan limit blocks structured context for the remaining movie nodes; PR 10 uses the exact supplied local `.fig` frames and exported vector paths instead.
