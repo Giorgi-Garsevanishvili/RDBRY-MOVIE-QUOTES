@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
@@ -52,6 +53,14 @@ class User extends Authenticatable implements MustVerifyEmail
 	public function likes(): HasMany
 	{
 		return $this->hasMany(Like::class);
+	}
+
+	/** @return MorphMany<QuoteNotification, $this> */
+	public function notifications(): MorphMany
+	{
+		return $this->morphMany(QuoteNotification::class, 'notifiable')
+			->latest('created_at')
+			->latest('id');
 	}
 
 	/**

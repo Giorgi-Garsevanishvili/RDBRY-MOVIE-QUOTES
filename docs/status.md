@@ -1,11 +1,11 @@
 # Project status
 
-Last updated: 2026-09-11
+Last updated: 2026-09-12
 
 - Phase: Social interactions
-- Active slice: PR 14 — likes + comments
+- Active slice: PR 15 — notification backend
 - State: Implemented and full-gate verified; awaiting commit and push confirmation
-- Dependency: PR 14 is stacked on pushed branch `codex/feat/feed-search`
+- Dependency: PR 15 is stacked on pushed branch `codex/feat/likes-comments`
 - Blocker: None
 
 ## Completed
@@ -118,11 +118,19 @@ Last updated: 2026-09-11
 - Replaced quote interaction-count placeholders with real counts on feed, quote, and movie pages.
 - Passed focused PR 14 coverage for bilingual comment content, localized validation, authorization, like idempotency, database uniqueness, cascade cleanup, and presentation counts.
 - Passed the complete PR 14 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 183 Pest tests with 967 assertions.
+- Committed and pushed the verified PR 14 stack on `codex/feat/likes-comments`.
+- Resolved notification behavior: suppress self-actions, read only the opened item before quote navigation, and keep mark-all on the current page with unread-driven visibility.
+- Added persistent quote interaction notifications with recipient, actor, quote, unread, and hard-delete cascade constraints.
+- Added stable like/comment payloads through Laravel database and private broadcast notification channels without selecting the still-open production provider.
+- Added owner-authorized read-one and mark-all mutations through Form Requests, a policy, thin controller methods, and focused actions.
+- Shared newest-first notification items and unread counts across verified-member Inertia pages for the PR 16 notification interface.
+- Added focused Pest coverage for recipients, database/broadcast payloads, self and duplicate suppression, owner isolation, one/all read behavior, current-page redirects, unread transitions, and cascade cleanup.
+- Passed the complete PR 15 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 192 Pest tests with 1,045 assertions.
 
 ## Next
 
-1. Commit and push PR 14 after explicit confirmation.
-2. Resolve Q-013 before implementing PR 15 notification behavior.
+1. Commit and push PR 15 only after explicit confirmation.
+2. Implement the exact responsive notification and quote-interaction UI in PR 16.
 3. Configure temporary Google OAuth credentials for a real-provider callback check when credentials are available.
 
 ## Known risks

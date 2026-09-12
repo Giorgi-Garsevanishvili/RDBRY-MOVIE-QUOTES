@@ -21,7 +21,7 @@ Answer by ID; short answers, rules, examples, and links are welcome.
 12. **Q-010 — resolved:** Hard-delete movies and cascade their genre links, quotes, comments, likes, media, and related notifications.
 13. **Q-011 — resolved:** Comments are create-only. Comment authors cannot edit/delete them, and quote owners cannot remove other members' comments.
 14. **Q-012 — resolved:** Unprefixed search checks movie names and quote text across both English and Georgian fields.
-15. **Q-013 — notifications:** Suppress self-like/self-comment notifications? Does opening a notification mark only it read and navigate to the quote?
+15. **Q-013 — resolved:** Suppress self-like/self-comment notifications. Opening one marks only it read and navigates to its quote. Mark-all stays on the current page; its control is visible only while unread notifications exist and reappears on new real-time activity.
 16. **Q-014 — profile security:** Require current-password confirmation for username, email, and password changes? Can Google users change username?
 17. **Q-015 — seed data:** Must demo seeders reproduce Figma users, movies, quotes, comments, and images with licensed/local assets?
 

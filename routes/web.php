@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\VerificationPendingController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\QuoteCommentController;
 use App\Http\Controllers\QuoteLikeController;
@@ -40,6 +41,8 @@ Route::middleware(['auth', RequireVerifiedEmail::class])->group(function () {
 	Route::get('movies', [MovieController::class, 'index'])->name('movies.index');
 	Route::get('movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
 	Route::inertia('notifications', 'protected/ProtectedPlaceholder', ['section' => 'notifications'])->name('notifications.index');
+	Route::patch('notifications/read-all', [NotificationController::class, 'readAll'])->name('notifications.read-all');
+	Route::patch('notifications/{notification}', [NotificationController::class, 'read'])->name('notifications.read');
 	Route::post('movies', [MovieController::class, 'store'])->name('movies.store');
 	Route::patch('movies/{movie}', [MovieController::class, 'update'])->name('movies.update');
 	Route::delete('movies/{movie}', [MovieController::class, 'destroy'])->name('movies.destroy');

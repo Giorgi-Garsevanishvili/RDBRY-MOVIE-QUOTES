@@ -103,8 +103,9 @@ Use the same fields, but preselect the current movie and prevent changing it.
 - Show a header notification control and unread count.
 - Deliver notifications in real time when another member likes or comments on the recipient's quote.
 - Show actor, action, target, relative time, read/unread state, and “mark all as read”.
-
-Self-notification and exact mark-one-read behavior remain to be confirmed.
+- Do not create notifications for a member's own likes or comments.
+- Opening one notification marks only it read and navigates to its quote.
+- “Mark all as read” marks every unread item for the signed-in member without leaving the current page. Hide the control at zero unread items and show it again when new real-time activity arrives.
 
 ## 10. Cross-cutting acceptance
 

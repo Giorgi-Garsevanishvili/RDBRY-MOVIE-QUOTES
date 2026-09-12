@@ -1,5 +1,6 @@
 import type { Auth } from '@/types/auth';
 import type { Locale } from '@/types/locale';
+import type { NotificationFeed } from '@/types/notification';
 
 declare module 'react' {
     interface InputHTMLAttributes<T> {
@@ -13,6 +14,7 @@ declare module '@inertiajs/core' {
             name: string;
             locale: Locale;
             auth: Auth;
+            notificationFeed: NotificationFeed | null;
             sidebarOpen: boolean;
             [key: string]: unknown;
         };
