@@ -151,11 +151,12 @@ Last updated: 2026-09-17
 - Live-verified desktop/mobile presentation, password-account username editing, Georgian copy, Google email/password restrictions, and rendered Spatie avatar replacement.
 - Passed 38 focused profile/security Pest tests with 133 assertions, frontend lint/format/types, the production build, and PHP static analysis.
 - Passed the complete PR 17 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 222 Pest tests with 1,179 assertions.
+- Split PR 17 into four reviewable semantic commits covering secure account updates, typed profile UI, page delivery, and starter-settings removal.
 
 ## Next
 
 1. Configure Pusher application credentials for a live provider check.
-2. Review the restacked PR 17 profile slice.
+2. Review the pushed, restacked PR 17 profile slice.
 3. Continue restacking PR 18 and later descendants.
 
 ## Known risks
