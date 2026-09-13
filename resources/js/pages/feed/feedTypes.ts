@@ -1,8 +1,12 @@
 import type { ChangeEvent, FormEvent } from 'react';
-import type { FeedMessages, QuoteMessages, QuoteMovieOption } from '@/types';
+import type {
+    FeedMessages,
+    QuoteInteractionSummary,
+    QuoteMessages,
+    QuoteMovieOption,
+} from '@/types';
 
-export type FeedQuote = {
-    id: number;
+export type FeedQuote = QuoteInteractionSummary & {
     text: {
         en: string;
         ka: string;
@@ -20,8 +24,6 @@ export type FeedQuote = {
         };
         releaseYear: number;
     };
-    commentCount: number;
-    likeCount: number;
 };
 
 export type FeedQuotePage = {
@@ -46,8 +48,8 @@ export type FeedQuoteCardView = {
     movieName: string;
     releaseYear: number;
     imageUrl: string | null;
-    commentCount: number;
-    likeCount: number;
+    viewerUsername: string;
+    interactions: QuoteInteractionSummary;
 };
 
 export type FeedToolbarProps = {

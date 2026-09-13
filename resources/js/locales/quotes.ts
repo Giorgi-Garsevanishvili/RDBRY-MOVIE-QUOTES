@@ -25,6 +25,10 @@ export const QUOTE_MESSAGES: Record<Locale, QuoteMessages> = {
         director: 'Director:',
         comments: 'Comments',
         likes: 'Likes',
+        writeComment: 'Write a comment',
+        submitComment: 'Post comment',
+        likeQuote: 'Like quote',
+        unlikeQuote: 'Remove like',
         noMovies: 'Add a movie before writing a quote.',
     },
     ka: {
@@ -51,6 +55,10 @@ export const QUOTE_MESSAGES: Record<Locale, QuoteMessages> = {
         director: 'რეჟისორი:',
         comments: 'კომენტარები',
         likes: 'მოწონებები',
+        writeComment: 'დაწერეთ კომენტარი',
+        submitComment: 'კომენტარის გამოქვეყნება',
+        likeQuote: 'ციტატის მოწონება',
+        unlikeQuote: 'მოწონების გაუქმება',
         noMovies: 'ციტატის დაწერამდე დაამატეთ ფილმი.',
     },
 };

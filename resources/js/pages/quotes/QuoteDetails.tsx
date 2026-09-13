@@ -1,7 +1,7 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Head } from '@inertiajs/react';
-import { HeartIcon, MessageSquareIcon, PencilIcon, TrashIcon, XIcon } from 'lucide-react';
-import { QuoteFormModal } from '@/components/quotes';
+import { PencilIcon, TrashIcon, XIcon } from 'lucide-react';
+import { QuoteFormModal, QuoteInteractions } from '@/components/quotes';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import type { QuoteDetailsProps } from './quoteDetailsTypes';
 import { useQuoteDetails } from './useQuoteDetails';
@@ -11,6 +11,7 @@ export default function QuoteDetails(props: QuoteDetailsProps) {
         quote,
         localizedQuote,
         authorInitials,
+        viewerUsername,
         messages,
         isEditQuoteOpen,
         isDeleting,
@@ -111,24 +112,13 @@ export default function QuoteDetails(props: QuoteDetailsProps) {
                                         className="h-[302px] w-full rounded object-cover lg:h-[513px]"
                                     />
                                 )}
-
-                                <div className="flex gap-6 border-b border-[#efefef]/20 pb-6">
-                                    <span
-                                        className="inline-flex items-center gap-3"
-                                        aria-label={messages.comments}
-                                    >
-                                        <span>{quote.commentCount}</span>
-                                        <MessageSquareIcon className="size-6" aria-hidden="true" />
-                                    </span>
-                                    <span
-                                        className="inline-flex items-center gap-3"
-                                        aria-label={messages.likes}
-                                    >
-                                        <span>{quote.likeCount}</span>
-                                        <HeartIcon className="size-6" aria-hidden="true" />
-                                    </span>
-                                </div>
                             </div>
+
+                            <QuoteInteractions
+                                quote={quote}
+                                messages={messages}
+                                viewerUsername={viewerUsername}
+                            />
                         </div>
                     </DialogPrimitive.Content>
                 </DialogPrimitive.Portal>

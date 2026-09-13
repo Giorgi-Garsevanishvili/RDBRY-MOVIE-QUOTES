@@ -1,4 +1,4 @@
-import { router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { useInitials } from '@/hooks/use-initials';
 import { useLocale } from '@/hooks/useLocale';
@@ -9,12 +9,19 @@ import type { FeedProps, FeedQuoteCardView } from './feedTypes';
 
 export function useFeed({ movies, quotes, filters }: FeedProps) {
     const { locale } = useLocale();
+    const page = usePage();
     const getInitials = useInitials();
     const [isQuoteFormOpen, setIsQuoteFormOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [searchValue, setSearchValue] = useState(filters.search);
     const feedMessages = FEED_MESSAGES[locale];
     const quoteMessages = QUOTE_MESSAGES[locale];
+    const viewer = page.props.auth.user;
+
+    if (viewer === null) {
+        throw new Error('The feed requires an authenticated user.');
+    }
+
     const quoteCards: FeedQuoteCardView[] = quotes.data.map((quote) => ({
         id: quote.id,
         authorName: quote.author.username,
@@ -23,8 +30,14 @@ export function useFeed({ movies, quotes, filters }: FeedProps) {
         movieName: quote.movie.name[locale],
         releaseYear: quote.movie.releaseYear,
         imageUrl: quote.imageUrl,
-        commentCount: quote.commentCount,
-        likeCount: quote.likeCount,
+        viewerUsername: viewer.username,
+        interactions: {
+            id: quote.id,
+            comments: quote.comments,
+            commentCount: quote.commentCount,
+            likeCount: quote.likeCount,
+            likedByViewer: quote.likedByViewer,
+        },
     }));
     const emptyMessage =
         filters.search === '' ? feedMessages.noQuotes : feedMessages.noSearchResults;

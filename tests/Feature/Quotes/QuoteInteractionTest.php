@@ -147,17 +147,25 @@ test('feed quote and movie pages expose real interaction counts', function () {
 		->assertInertia(
 			fn (Assert $page) => $page
 				->where('quotes.data.0.id', $quote->id)
+				->has('quotes.data.0.comments', 3)
 				->where('quotes.data.0.commentCount', 3)
-				->where('quotes.data.0.likeCount', 2),
+				->where('quotes.data.0.likeCount', 2)
+				->where('quotes.data.0.likedByViewer', false),
 		);
 
 	$this->actingAs($quoteAuthor)
 		->get(route('quotes.show', $quote))
 		->assertInertia(
 			fn (Assert $page) => $page
+				->has('quote.comments', 3)
 				->where('quote.commentCount', 3)
-				->where('quote.likeCount', 2),
+				->where('quote.likeCount', 2)
+				->where('quote.likedByViewer', false),
 		);
+
+	$this->actingAs($firstMember)
+		->get(route('quotes.show', $quote))
+		->assertInertia(fn (Assert $page) => $page->where('quote.likedByViewer', true));
 
 	$this->actingAs($quoteAuthor)
 		->get(route('movies.show', $movie))

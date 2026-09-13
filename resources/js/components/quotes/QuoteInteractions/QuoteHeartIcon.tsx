@@ -1,6 +1,6 @@
-import type { FeedIconProps } from './feedIconTypes';
+import type { QuoteInteractionIconProps } from './quoteInteractionIconTypes';
 
-export default function FeedHeartIcon({ className }: FeedIconProps) {
+export default function QuoteHeartIcon({ className }: QuoteInteractionIconProps) {
     return (
         <svg
             aria-hidden="true"

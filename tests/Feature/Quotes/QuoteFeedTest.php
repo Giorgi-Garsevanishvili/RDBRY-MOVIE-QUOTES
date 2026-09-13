@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Comment;
+use App\Models\Like;
 use App\Models\Movie;
 use App\Models\Quote;
 use App\Models\User;
@@ -32,6 +34,10 @@ test('the feed presents every members quotes newest first', function () {
 	]);
 	$newerQuote->addMedia(UploadedFile::fake()->image('interstellar.webp'))
 		->toMediaCollection(Quote::IMAGE_COLLECTION);
+	$comment = Comment::factory()->for($olderAuthor)->for($newerQuote)->create([
+		'body' => 'A memorable scene.',
+	]);
+	Like::factory()->for($viewer)->for($newerQuote)->create();
 
 	$this->actingAs($viewer)
 		->get(route('dashboard'))
@@ -50,9 +56,15 @@ test('the feed presents every members quotes newest first', function () {
 				->where('quotes.data.0.movie.name.en', 'Interstellar')
 				->where('quotes.data.0.movie.name.ka', 'ინტერსტელარი')
 				->where('quotes.data.0.movie.releaseYear', 2014)
-				->where('quotes.data.0.commentCount', 0)
-				->where('quotes.data.0.likeCount', 0)
+				->has('quotes.data.0.comments', 1)
+				->where('quotes.data.0.comments.0.id', $comment->id)
+				->where('quotes.data.0.comments.0.body', 'A memorable scene.')
+				->where('quotes.data.0.comments.0.author.username', 'olderauthor')
+				->where('quotes.data.0.commentCount', 1)
+				->where('quotes.data.0.likeCount', 1)
+				->where('quotes.data.0.likedByViewer', true)
 				->where('quotes.data.1.id', $olderQuote->id)
+				->where('quotes.data.1.likedByViewer', false)
 		);
 });
 
@@ -88,12 +100,14 @@ test('cursor pages keep a stable order without duplicate quotes', function () {
 		->and(array_intersect($firstIds, $secondIds))->toBe([]);
 });
 
-test('a feed page eager loads its presentation data in four queries', function () {
+test('a feed page eager loads its presentation data in six queries', function () {
 	$author = User::factory()->create();
+	$commentAuthor = User::factory()->create();
 	$movie = Movie::factory()->for($author)->create();
-	Quote::factory()->count(3)->for($author)->for($movie)->create();
+	$quotes = Quote::factory()->count(3)->for($author)->for($movie)->create();
+	Comment::factory()->for($commentAuthor)->for($quotes[0])->create();
 
-	$this->expectsDatabaseQueryCount(4);
+	$this->expectsDatabaseQueryCount(6);
 
 	$page = app(QuoteFeedQuery::class)->paginate(Request::create('/dashboard'));
 

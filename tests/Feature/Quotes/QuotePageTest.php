@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Comment;
+use App\Models\Like;
 use App\Models\Movie;
 use App\Models\Quote;
 use App\Models\User;
@@ -111,6 +113,10 @@ test('a verified member can view a quote created by another member', function ()
 	]);
 	$quote->addMedia(UploadedFile::fake()->image('interstellar-quote.webp'))
 		->toMediaCollection(Quote::IMAGE_COLLECTION);
+	$comment = Comment::factory()->for($author)->for($quote)->create([
+		'body' => 'Behind the scenes.',
+	]);
+	Like::factory()->for($viewer)->for($quote)->create();
 
 	$this->actingAs($viewer)
 		->get(route('quotes.show', $quote))
@@ -128,8 +134,13 @@ test('a verified member can view a quote created by another member', function ()
 				->where('quote.movie.name.en', 'Interstellar')
 				->where('quote.movie.name.ka', 'ინტერსტელარი')
 				->where('quote.movie.releaseYear', 2014)
-				->where('quote.commentCount', 0)
-				->where('quote.likeCount', 0)
+				->has('quote.comments', 1)
+				->where('quote.comments.0.id', $comment->id)
+				->where('quote.comments.0.body', 'Behind the scenes.')
+				->where('quote.comments.0.author.username', 'quoteauthor')
+				->where('quote.commentCount', 1)
+				->where('quote.likeCount', 1)
+				->where('quote.likedByViewer', true)
 				->where('quote.canManage', false)
 		);
 });

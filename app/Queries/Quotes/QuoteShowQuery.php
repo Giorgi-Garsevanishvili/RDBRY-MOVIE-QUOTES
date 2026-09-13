@@ -2,6 +2,7 @@
 
 namespace App\Queries\Quotes;
 
+use App\Models\Comment;
 use App\Models\Movie;
 use App\Models\Quote;
 use App\Models\User;
@@ -21,8 +22,10 @@ class QuoteShowQuery
 	 *             releaseYear: int,
 	 *             posterUrl: string|null
 	 *         },
+	 *         comments: list<array{id: int, body: string, author: array{id: int, username: string}}>,
 	 *         commentCount: int,
 	 *         likeCount: int,
+	 *         likedByViewer: bool,
 	 *         canManage: bool
 	 *     }
 	 * }
@@ -30,7 +33,19 @@ class QuoteShowQuery
 	public function pageProps(Quote $quote, User $viewer): array
 	{
 		$quote
-			->load(['media', 'movie.media', 'user'])
+			->load([
+				'media',
+				'movie.media',
+				'user',
+				'comments' => static fn ($query) => $query
+					->oldest('created_at')
+					->oldest('id'),
+				'comments.user:id,username',
+			])
+			->loadExists([
+				'likes as liked_by_viewer' => static fn ($likes) => $likes
+					->where('user_id', $viewer->id),
+			])
 			->loadCount(['comments', 'likes']);
 		$movie = $quote->movie;
 
@@ -47,9 +62,20 @@ class QuoteShowQuery
 					'username' => $quote->user->username,
 				],
 				'movie'        => $this->movieData($movie),
-				'commentCount' => (int) $quote->comments_count,
-				'likeCount'    => (int) $quote->likes_count,
-				'canManage'    => $viewer->can('update', $quote),
+				'comments'     => array_values($quote->comments
+					->map(static fn (Comment $comment): array => [
+						'id'     => $comment->id,
+						'body'   => $comment->body,
+						'author' => [
+							'id'       => $comment->user->id,
+							'username' => $comment->user->username,
+						],
+					])
+					->all()),
+				'commentCount'  => (int) $quote->comments_count,
+				'likeCount'     => (int) $quote->likes_count,
+				'likedByViewer' => (bool) $quote->liked_by_viewer,
+				'canManage'     => $viewer->can('update', $quote),
 			],
 		];
 	}

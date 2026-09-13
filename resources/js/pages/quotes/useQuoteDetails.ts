@@ -1,4 +1,4 @@
-import { router, useForm } from '@inertiajs/react';
+import { router, useForm, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import { useInitials } from '@/hooks/use-initials';
 import { useLocale } from '@/hooks/useLocale';
@@ -10,9 +10,15 @@ import type { LocalizedQuoteDetails, QuoteDetailsProps } from './quoteDetailsTyp
 
 export function useQuoteDetails({ quote }: QuoteDetailsProps) {
     const { locale } = useLocale();
+    const page = usePage();
     const getInitials = useInitials();
     const [isEditQuoteOpen, setIsEditQuoteOpen] = useState(false);
     const deleteForm = useForm({});
+    const viewer = page.props.auth.user;
+
+    if (viewer === null) {
+        throw new Error('Quote details require an authenticated user.');
+    }
     const localizedQuote: LocalizedQuoteDetails = {
         ...quote,
         movie: {
@@ -49,6 +55,7 @@ export function useQuoteDetails({ quote }: QuoteDetailsProps) {
         quote,
         localizedQuote,
         authorInitials: getInitials(quote.author.username),
+        viewerUsername: viewer.username,
         messages: QUOTE_MESSAGES[locale],
         isEditQuoteOpen,
         isDeleting: deleteForm.processing,

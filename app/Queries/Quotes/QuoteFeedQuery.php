@@ -3,6 +3,7 @@
 namespace App\Queries\Quotes;
 
 use App\Models\Quote;
+use App\Models\User;
 use Illuminate\Contracts\Pagination\CursorPaginator;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Cursor;
@@ -24,10 +25,24 @@ class QuoteFeedQuery
 				'user:id,username',
 				'movie:id,name_en,name_ka,release_year',
 				'media',
+				'comments' => static fn ($query) => $query
+					->oldest('created_at')
+					->oldest('id'),
+				'comments.user:id,username',
 			])
 			->withCount(['comments', 'likes'])
 			->orderByDesc('created_at')
 			->orderByDesc('id');
+
+		$viewer = $request?->user();
+
+		if ($viewer instanceof User)
+		{
+			$query->withExists([
+				'likes as liked_by_viewer' => static fn ($likes) => $likes
+					->where('user_id', $viewer->id),
+			]);
+		}
 
 		return $query;
 	}

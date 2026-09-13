@@ -1,7 +1,6 @@
+import { QuoteInteractions } from '@/components/quotes';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import type { FeedQuoteCardProps } from '../feedTypes';
-import FeedCommentIcon from './FeedCommentIcon';
-import FeedHeartIcon from './FeedHeartIcon';
 
 export default function FeedQuoteCard({ quote, feedMessages, quoteMessages }: FeedQuoteCardProps) {
     return (
@@ -33,22 +32,11 @@ export default function FeedQuoteCard({ quote, feedMessages, quoteMessages }: Fe
                 />
             )}
 
-            <footer className="mt-4 flex items-center gap-6 border-b border-[#efefef]/20 pb-4 lg:mt-6 lg:gap-8 lg:pb-6">
-                <span
-                    className="inline-flex items-center gap-3 text-xl"
-                    aria-label={quoteMessages.comments}
-                >
-                    <span>{quote.commentCount}</span>
-                    <FeedCommentIcon className="size-6 lg:size-8" />
-                </span>
-                <span
-                    className="inline-flex items-center gap-3 text-xl"
-                    aria-label={quoteMessages.likes}
-                >
-                    <span>{quote.likeCount}</span>
-                    <FeedHeartIcon className="h-6 w-[26px] lg:h-8 lg:w-[34px]" />
-                </span>
-            </footer>
+            <QuoteInteractions
+                quote={quote.interactions}
+                messages={quoteMessages}
+                viewerUsername={quote.viewerUsername}
+            />
         </article>
     );
 }
