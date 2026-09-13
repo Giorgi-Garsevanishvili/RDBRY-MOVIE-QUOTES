@@ -58,7 +58,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                     <form onSubmit={handleSubmit} className="px-8 pt-[29px] pb-11 lg:pb-[47px]">
                         <div className="mb-7 flex items-center gap-4 lg:mb-7">
                             <Avatar className="size-10 lg:size-[60px]">
-                                <AvatarImage src={user.avatar} alt="" />
+                                <AvatarImage src={user.avatar ?? undefined} alt="" />
                                 <AvatarFallback className="bg-[#6c6f8e] text-sm text-white">
                                     {initials}
                                 </AvatarFallback>

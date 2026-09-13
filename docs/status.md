@@ -2,10 +2,10 @@
 
 Last updated: 2026-09-17
 
-- Phase: Social interactions
-- Active slice: PR 16 — social UI
-- State: Pusher transport conversion and missing-credential fallback implemented and full-gate verified; awaiting credentials for a live provider check and commit confirmation
-- Dependency: PR 16 is stacked on pushed branch `codex/feat/notifications-backend` at `39e5f80`
+- Phase: Account profile
+- Active slice: PR 17 — profile
+- State: Complete and full-gate verified; restacked onto the Pusher-adjusted PR 16
+- Dependency: PR 17 is stacked on pushed branch `codex/feat/social-ui` at `ecf4be3`
 - Blocker: None
 
 ## Completed
@@ -142,12 +142,21 @@ Last updated: 2026-09-17
 - Added a no-op Echo fallback when public Pusher configuration is absent so persistent notifications remain usable without crashing the application.
 - Repaired the locale menu caret's malformed SVG path data.
 - Passed the complete Pusher-adjusted PR 16 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 194 Pest tests with 1,088 assertions.
+- Committed PR 16 as separate quote-interaction and real-time-notification commits and pushed the verified stack on `codex/feat/social-ui`.
+- Accepted current-password confirmation for password-account profile changes and passwordless Google restrictions.
+- Added Spatie Media Library avatar replacement through a named single-file collection accepting JPEG, PNG, or WebP files up to 10 MB.
+- Added focused username, pending-email activation, and password actions with localized Form Requests and signed email verification.
+- Replaced the starter settings surfaces with one responsive bilingual profile page whose state lives in `useProfile` and whose components remain presentation-only.
+- Decoded the supplied local Figma export and matched the desktop profile geometry plus the exact 428×926 mobile card, avatar, back control, and field spacing.
+- Live-verified desktop/mobile presentation, password-account username editing, Georgian copy, Google email/password restrictions, and rendered Spatie avatar replacement.
+- Passed 38 focused profile/security Pest tests with 133 assertions, frontend lint/format/types, the production build, and PHP static analysis.
+- Passed the complete PR 17 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 222 Pest tests with 1,179 assertions.
 
 ## Next
 
 1. Configure Pusher application credentials for a live provider check.
-2. Review the Pusher-adjusted PR 16 correction.
-3. Commit/push PR 16 only after explicit confirmation, then restack its descendants.
+2. Review the restacked PR 17 profile slice.
+3. Continue restacking PR 18 and later descendants.
 
 ## Known risks
 

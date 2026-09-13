@@ -58,7 +58,7 @@ export default function QuoteFormModal(props: QuoteFormModalProps) {
                     >
                         <div className="mb-7 flex items-center gap-4">
                             <Avatar className="size-10 lg:size-[60px]">
-                                <AvatarImage src={user.avatar} alt="" />
+                                <AvatarImage src={user.avatar ?? undefined} alt="" />
                                 <AvatarFallback className="bg-[#6c6f8e] text-sm text-white">
                                     {initials}
                                 </AvatarFallback>
