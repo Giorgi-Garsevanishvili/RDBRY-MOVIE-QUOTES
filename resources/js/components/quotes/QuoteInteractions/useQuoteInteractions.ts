@@ -14,6 +14,7 @@ export function useQuoteInteractions({
     quote,
     messages,
     viewerUsername,
+    viewerAvatarUrl,
 }: QuoteInteractionsProps): UseQuoteInteractionsResult {
     const getInitials = useInitials();
     const commentForm = useForm<CommentFormData>({ body: '' });
@@ -24,6 +25,7 @@ export function useQuoteInteractions({
         body: comment.body,
         authorName: comment.author.username,
         authorInitials: getInitials(comment.author.username),
+        authorAvatarUrl: comment.author.avatar,
     }));
     const likeIconClassName = quote.likedByViewer ? 'text-brand-red' : 'text-white';
     const likeLabel = quote.likedByViewer ? messages.unlikeQuote : messages.likeQuote;
@@ -62,6 +64,7 @@ export function useQuoteInteractions({
         commentBody: commentForm.data.body,
         commentError: commentForm.errors.body,
         currentUserInitials: getInitials(viewerUsername),
+        currentUserAvatarUrl: viewerAvatarUrl,
         isCommentSubmitting: commentForm.processing,
         isLikeSubmitting: likeForm.processing,
         likeIconClassName,

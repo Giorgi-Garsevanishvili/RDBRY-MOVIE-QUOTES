@@ -13,6 +13,7 @@ export type QuoteComment = {
     author: {
         id: number;
         username: string;
+        avatar: string | null;
     };
 };
 
@@ -37,6 +38,7 @@ export type QuoteDetailsItem = QuoteListItem &
         author: {
             id: number;
             username: string;
+            avatar: string | null;
         };
         movie: QuoteMovieOption;
         canManage: boolean;

@@ -23,12 +23,14 @@ class QuoteFeedQuery
 		$query
 			->with([
 				'user:id,username',
+				'user.media',
 				'movie:id,name_en,name_ka,release_year',
 				'media',
 				'comments' => static fn ($query) => $query
 					->oldest('created_at')
 					->oldest('id'),
 				'comments.user:id,username',
+				'comments.user.media',
 			])
 			->withCount(['comments', 'likes'])
 			->orderByDesc('created_at')

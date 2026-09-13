@@ -1,5 +1,5 @@
 import { QuoteInteractions } from '@/components/quotes';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import type { FeedQuoteCardProps } from '../feedTypes';
 
 export default function FeedQuoteCard({ quote, feedMessages, quoteMessages }: FeedQuoteCardProps) {
@@ -7,6 +7,7 @@ export default function FeedQuoteCard({ quote, feedMessages, quoteMessages }: Fe
         <article className="bg-black/30 px-[35px] py-6 lg:rounded-xl lg:bg-[#11101a] lg:p-6">
             <header className="flex items-center gap-4">
                 <Avatar className="size-10 lg:size-[52px]">
+                    <AvatarImage src={quote.authorAvatarUrl ?? undefined} alt="" />
                     <AvatarFallback className="bg-[#6c6f8e] text-sm text-white">
                         {quote.authorInitials}
                     </AvatarFallback>
@@ -36,6 +37,7 @@ export default function FeedQuoteCard({ quote, feedMessages, quoteMessages }: Fe
                 quote={quote.interactions}
                 messages={quoteMessages}
                 viewerUsername={quote.viewerUsername}
+                viewerAvatarUrl={quote.viewerAvatarUrl}
             />
         </article>
     );

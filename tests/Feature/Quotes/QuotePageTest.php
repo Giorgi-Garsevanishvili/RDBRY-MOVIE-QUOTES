@@ -101,6 +101,8 @@ test('a verified member can view a quote created by another member', function ()
 	Storage::fake('public');
 
 	$author = User::factory()->create(['username' => 'quoteauthor']);
+	$author->addMedia(UploadedFile::fake()->image('quote-author-avatar.webp'))
+		->toMediaCollection(User::AVATAR_COLLECTION);
 	$viewer = User::factory()->create();
 	$movie = Movie::factory()->for($author)->create([
 		'name_en'      => 'Interstellar',
@@ -130,11 +132,13 @@ test('a verified member can view a quote created by another member', function ()
 				->where('quote.imageUrl', fn (string $url): bool => str_ends_with($url, '/interstellar-quote.webp'))
 				->where('quote.author.id', $author->id)
 				->where('quote.author.username', 'quoteauthor')
+				->where('quote.author.avatar', fn (string $url): bool => str_ends_with($url, '/quote-author-avatar.webp'))
 				->where('quote.movie.id', $movie->id)
 				->where('quote.movie.name.en', 'Interstellar')
 				->where('quote.movie.name.ka', 'ინტერსტელარი')
 				->where('quote.movie.releaseYear', 2014)
 				->has('quote.comments', 1)
+				->where('quote.comments.0.author.avatar', fn (string $url): bool => str_ends_with($url, '/quote-author-avatar.webp'))
 				->where('quote.comments.0.id', $comment->id)
 				->where('quote.comments.0.body', 'Behind the scenes.')
 				->where('quote.comments.0.author.username', 'quoteauthor')

@@ -2,7 +2,7 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Head } from '@inertiajs/react';
 import { PencilIcon, TrashIcon, XIcon } from 'lucide-react';
 import { QuoteFormModal, QuoteInteractions } from '@/components/quotes';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import type { QuoteDetailsProps } from './quoteDetailsTypes';
 import { useQuoteDetails } from './useQuoteDetails';
 
@@ -12,6 +12,7 @@ export default function QuoteDetails(props: QuoteDetailsProps) {
         localizedQuote,
         authorInitials,
         viewerUsername,
+        viewerAvatarUrl,
         messages,
         isEditQuoteOpen,
         isDeleting,
@@ -76,6 +77,7 @@ export default function QuoteDetails(props: QuoteDetailsProps) {
 
                             <div className="mb-7 flex items-center gap-4">
                                 <Avatar className="size-10 lg:size-[60px]">
+                                    <AvatarImage src={quote.author.avatar ?? undefined} alt="" />
                                     <AvatarFallback className="bg-[#6c6f8e] text-sm text-white">
                                         {authorInitials}
                                     </AvatarFallback>
@@ -118,6 +120,7 @@ export default function QuoteDetails(props: QuoteDetailsProps) {
                                 quote={quote}
                                 messages={messages}
                                 viewerUsername={viewerUsername}
+                                viewerAvatarUrl={viewerAvatarUrl}
                             />
                         </div>
                     </DialogPrimitive.Content>

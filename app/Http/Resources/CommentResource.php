@@ -10,7 +10,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class CommentResource extends JsonResource
 {
 	/**
-	 * @return array{id: int, body: string, author: array{id: int, username: string}}
+	 * @return array{id: int, body: string, author: array{id: int, username: string, avatar: string|null}}
 	 */
 	public function toArray(Request $request): array
 	{
@@ -20,6 +20,7 @@ class CommentResource extends JsonResource
 			'author' => [
 				'id'       => $this->user->id,
 				'username' => $this->user->username,
+				'avatar'   => $this->user->avatar,
 			],
 		];
 	}

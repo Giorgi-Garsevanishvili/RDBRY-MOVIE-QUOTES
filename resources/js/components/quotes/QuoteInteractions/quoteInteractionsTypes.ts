@@ -5,6 +5,7 @@ export type QuoteInteractionsProps = {
     quote: QuoteInteractionSummary;
     messages: QuoteMessages;
     viewerUsername: string;
+    viewerAvatarUrl: string | null;
 };
 
 export type QuoteCommentView = {
@@ -12,6 +13,7 @@ export type QuoteCommentView = {
     body: string;
     authorName: string;
     authorInitials: string;
+    authorAvatarUrl: string | null;
 };
 
 export type CommentFormData = {
@@ -29,6 +31,7 @@ export type UseQuoteInteractionsResult = QuoteInteractionHandlers & {
     commentBody: string;
     commentError: string | undefined;
     currentUserInitials: string;
+    currentUserAvatarUrl: string | null;
     isCommentSubmitting: boolean;
     isLikeSubmitting: boolean;
     likeIconClassName: string;

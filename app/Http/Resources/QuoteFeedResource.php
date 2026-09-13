@@ -15,7 +15,7 @@ class QuoteFeedResource extends JsonResource
 	 *     id: int,
 	 *     text: array{en: string, ka: string},
 	 *     imageUrl: string|null,
-	 *     author: array{id: int, username: string},
+	 *     author: array{id: int, username: string, avatar: string|null},
 	 *     movie: array{id: int, name: array{en: string, ka: string}, releaseYear: int},
 	 *     comments: AnonymousResourceCollection,
 	 *     commentCount: int,
@@ -35,6 +35,7 @@ class QuoteFeedResource extends JsonResource
 			'author'   => [
 				'id'       => $this->user->id,
 				'username' => $this->user->username,
+				'avatar'   => $this->user->avatar,
 			],
 			'movie' => [
 				'id'   => $this->movie->id,

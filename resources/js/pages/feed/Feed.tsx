@@ -13,12 +13,14 @@ export default function Feed(props: FeedProps) {
         emptyMessage,
         searchValue,
         isQuoteFormOpen,
-        isSearchOpen,
+        isMobileSearchOpen,
         isDesktopSearchActive,
+        mobileSearchTriggerRef,
         openQuoteForm,
         handleQuoteFormOpenChange,
         openSearch,
-        closeSearch,
+        handleMobileSearchOpenChange,
+        handleMobileSearchCloseAutoFocus,
         handleSearchChange,
         handleSearchSubmit,
     } = useFeed(props);
@@ -37,6 +39,7 @@ export default function Feed(props: FeedProps) {
                     searchInstructions={feedMessages.searchInstructions}
                     searchValue={searchValue}
                     isSearchActive={isDesktopSearchActive}
+                    mobileSearchTriggerRef={mobileSearchTriggerRef}
                     onWriteQuote={openQuoteForm}
                     onOpenSearch={openSearch}
                     onSearchChange={handleSearchChange}
@@ -73,10 +76,11 @@ export default function Feed(props: FeedProps) {
             </section>
 
             <FeedMobileSearch
-                open={isSearchOpen}
+                open={isMobileSearchOpen}
                 messages={feedMessages}
                 searchValue={searchValue}
-                onClose={closeSearch}
+                onOpenChange={handleMobileSearchOpenChange}
+                onCloseAutoFocus={handleMobileSearchCloseAutoFocus}
                 onSearchChange={handleSearchChange}
                 onSearchSubmit={handleSearchSubmit}
             />

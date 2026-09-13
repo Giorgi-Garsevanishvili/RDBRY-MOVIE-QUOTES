@@ -1,5 +1,5 @@
 import InputError from '@/components/InputError';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import type { QuoteInteractionsProps } from './quoteInteractionsTypes';
 import QuoteCommentIcon from './QuoteCommentIcon';
 import QuoteHeartIcon from './QuoteHeartIcon';
@@ -11,6 +11,7 @@ export default function QuoteInteractions(props: QuoteInteractionsProps) {
         commentBody,
         commentError,
         currentUserInitials,
+        currentUserAvatarUrl,
         isCommentSubmitting,
         isLikeSubmitting,
         likeIconClassName,
@@ -51,6 +52,7 @@ export default function QuoteInteractions(props: QuoteInteractionsProps) {
                     className="flex gap-4 border-b border-[#efefef]/20 py-4 lg:gap-6 lg:py-6"
                 >
                     <Avatar className="size-10 shrink-0 lg:size-[52px]">
+                        <AvatarImage src={comment.authorAvatarUrl ?? undefined} alt="" />
                         <AvatarFallback className="bg-[#6c6f8e] text-sm text-white">
                             {comment.authorInitials}
                         </AvatarFallback>
@@ -71,6 +73,7 @@ export default function QuoteInteractions(props: QuoteInteractionsProps) {
                 className="flex items-start gap-4 pt-4 lg:gap-6 lg:pt-6"
             >
                 <Avatar className="size-10 shrink-0 lg:size-[52px]">
+                    <AvatarImage src={currentUserAvatarUrl ?? undefined} alt="" />
                     <AvatarFallback className="bg-[#6c6f8e] text-sm text-white">
                         {currentUserInitials}
                     </AvatarFallback>

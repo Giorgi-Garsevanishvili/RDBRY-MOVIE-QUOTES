@@ -9,6 +9,7 @@ export default function FeedToolbar({
     searchInstructions,
     searchValue,
     isSearchActive,
+    mobileSearchTriggerRef,
     onWriteQuote,
     onOpenSearch,
     onSearchChange,
@@ -26,6 +27,7 @@ export default function FeedToolbar({
             </button>
 
             <button
+                ref={mobileSearchTriggerRef}
                 type="button"
                 onClick={onOpenSearch}
                 aria-label={search}

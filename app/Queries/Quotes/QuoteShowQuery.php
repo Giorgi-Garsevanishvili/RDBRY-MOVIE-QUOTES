@@ -15,14 +15,14 @@ class QuoteShowQuery
 	 *         id: int,
 	 *         text: array{en: string, ka: string},
 	 *         imageUrl: string|null,
-	 *         author: array{id: int, username: string},
+	 *         author: array{id: int, username: string, avatar: string|null},
 	 *         movie: array{
 	 *             id: int,
 	 *             name: array{en: string, ka: string},
 	 *             releaseYear: int,
 	 *             posterUrl: string|null
 	 *         },
-	 *         comments: list<array{id: int, body: string, author: array{id: int, username: string}}>,
+	 *         comments: list<array{id: int, body: string, author: array{id: int, username: string, avatar: string|null}}>,
 	 *         commentCount: int,
 	 *         likeCount: int,
 	 *         likedByViewer: bool,
@@ -37,10 +37,12 @@ class QuoteShowQuery
 				'media',
 				'movie.media',
 				'user',
+				'user.media',
 				'comments' => static fn ($query) => $query
 					->oldest('created_at')
 					->oldest('id'),
 				'comments.user:id,username',
+				'comments.user.media',
 			])
 			->loadExists([
 				'likes as liked_by_viewer' => static fn ($likes) => $likes
@@ -60,6 +62,7 @@ class QuoteShowQuery
 				'author'   => [
 					'id'       => $quote->user->id,
 					'username' => $quote->user->username,
+					'avatar'   => $quote->user->avatar,
 				],
 				'movie'        => $this->movieData($movie),
 				'comments'     => array_values($quote->comments
@@ -69,6 +72,7 @@ class QuoteShowQuery
 						'author' => [
 							'id'       => $comment->user->id,
 							'username' => $comment->user->username,
+							'avatar'   => $comment->user->avatar,
 						],
 					])
 					->all()),
