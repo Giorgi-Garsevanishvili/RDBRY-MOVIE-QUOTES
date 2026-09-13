@@ -5,6 +5,11 @@ import { initializeTheme } from '@/hooks/use-appearance';
 import AppLayout from '@/layouts/app/AppLayout';
 import AuthLayout from '@/layouts/AuthLayout';
 import SettingsLayout from '@/layouts/settings/layout';
+import { configureEcho } from '@laravel/echo-react';
+
+configureEcho({
+    broadcaster: 'reverb',
+});
 
 const appName = import.meta.env.VITE_APP_NAME ?? 'Movie Quotes';
 

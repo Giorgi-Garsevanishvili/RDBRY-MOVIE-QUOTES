@@ -12,7 +12,19 @@ export type QuoteNotification = {
     createdAt: string;
 };
 
+export type QuoteNotificationBroadcastPayload = Pick<QuoteNotification, 'actor' | 'quoteId'>;
+
 export type NotificationFeed = {
-    items: QuoteNotification[];
+    items: readonly QuoteNotification[];
     unreadCount: number;
+};
+
+export type NotificationMessages = {
+    title: string;
+    markAllAsRead: string;
+    new: string;
+    reactedToQuote: string;
+    commentedOnQuote: string;
+    noNotifications: string;
+    close: string;
 };

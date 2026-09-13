@@ -2,14 +2,14 @@ import { Link } from '@inertiajs/react';
 import { LocaleMenu } from '@/components/LocaleMenu';
 import type { AppHeaderProps } from './appHeaderTypes';
 import MenuIcon from './MenuIcon';
-import NotificationIcon from './NotificationIcon';
+import NotificationMenu from './NotificationMenu';
 
 export default function AppHeader({
+    userId,
     messages,
     locale,
-    notificationUrl,
+    notificationFeed,
     logoutUrl,
-    isNotificationActive,
     onLocaleChange,
     onOpenMenu,
 }: AppHeaderProps) {
@@ -33,20 +33,12 @@ export default function AppHeader({
                 </span>
 
                 <div className="ml-auto flex items-center gap-4">
-                    <Link
-                        href={notificationUrl}
-                        aria-label={messages.notifications}
-                        aria-current={isNotificationActive ? 'page' : undefined}
-                        className="relative inline-flex size-10 items-center justify-center rounded focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
-                    >
-                        <NotificationIcon
-                            className={
-                                isNotificationActive
-                                    ? 'size-6 text-brand-red lg:size-8'
-                                    : 'size-6 lg:size-8'
-                            }
-                        />
-                    </Link>
+                    <NotificationMenu
+                        userId={userId}
+                        feed={notificationFeed}
+                        locale={locale}
+                        label={messages.notifications}
+                    />
 
                     <div className="hidden items-center gap-4 lg:flex">
                         <LocaleMenu

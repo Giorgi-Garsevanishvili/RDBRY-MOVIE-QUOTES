@@ -11,12 +11,11 @@ export default function AppLayout({ children }: AppLayoutProps) {
         messages,
         feedUrl,
         moviesUrl,
-        notificationUrl,
+        notificationFeed,
         profileUrl,
         logoutUrl,
         isFeedActive,
         isMoviesActive,
-        isNotificationActive,
         isMobileMenuOpen,
         openMobileMenu,
         closeMobileMenu,
@@ -26,11 +25,11 @@ export default function AppLayout({ children }: AppLayoutProps) {
     return (
         <div className="min-h-svh bg-[linear-gradient(187.16deg,#181623_0.07%,#191725_51.65%,#0d0b14_98.75%)] text-white">
             <AppHeader
+                userId={user.id}
                 messages={messages}
                 locale={locale}
-                notificationUrl={notificationUrl}
+                notificationFeed={notificationFeed}
                 logoutUrl={logoutUrl}
-                isNotificationActive={isNotificationActive}
                 onLocaleChange={handleLocaleChange}
                 onOpenMenu={openMobileMenu}
             />

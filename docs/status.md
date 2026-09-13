@@ -1,11 +1,11 @@
 # Project status
 
-Last updated: 2026-09-12
+Last updated: 2026-09-13
 
 - Phase: Social interactions
-- Active slice: PR 15 — notification backend
-- State: Implemented and full-gate verified; awaiting commit and push confirmation
-- Dependency: PR 15 is stacked on pushed branch `codex/feat/likes-comments`
+- Active slice: PR 16 — social UI
+- State: Complete and full-gate verified; awaiting commit and push confirmation
+- Dependency: PR 16 is stacked on pushed branch `codex/feat/notifications-backend` at `f28e5fc`
 - Blocker: None
 
 ## Completed
@@ -126,11 +126,23 @@ Last updated: 2026-09-12
 - Shared newest-first notification items and unread counts across verified-member Inertia pages for the PR 16 notification interface.
 - Added focused Pest coverage for recipients, database/broadcast payloads, self and duplicate suppression, owner isolation, one/all read behavior, current-page redirects, unread transitions, and cascade cleanup.
 - Passed the complete PR 15 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 192 Pest tests with 1,045 assertions.
+- Committed and pushed the verified PR 15 stack on `codex/feat/notifications-backend`.
+- Added ordered comment presentation and viewer-specific like state to feed and quote Inertia props without introducing a separate API.
+- Added one shared, typed quote-interaction component for feed cards and quote details, with comment submission and idempotent like toggling isolated in its coordinating hook.
+- Added the responsive English/Georgian notification panel with unread badge, actor/action/time/read state, outside-click dismissal, current-page mark-all behavior, and read-one navigation.
+- Live-verified the desktop/mobile feed interactions and notification layouts against Figma nodes `335:23914`, `635:30899`, `346:43090`, `660:30796`, `660:31720`, and `5319:33607` using an isolated temporary SQLite database.
+- Live-verified that mark-all keeps the panel open and hides at zero unread, individual opening closes the panel before quote navigation, and Georgian notification actions and relative times remain fully localized.
+- Passed the provider-independent PR 16 checkpoint gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 192 Pest tests with 1,083 assertions.
+- Accepted Laravel Reverb as the framework-native real-time transport and installed the compatible Reverb, Echo React, Laravel Echo, and Pusher-protocol client packages.
+- Connected the notification panel to the verified member's authorized private broadcast channel and reload only the canonical shared notification prop when like or comment activity arrives.
+- Added Pest coverage proving that only a verified member can authorize their own private notification channel.
+- Live-verified Reverb, the database queue worker, and Echo end to end: new likes/comments arrived without refresh, mark-all stayed on the current page, and new activity restored the unread control without browser errors.
+- Passed the complete PR 16 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 193 Pest tests with 1,086 assertions.
 
 ## Next
 
-1. Commit and push PR 15 only after explicit confirmation.
-2. Implement the exact responsive notification and quote-interaction UI in PR 16.
+1. Commit/push PR 16 only after explicit confirmation.
+2. Start PR 17 only after the PR 16 review and stack are ready.
 3. Configure temporary Google OAuth credentials for a real-provider callback check when credentials are available.
 
 ## Known risks

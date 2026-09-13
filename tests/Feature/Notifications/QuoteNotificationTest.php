@@ -133,6 +133,39 @@ test('a member cannot read another members notification', function () {
 	expect($notification->fresh()?->read_at)->toBeNull();
 });
 
+test('only a verified member can authorize their private notification channel', function () {
+	config()->set([
+		'broadcasting.default'                   => 'reverb',
+		'broadcasting.connections.reverb.key'    => 'test-key',
+		'broadcasting.connections.reverb.secret' => 'test-secret',
+		'broadcasting.connections.reverb.app_id' => 'test-app',
+	]);
+	require base_path('routes/channels.php');
+
+	$recipient = User::factory()->create();
+	$otherMember = User::factory()->create();
+	$unverifiedMember = User::factory()->unverified()->create();
+	$payload = [
+		'channel_name' => "private-App.Models.User.{$recipient->id}",
+		'socket_id'    => '1234.5678',
+	];
+
+	$this->actingAs($recipient)
+		->postJson('/broadcasting/auth', $payload)
+		->assertOk();
+
+	$this->actingAs($otherMember)
+		->postJson('/broadcasting/auth', $payload)
+		->assertForbidden();
+
+	$this->actingAs($unverifiedMember)
+		->postJson('/broadcasting/auth', [
+			...$payload,
+			'channel_name' => "private-App.Models.User.{$unverifiedMember->id}",
+		])
+		->assertForbidden();
+});
+
 test('mark all stays on the current page and affects only the signed in member', function () {
 	$recipient = User::factory()->create();
 	$otherRecipient = User::factory()->create();
