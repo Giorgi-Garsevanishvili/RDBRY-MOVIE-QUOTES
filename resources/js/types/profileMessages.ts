@@ -1,0 +1,24 @@
+export type ProfileMessages = {
+    pageTitle: string;
+    myProfile: string;
+    backToFeed: string;
+    uploadNewPhoto: string;
+    username: string;
+    email: string;
+    password: string;
+    hiddenPassword: string;
+    edit: string;
+    currentPassword: string;
+    newUsername: string;
+    newEmail: string;
+    newPassword: string;
+    confirmPassword: string;
+    saveChanges: string;
+    cancel: string;
+    pendingEmail: string;
+    passwordRulesTitle: string;
+    passwordMinimum: string;
+    passwordMaximum: string;
+    showPassword: string;
+    hidePassword: string;
+};
