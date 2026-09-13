@@ -1,0 +1,38 @@
+<?php
+
+return [
+	'avatar_updated'    => 'Your profile photo has been updated.',
+	'username_updated'  => 'Your username has been updated.',
+	'email_change_sent' => 'Check your new email address to confirm the change.',
+	'email_verified'    => 'Your new email address has been verified.',
+	'password_updated'  => 'Your password has been updated.',
+	'email' => [
+		'subject' => 'Confirm your new email address',
+		'intro'   => 'Open the link below to confirm this email address for your Movie Quotes account.',
+		'action'  => 'Confirm email address',
+		'expiry'  => 'This link expires in 60 minutes.',
+	],
+	'validation' => [
+		'avatar_required'          => 'Please choose a profile photo.',
+		'avatar_image'             => 'The profile photo must be an image.',
+		'avatar_type'              => 'The profile photo must be a JPEG, PNG, or WebP file.',
+		'avatar_size'              => 'The profile photo must not exceed 10 MB.',
+		'username_required'        => 'The username field is required.',
+		'username_min'             => 'The username must be at least 3 characters.',
+		'username_max'             => 'The username must not exceed 15 characters.',
+		'username_format'          => 'The username may contain only lowercase Latin letters and numbers.',
+		'username_unique'          => 'This username is already in use.',
+		'email_required'           => 'The email field is required.',
+		'email_format'             => 'Enter a valid email address.',
+		'email_different'          => 'Enter a different email address.',
+		'email_unique'             => 'This email address is already in use.',
+		'current_password_required'=> 'Your current password is required.',
+		'current_password'         => 'The current password is incorrect.',
+		'password_required'        => 'The new password field is required.',
+		'password_min'             => 'The new password must be at least 8 characters.',
+		'password_max'             => 'The new password must not exceed 15 characters.',
+		'password_format'          => 'The new password may contain only lowercase Latin letters and numbers.',
+		'password_confirmation'    => 'The password confirmation does not match.',
+		'password_confirmation_required' => 'The password confirmation field is required.',
+	],
+];
