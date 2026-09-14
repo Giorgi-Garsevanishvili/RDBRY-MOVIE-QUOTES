@@ -33,7 +33,7 @@ export default function VerificationPending(props: VerificationPendingProps) {
                         disabled={processing}
                         data-test="resend-activation-link-button"
                     >
-                        {processing && <Spinner />}
+                        {processing && <Spinner aria-label={messages.resendingEmail} />}
                         {processing ? messages.resendingEmail : messages.resendEmail}
                     </Button>
                 </form>

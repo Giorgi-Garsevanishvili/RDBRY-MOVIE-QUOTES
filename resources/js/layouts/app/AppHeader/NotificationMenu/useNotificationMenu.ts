@@ -1,7 +1,7 @@
 import { useEchoNotification } from '@laravel/echo-react';
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
-import type { KeyboardEvent, MouseEvent } from 'react';
+import type { MouseEvent } from 'react';
 import { useInitials } from '@/hooks/use-initials';
 import { NOTIFICATION_MESSAGES } from '@/locales/notifications';
 import { read, readAll } from '@/routes/notifications';
@@ -28,6 +28,7 @@ export function useNotificationMenu({
         type: notification.type,
         actorName: notification.actor.username,
         actorInitials: getInitials(notification.actor.username),
+        actorAvatarUrl: notification.actor.avatar,
         action:
             notification.type === 'quote_commented'
                 ? messages.commentedOnQuote
@@ -51,12 +52,8 @@ export function useNotificationMenu({
         });
     }
 
-    function onToggle(): void {
-        setIsOpen((open) => !open);
-    }
-
-    function onClose(): void {
-        setIsOpen(false);
+    function onOpenChange(open: boolean): void {
+        setIsOpen(open);
     }
 
     function onMarkAllAsRead(): void {
@@ -82,22 +79,14 @@ export function useNotificationMenu({
         router.patch(read(notificationId).url);
     }
 
-    function onPanelKeyDown(event: KeyboardEvent<HTMLElement>): void {
-        if (event.key === 'Escape') {
-            onClose();
-        }
-    }
-
     return {
         items,
         messages,
         isOpen,
         hasUnread,
         badgeText,
-        onToggle,
-        onClose,
+        onOpenChange,
         onMarkAllAsRead,
         onNotificationOpen,
-        onPanelKeyDown,
     };
 }

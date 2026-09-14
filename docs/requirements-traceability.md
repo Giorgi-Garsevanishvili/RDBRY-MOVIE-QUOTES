@@ -6,7 +6,7 @@ Status values are confirmed, decision needed, implemented, and verified.
 | ---------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------- | ----------------------------------- | -------: |
 | LAND-01    | Cinematic landing with movie stills and quotes                                                  | Assignment Landing + Figma 337:29589/346:43181 | confirmed                           |       03 |
 | LAND-02    | Landing links to registration and login                                                         | Assignment Landing + Figma                     | confirmed                           |       03 |
-| I18N-01    | English and Georgian platform                                                                   | Additional features                            | confirmed                           |       03 |
+| I18N-01    | English and Georgian platform                                                                   | Additional features                            | verified                            |    03/18 |
 | AUTH-01    | Username required, 3–15, lowercase Latin letters/digits                                         | Registration I                                 | implemented                         |       04 |
 | AUTH-02    | Email required and valid                                                                        | Registration I                                 | implemented                         |       04 |
 | AUTH-03    | Password required, 8–15, lowercase Latin letters/digits                                         | Registration I                                 | implemented                         |       04 |
@@ -61,6 +61,6 @@ Status values are confirmed, decision needed, implemented, and verified.
 | DOC-03     | Swagger/OpenAPI when API routes exist                                                           | General quality criteria                       | not applicable under D-002          |       19 |
 | GIT-01     | Small semantic commits with specified grammar                                                   | Semantic commits resource                      | confirmed                           |      all |
 | CD-01      | GitHub Actions checks then SSH deployment from main                                             | CD resource                                    | checks verified; deployment is open |    01/19 |
-| CODE-01    | Follow Redberry React structure and quality rules                                               | React quality criteria                         | confirmed                           | frontend |
+| CODE-01    | Follow Redberry React structure and quality rules                                               | React quality criteria                         | verified                            |       18 |
 
 Every implemented row must gain automated-test or visual-verification evidence before it becomes verified.

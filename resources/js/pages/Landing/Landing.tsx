@@ -18,6 +18,7 @@ export default function Landing() {
                 signUpLabel={messages.signUp}
                 logInLabel={messages.logIn}
                 languageLabel={messages.languageLabel}
+                navigationLabel={messages.mainNavigation}
                 locale={locale}
                 onLocaleChange={changeLocale}
             />

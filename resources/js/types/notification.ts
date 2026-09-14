@@ -6,6 +6,7 @@ export type QuoteNotification = {
     actor: {
         id: number;
         username: string;
+        avatar: string | null;
     };
     quoteId: number;
     readAt: string | null;
@@ -26,5 +27,4 @@ export type NotificationMessages = {
     reactedToQuote: string;
     commentedOnQuote: string;
     noNotifications: string;
-    close: string;
 };

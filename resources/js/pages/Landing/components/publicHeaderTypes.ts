@@ -5,6 +5,7 @@ export type PublicHeaderProps = {
     signUpLabel: string;
     logInLabel: string;
     languageLabel: string;
+    navigationLabel: string;
     locale: Locale;
     onLocaleChange: (locale: Locale) => void;
 };

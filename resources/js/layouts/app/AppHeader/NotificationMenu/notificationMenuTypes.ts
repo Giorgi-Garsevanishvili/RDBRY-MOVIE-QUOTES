@@ -1,4 +1,4 @@
-import type { KeyboardEvent, MouseEvent } from 'react';
+import type { MouseEvent } from 'react';
 import type { Locale, NotificationFeed, NotificationMessages, NotificationType } from '@/types';
 
 export type NotificationMenuProps = {
@@ -13,6 +13,7 @@ export type NotificationItemView = {
     type: NotificationType;
     actorName: string;
     actorInitials: string;
+    actorAvatarUrl: string | null;
     action: string;
     relativeTime: string;
     isUnread: boolean;
@@ -25,9 +26,7 @@ export type UseNotificationMenuResult = {
     isOpen: boolean;
     hasUnread: boolean;
     badgeText: string;
-    onToggle: () => void;
-    onClose: () => void;
+    onOpenChange: (open: boolean) => void;
     onMarkAllAsRead: () => void;
     onNotificationOpen: (event: MouseEvent<HTMLButtonElement>) => void;
-    onPanelKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
 };

@@ -8,7 +8,6 @@ export const NOTIFICATION_MESSAGES: Record<Locale, NotificationMessages> = {
         reactedToQuote: 'Reacted to your quote',
         commentedOnQuote: 'Commented on your movie quote',
         noNotifications: 'You have no notifications yet.',
-        close: 'Close notifications',
     },
     ka: {
         title: 'შეტყობინებები',
@@ -17,6 +16,5 @@ export const NOTIFICATION_MESSAGES: Record<Locale, NotificationMessages> = {
         reactedToQuote: 'მოიწონა თქვენი ციტატა',
         commentedOnQuote: 'დააკომენტარა თქვენი ციტატა',
         noNotifications: 'შეტყობინებები ჯერ არ გაქვთ.',
-        close: 'შეტყობინებების დახურვა',
     },
 };

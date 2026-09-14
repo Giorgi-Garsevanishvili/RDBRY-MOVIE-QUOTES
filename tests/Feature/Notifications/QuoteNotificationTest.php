@@ -5,8 +5,10 @@ use App\Models\Quote;
 use App\Models\QuoteNotification;
 use App\Models\User;
 use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Notifications\Events\BroadcastNotificationCreated;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Testing\AssertableInertia as Assert;
 
 test('a like notifies the quote author in the database and broadcast channel', function () {
@@ -210,9 +212,13 @@ test('mark all stays on the current page and affects only the signed in member',
 });
 
 test('notification list is newest first with read state and actor data', function () {
+	Storage::fake('public');
+
 	$recipient = User::factory()->create();
 	$firstActor = User::factory()->create();
 	$secondActor = User::factory()->create();
+	$secondActor->addMedia(UploadedFile::fake()->image('notification-actor.jpg'))
+		->toMediaCollection(User::AVATAR_COLLECTION);
 	$firstQuote = Quote::factory()->for($recipient)->create();
 	$secondQuote = Quote::factory()->for($recipient)->create();
 
@@ -232,6 +238,7 @@ test('notification list is newest first with read state and actor data', functio
 			->where('notificationFeed.items.0.id', $newer->id)
 			->where('notificationFeed.items.0.type', 'quote_commented')
 			->where('notificationFeed.items.0.actor.username', $secondActor->username)
+			->where('notificationFeed.items.0.actor.avatar', fn (string $url): bool => str_ends_with($url, '/notification-actor.jpg'))
 			->where('notificationFeed.items.0.quoteId', $secondQuote->id)
 			->where('notificationFeed.items.1.id', $older->id)
 			->where('notificationFeed.items.1.readAt', null));

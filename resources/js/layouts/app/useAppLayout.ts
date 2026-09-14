@@ -28,12 +28,12 @@ export function useAppLayout() {
     const moviesUrl = moviesIndex();
     const currentPath = page.url.split('?')[0];
 
-    function openMobileMenu(): void {
-        setIsMobileMenuOpen(true);
-    }
-
     function closeMobileMenu(): void {
         setIsMobileMenuOpen(false);
+    }
+
+    function handleMobileMenuOpenChange(open: boolean): void {
+        setIsMobileMenuOpen(open);
     }
 
     function handleLocaleChange(nextLocale: Locale): void {
@@ -55,8 +55,8 @@ export function useAppLayout() {
         isMoviesActive:
             currentPath === moviesUrl.url || currentPath.startsWith(`${moviesUrl.url}/`),
         isMobileMenuOpen,
-        openMobileMenu,
         closeMobileMenu,
+        handleMobileMenuOpenChange,
         handleLocaleChange,
     };
 }

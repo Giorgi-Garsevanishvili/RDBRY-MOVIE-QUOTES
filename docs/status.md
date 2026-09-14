@@ -2,10 +2,10 @@
 
 Last updated: 2026-09-17
 
-- Phase: Account profile
-- Active slice: PR 17 — profile
-- State: Complete and full-gate verified; restacked onto the Pusher-adjusted PR 16
-- Dependency: PR 17 is stacked on pushed branch `codex/feat/social-ui` at `ecf4be3`
+- Phase: Hardening
+- Active slice: PR 18 — hardening
+- State: Complete; restacked onto the Pusher-adjusted profile branch
+- Dependency: PR 18 is stacked on pushed branch `codex/feat/profile` at `e36c92b`
 - Blocker: None
 
 ## Completed
@@ -152,12 +152,21 @@ Last updated: 2026-09-17
 - Passed 38 focused profile/security Pest tests with 133 assertions, frontend lint/format/types, the production build, and PHP static analysis.
 - Passed the complete PR 17 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 222 Pest tests with 1,179 assertions.
 - Split PR 17 into four reviewable semantic commits covering secure account updates, typed profile UI, page delivery, and starter-settings removal.
+- Started PR 18 on `codex/chore/hardening`, stacked directly on the pushed PR 17 branch.
+- Replaced the custom auth, notification, and mobile-navigation overlays with accessible dialogs that label their content, trap focus, close with Escape/outside interaction, and restore focus where the originating control remains on the page.
+- Fixed the feed search breakpoint mismatch so the mobile dialog is used through the full pre-`lg` range while desktop search remains inline, with keyboard focus restored to the mobile trigger on close.
+- Propagated Spatie avatar URLs to quote authors, comment authors, and notification actors while preserving bounded eager-loaded feed queries.
+- Localized previously hardcoded product navigation and loading accessibility labels in English and Georgian.
+- Verified avatar rendering, dialog focus, Escape dismissal, trigger restoration, and current-page mark-all behavior in the running application.
+- Confirmed the locked Composer and production npm dependency trees have no reported security advisories.
+- Passed 24 focused feed, quote-page, and notification Pest tests with 277 assertions plus frontend lint, formatting, and TypeScript checks.
+- Passed the complete PR 18 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 222 Pest tests with 1,189 assertions.
 
 ## Next
 
 1. Configure Pusher application credentials for a live provider check.
-2. Review the pushed, restacked PR 17 profile slice.
-3. Continue restacking PR 18 and later descendants.
+2. Review the pushed, restacked PR 18 hardening slice.
+3. Continue restacking PR 19 and later descendants.
 
 ## Known risks
 

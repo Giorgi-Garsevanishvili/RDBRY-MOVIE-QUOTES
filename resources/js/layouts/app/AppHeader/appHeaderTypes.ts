@@ -10,5 +10,4 @@ export type AppHeaderProps = {
     notificationFeed: NotificationFeed;
     logoutUrl: LinkHref;
     onLocaleChange: (locale: Locale) => void;
-    onOpenMenu: () => void;
 };

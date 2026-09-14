@@ -89,7 +89,7 @@ export default function ResetPassword(props: ResetPasswordProps) {
                         disabled={processing}
                         data-test="reset-password-button"
                     >
-                        {processing && <Spinner />}
+                        {processing && <Spinner aria-label={messages.loading} />}
                         {messages.resetPassword}
                     </Button>
                 </fieldset>

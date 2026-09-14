@@ -135,7 +135,7 @@ export default function Login(props: LoginProps) {
                             disabled={processing}
                             data-test="login-button"
                         >
-                            {processing && <Spinner />}
+                            {processing && <Spinner aria-label={messages.loading} />}
                             {messages.logIn}
                         </Button>
 
