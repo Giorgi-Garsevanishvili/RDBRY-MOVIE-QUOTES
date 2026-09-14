@@ -4,7 +4,7 @@ Last updated: 2026-09-17
 
 - Phase: Delivery
 - Active slice: PR 19 — CD and deployment
-- State: Implementation complete; restacked onto the Pusher-adjusted PR 18 branch
+- State: Committed and pushed; production verification remains pending
 - Dependency: PR 19 is stacked on pushed branch `codex/chore/hardening` at `e5ceb57`
 - Blocker: Production deployment and smoke-test evidence require the user-managed server
 
@@ -165,6 +165,7 @@ Last updated: 2026-09-17
 - Added serialized SSH deployment of the exact tested commit, an external Laravel health check, a protected manual rollback workflow, and a pre-migration SQLite rollback snapshot.
 - Added the production runbook covering initial setup, GitHub environment configuration, queue processing, Pusher credentials, local Spatie media persistence, smoke testing, and rollback consequences.
 - Passed the complete PR 19 local gate: deployment-script syntax, ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 223 Pest tests with 1,191 assertions.
+- Committed and pushed the verified PR 19 stack on `codex/ci/deployment`.
 
 ## Next
 
