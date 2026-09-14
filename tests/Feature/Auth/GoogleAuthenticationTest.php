@@ -121,6 +121,21 @@ test('google usernames remain unique and follow registration rules', function ()
 		->and($user->username)->toMatch('/^[a-z0-9]{3,15}$/');
 });
 
+test('google usernames fall back when the provider name cannot be normalized', function () {
+	Socialite::fake('google', fakeGoogleUser([
+		'id'       => 'fallback-google-id',
+		'nickname' => '---',
+	]));
+
+	$this->get(route('auth.google.callback'));
+
+	$user = User::query()->where('google_id', 'fallback-google-id')->sole();
+
+	expect($user->username)
+		->toBe('user' . substr(hash('sha256', 'fallback-google-id'), 0, 8))
+		->toMatch('/^[a-z0-9]{3,15}$/');
+});
+
 test('passwordless google members cannot use password authentication', function () {
 	$user = User::factory()->create([
 		'google_id' => 'google-123',

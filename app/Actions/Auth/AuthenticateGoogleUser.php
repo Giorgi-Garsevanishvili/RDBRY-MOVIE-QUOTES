@@ -3,90 +3,101 @@
 namespace App\Actions\Auth;
 
 use App\Models\User;
+use App\Support\Auth\GoogleUsernameGenerator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Contracts\User as GoogleUser;
 use UnexpectedValueException;
 
-class AuthenticateGoogleUser
+final readonly class AuthenticateGoogleUser
 {
+	public function __construct(private GoogleUsernameGenerator $usernames)
+	{
+	}
+
 	public function handle(GoogleUser $googleUser): User
 	{
-		$googleId = trim((string) $googleUser->getId());
-		$email = Str::lower(trim((string) $googleUser->getEmail()));
+		$googleId = $this->googleId($googleUser);
+		$email = $this->email($googleUser);
 
-		if ($googleId === '' || !filter_var($email, FILTER_VALIDATE_EMAIL))
+		return DB::transaction(
+			fn (): User => $this->resolveUser($googleUser, $googleId, $email),
+		);
+	}
+
+	private function googleId(GoogleUser $googleUser): string
+	{
+		$googleId = trim((string) $googleUser->getId());
+
+		if ($googleId === '')
 		{
 			throw new UnexpectedValueException('Google did not provide a valid identity.');
 		}
 
-		return DB::transaction(function () use ($googleUser, $googleId, $email): User {
-			$user = User::query()->where('google_id', $googleId)->first();
-
-			if ($user !== null)
-			{
-				if ($user->email_verified_at === null)
-				{
-					$user->forceFill(['email_verified_at' => now()])->save();
-				}
-
-				return $user;
-			}
-
-			$user = User::query()->where('email', $email)->first();
-
-			if ($user !== null)
-			{
-				if ($user->google_id !== null && !hash_equals($user->google_id, $googleId))
-				{
-					throw new UnexpectedValueException('The email belongs to another Google identity.');
-				}
-
-				$user->forceFill([
-					'google_id'         => $googleId,
-					'email_verified_at' => $user->email_verified_at ?? now(),
-				])->save();
-
-				return $user;
-			}
-
-			return User::query()->create([
-				'username'          => $this->uniqueUsername($googleUser, $googleId, $email),
-				'email'             => $email,
-				'google_id'         => $googleId,
-				'email_verified_at' => now(),
-				'password'          => null,
-			]);
-		});
+		return $googleId;
 	}
 
-	private function uniqueUsername(GoogleUser $googleUser, string $googleId, string $email): string
+	private function email(GoogleUser $googleUser): string
 	{
-		$source = $googleUser->getNickname()
-			?? $googleUser->getName()
-			?? Str::before($email, '@');
-		$base = Str::of($source)
-			->ascii()
-			->lower()
-			->replaceMatches('/[^a-z0-9]/', '')
-			->substr(0, 15)
-			->toString();
+		$email = Str::lower(trim((string) $googleUser->getEmail()));
 
-		if (strlen($base) < 3)
+		if (!filter_var($email, FILTER_VALIDATE_EMAIL))
 		{
-			$base = 'user' . substr(hash('sha256', $googleId), 0, 8);
+			throw new UnexpectedValueException('Google did not provide a valid identity.');
 		}
 
-		$candidate = $base;
-		$suffix = 1;
+		return $email;
+	}
 
-		while (User::query()->where('username', $candidate)->exists())
+	private function resolveUser(GoogleUser $googleUser, string $googleId, string $email): User
+	{
+		$user = User::query()->where('google_id', $googleId)->first();
+
+		if ($user !== null)
 		{
-			$suffixValue = (string) $suffix;
-			$candidate = substr($base, 0, 15 - strlen($suffixValue)) . $suffixValue;
-			$suffix++;
+			return $this->verify($user);
 		}
 
-		return $candidate;
+		$user = User::query()->where('email', $email)->first();
+
+		return $user === null
+			? $this->createUser($googleUser, $googleId, $email)
+			: $this->linkUser($user, $googleId);
+	}
+
+	private function verify(User $user): User
+	{
+		if ($user->email_verified_at === null)
+		{
+			$user->forceFill(['email_verified_at' => now()])->save();
+		}
+
+		return $user;
+	}
+
+	private function linkUser(User $user, string $googleId): User
+	{
+		if ($user->google_id !== null && !hash_equals($user->google_id, $googleId))
+		{
+			throw new UnexpectedValueException('The email belongs to another Google identity.');
+		}
+
+		$user->forceFill([
+			'google_id'         => $googleId,
+			'email_verified_at' => $user->email_verified_at ?? now(),
+		])->save();
+
+		return $user;
+	}
+
+	private function createUser(GoogleUser $googleUser, string $googleId, string $email): User
+	{
+		return User::query()->create([
+			'username'          => $this->usernames->fromGoogle($googleUser, $googleId, $email),
+			'email'             => $email,
+			'google_id'         => $googleId,
+			'email_verified_at' => now(),
+			'password'          => null,
+		]);
 	}
 }
