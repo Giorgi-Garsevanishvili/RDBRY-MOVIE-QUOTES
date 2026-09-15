@@ -3,10 +3,10 @@
 Last updated: 2026-09-17
 
 - Phase: Delivery
-- Active slice: PR 19 — CD and deployment
+- Active slice: PR 20 — realistic demo data
 - State: Committed and pushed; production verification remains pending
-- Dependency: PR 19 is stacked on pushed branch `codex/chore/hardening` at `e5ceb57`
-- Blocker: Production deployment and smoke-test evidence require the user-managed server
+- Dependency: PR 20 is stacked on pushed branch `codex/ci/deployment` at `453ba84`
+- Blocker: None
 
 ## Completed
 
@@ -166,11 +166,18 @@ Last updated: 2026-09-17
 - Added the production runbook covering initial setup, GitHub environment configuration, queue processing, Pusher credentials, local Spatie media persistence, smoke testing, and rollback consequences.
 - Passed the complete PR 19 local gate: deployment-script syntax, ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 223 Pest tests with 1,191 assertions.
 - Committed and pushed the verified PR 19 stack on `codex/ci/deployment`.
+- Resolved demo content around recognizable movies and only repository-local media.
+- Replaced the generic single-user seed with eight verified members, ten bilingual genres, twenty recognizable movies, bilingual quotes, forty likes, forty comments, and eighty balanced read/unread notifications.
+- Attached every seeded poster and quote image through the existing named Spatie Media Library collections without moving the source artwork.
+- Made the demo dataset safe to seed repeatedly without duplicate domain or media records and documented the shared development credentials.
+- Added focused Pest coverage for dataset completeness, ownership, media storage, credentials, notification state, and repeat execution.
+- Passed the complete restacked PR 20 gate: deployment-script syntax, ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 226 Pest tests with 1,416 assertions.
+- Committed and pushed the verified PR 20 stack on `codex/chore/realistic-seeder`.
 
 ## Next
 
 1. Configure Pusher application credentials for a live provider check.
-2. Review the pushed, restacked PR 19 workflow and runbook.
+2. Review the pushed, restacked PR 20 realistic demo dataset.
 3. Configure the protected GitHub `production` environment and complete the first user-managed server deployment.
 4. Record the green production deploy and key-journey smoke-test evidence.
 

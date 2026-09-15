@@ -23,7 +23,7 @@ Answer by ID; short answers, rules, examples, and links are welcome.
 14. **Q-012 — resolved:** Unprefixed search checks movie names and quote text across both English and Georgian fields.
 15. **Q-013 — resolved:** Suppress self-like/self-comment notifications. Opening one marks only it read and navigates to its quote. Mark-all stays on the current page; its control is visible only while unread notifications exist and reappears on new real-time activity.
 16. **Q-014 — resolved:** Password-based members confirm their current password for username, email, and password changes. Google-created passwordless members can change username without a password; email is read-only and password controls are hidden.
-17. **Q-015 — seed data:** Must demo seeders reproduce Figma users, movies, quotes, comments, and images with licensed/local assets?
+17. **Q-015 — resolved:** Seed realistic recognizable movies, bilingual content, users, comments, interactions, notifications, and images using only local repository assets.
 
 ## P2 — operations
 

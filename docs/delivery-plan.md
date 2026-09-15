@@ -33,6 +33,7 @@ Status: Provisional roadmap.
 |  17 | Profile                      | Avatar, username, verified email change, password, Google restrictions                                                                | Pest re-auth/validation/media/OAuth cases                                                 |
 |  18 | Hardening                    | A11y, responsive edges, localization, performance, security, states                                                                   | Full suite and no P0/P1 defects                                                           |
 |  19 | CD + deployment              | Production services, deployment, and runbook                                                                                          | Green deploy, smoke test, health/rollback                                                 |
+|  20 | Realistic demo data          | Twenty deterministic bilingual movies with members, quotes, interactions, notifications, and local media                              | Pest completeness/idempotency coverage and fresh seeded migration                         |
 
 ## Slice lifecycle
 

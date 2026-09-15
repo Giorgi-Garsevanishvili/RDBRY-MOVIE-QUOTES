@@ -9,6 +9,7 @@ Movie Quotes is a responsive, bilingual social platform where members maintain a
 - [Technology](#technology)
 - [Documentation](#documentation)
 - [Getting started](#getting-started)
+- [Demo data](#demo-data)
 - [Development](#development)
 - [Deployment](#deployment)
 - [Resources](#resources)
@@ -53,13 +54,28 @@ Composer and npm lockfiles are authoritative for exact transitive versions.
 1. Copy `.env.example` to `.env`.
 2. Install PHP dependencies with `composer install`.
 3. Generate the application key with `php artisan key:generate`.
-4. Create the database with `touch database/database.sqlite`, then run `php artisan migrate`.
+4. Create the database with `touch database/database.sqlite`, then run `php artisan migrate --seed`.
 5. Expose Spatie Media Library's public files with `php artisan storage:link`.
 6. Create a Google OAuth web client, set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`, and register `APP_URL/auth/google/callback` as its authorized redirect URI. Keep `GOOGLE_REDIRECT_URI` aligned with that URI.
 7. Install frontend dependencies with npm 12.0.2 using `npm install`.
 8. Start the application with `composer dev`.
 
 Run `composer ci:check` for the complete local gate: PHP-CS-Fixer, PHPStan, Pest, ESLint, Prettier, TypeScript, Wayfinder generation, and a production build.
+
+## Demo data
+
+The development seeder creates eight verified members, ten bilingual genres, twenty recognizable movies, their bilingual quotes and local images, plus realistic likes, comments, and read/unread notifications. It can be run repeatedly without duplicating records.
+
+Sign in with any seeded email and the password `password`:
+
+- `moviefan@example.com`
+- `mariam@example.com`
+- `davit@example.com`
+- `nino@example.com`
+- `luka@example.com`
+- `ana@example.com`
+- `dato@example.com`
+- `salome@example.com`
 
 ## Development
 
