@@ -4,7 +4,7 @@ import { AUTH_MESSAGES } from '@/locales/auth';
 import { LANDING_MESSAGES } from '@/locales/landing';
 
 const AUTH_PANEL_HEIGHTS: Record<string, string> = {
-    'auth/Register': 'md:min-h-[704px]',
+    'auth/Register': 'md:min-h-[768px]',
     'auth/Login': 'md:min-h-[600px]',
 };
 

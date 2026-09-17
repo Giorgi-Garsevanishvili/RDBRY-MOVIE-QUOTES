@@ -1,10 +1,18 @@
 <?php
 
+use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\ResendVerificationEmailController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\VerificationPendingController;
+use App\Http\Controllers\FeedController;
 use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\MovieController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\QuoteController;
+use App\Http\Controllers\QuoteCommentController;
+use App\Http\Controllers\QuoteLikeController;
+use App\Http\Middleware\RequireVerifiedEmail;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Landing/Landing')->name('home');
@@ -13,6 +21,8 @@ Route::post('locale/{locale}', LocaleController::class)->name('locale.update');
 Route::middleware('guest')->group(function () {
 	Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
 	Route::post('register', [RegisteredUserController::class, 'store'])->name('register.store');
+	Route::get('auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
+	Route::get('auth/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
 	Route::get('email/verify', VerificationPendingController::class)->name('activation.notice');
 	Route::post('account/activation/resend', ResendVerificationEmailController::class)
 		->middleware('throttle:6,1')
@@ -26,8 +36,23 @@ Route::get('account/activate/{user}/{hash}', VerifyEmailController::class)
 	->middleware(['signed', 'throttle:6,1'])
 	->name('activation.verify');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-	Route::inertia('dashboard', 'dashboard')->name('dashboard');
+Route::middleware(['auth', RequireVerifiedEmail::class])->group(function () {
+	Route::get('dashboard', FeedController::class)->name('dashboard');
+	Route::get('movies', [MovieController::class, 'index'])->name('movies.index');
+	Route::get('movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
+	Route::inertia('notifications', 'protected/ProtectedPlaceholder', ['section' => 'notifications'])->name('notifications.index');
+	Route::patch('notifications/read-all', [NotificationController::class, 'readAll'])->name('notifications.read-all');
+	Route::patch('notifications/{notification}', [NotificationController::class, 'read'])->name('notifications.read');
+	Route::post('movies', [MovieController::class, 'store'])->name('movies.store');
+	Route::patch('movies/{movie}', [MovieController::class, 'update'])->name('movies.update');
+	Route::delete('movies/{movie}', [MovieController::class, 'destroy'])->name('movies.destroy');
+	Route::post('quotes', [QuoteController::class, 'store'])->name('quotes.store');
+	Route::get('quotes/{quote}', [QuoteController::class, 'show'])->name('quotes.show');
+	Route::patch('quotes/{quote}', [QuoteController::class, 'update'])->name('quotes.update');
+	Route::delete('quotes/{quote}', [QuoteController::class, 'destroy'])->name('quotes.destroy');
+	Route::post('quotes/{quote}/comments', QuoteCommentController::class)->name('quotes.comments.store');
+	Route::put('quotes/{quote}/like', [QuoteLikeController::class, 'store'])->name('quotes.likes.store');
+	Route::delete('quotes/{quote}/like', [QuoteLikeController::class, 'destroy'])->name('quotes.likes.destroy');
 });
 
 require __DIR__ . '/settings.php';

@@ -2,10 +2,11 @@ import { useForm } from '@inertiajs/react';
 import type { ChangeEvent, FormEvent } from 'react';
 import { useLocale } from '@/hooks/useLocale';
 import { AUTH_MESSAGES } from '@/locales/auth';
+import { redirect as googleRedirect } from '@/routes/auth/google';
 import { store } from '@/routes/login';
 import type { LoginFormData, LoginProps } from './loginTypes';
 
-export function useLogin({ status, canResetPassword }: LoginProps) {
+export function useLogin({ status, googleError, canResetPassword }: LoginProps) {
     const { locale } = useLocale();
     const { data, setData, post, processing, errors, reset } = useForm<LoginFormData>({
         login: '',
@@ -33,6 +34,8 @@ export function useLogin({ status, canResetPassword }: LoginProps) {
     return {
         messages: AUTH_MESSAGES[locale],
         status,
+        googleError,
+        googleAuthUrl: googleRedirect().url,
         canResetPassword,
         data,
         processing,

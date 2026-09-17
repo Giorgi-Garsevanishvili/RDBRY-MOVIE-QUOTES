@@ -74,7 +74,9 @@ Unauthenticated access to a protected route renders the designed 403 page. An un
 - The owner can edit all movie information and delete the movie.
 - The owner can start quote creation from the movie details page and navigate from the list to a quote.
 
-The create/edit design contains English and Georgian name, director, and description fields, genres, release year, and poster upload. Exact validation beyond visible language intent remains to be confirmed.
+The create/edit design contains required English and Georgian name, director, and description fields. Names and directors accept at most 255 characters, descriptions at most 2,000, and each localized value must use its respective English or Georgian script. Release year is required from 1888 through the current year, and at least one existing genre is required. A JPEG, PNG, or WebP poster up to 10 MB is required on create and optional on update.
+
+Movies are hard-deleted. Deletion cascades genre links, quotes, quote comments and likes, movie/quote media, and related notifications.
 
 ## 8. Quotes
 
@@ -83,7 +85,7 @@ The create/edit design contains English and Georgian name, director, and descrip
 - Open a modal from “write new quote”.
 - Georgian quote: required and Georgian-script content only.
 - English quote: required and English-script content only.
-- Provide image upload with drag-and-drop.
+- Provide a required JPEG, PNG, or WebP image up to 10 MB through file selection or drag-and-drop. Replacing the image on edit is optional; no dimension restriction applies.
 - Select a movie only from the authenticated member's movies.
 
 ### Create from movie
@@ -101,8 +103,9 @@ Use the same fields, but preselect the current movie and prevent changing it.
 - Show a header notification control and unread count.
 - Deliver notifications in real time when another member likes or comments on the recipient's quote.
 - Show actor, action, target, relative time, read/unread state, and “mark all as read”.
-
-Self-notification and exact mark-one-read behavior remain to be confirmed.
+- Do not create notifications for a member's own likes or comments.
+- Opening one notification marks only it read and navigates to its quote.
+- “Mark all as read” marks every unread item for the signed-in member without leaving the current page. Hide the control at zero unread items and show it again when new real-time activity arrives.
 
 ## 10. Cross-cutting acceptance
 

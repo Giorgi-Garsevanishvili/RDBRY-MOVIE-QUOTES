@@ -11,12 +11,14 @@ import {
     AUTH_INPUT_CLASSES,
     AUTH_PRIMARY_BUTTON_CLASSES,
     AUTH_TEXT_LINK_CLASSES,
+    GoogleAuthButton,
 } from './components';
 import { useRegister } from './useRegister';
 
 export default function Register() {
     const {
         messages,
+        googleAuthUrl,
         data,
         processing,
         errors,
@@ -137,6 +139,8 @@ export default function Register() {
                             {processing && <Spinner />}
                             {messages.getStarted}
                         </Button>
+
+                        <GoogleAuthButton href={googleAuthUrl} label={messages.signUpWithGoogle} />
                     </div>
 
                     <div className="text-center text-base text-[#a5a5ad]">

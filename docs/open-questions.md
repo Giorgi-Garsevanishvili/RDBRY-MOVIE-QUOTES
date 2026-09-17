@@ -11,17 +11,17 @@ Answer by ID; short answers, rules, examples, and links are welcome.
 5. **Q-005 — resolved:** Use the best-fit Laravel adaptation: resources/js, camelCase variables, and pragmatic barrels.
 6. **Q-016 — resolved:** Pest is the accepted automated test runner. No separate frontend or browser runner is included without an explicit requirement.
 7. **Q-017 — resolved:** Review Chromium, Firefox, mobile WebKit, WCAG 2.2 AA, and the 320px minimum manually until a frontend runner is explicitly accepted.
+8. **Q-007 — resolved:** Silently link a matching password account, keep its password, and make only Google-created accounts passwordless.
 
 ## P1 — domain rules needed before their slices
 
-8. **Q-006 — activation access:** May an unverified email/password account log in, or is feed access blocked until activation?
-9. **Q-007 — Google email collision:** If Google returns an email already registered with a password, auto-link, require confirmation while logged in, or reject?
-10. **Q-008 — movie validation:** What are the exact required, minimum, maximum, script, year, genre, poster type, and size rules for movie create/edit?
-11. **Q-009 — quote image:** Is an image mandatory? What file types, dimensions, and maximum size apply?
-12. **Q-010 — deletion:** Hard or soft delete? When a movie is deleted, cascade-delete its quotes, comments, likes, media, and notifications, or block deletion until quotes are removed?
-13. **Q-011 — comments:** Can authors edit/delete comments? Can quote owners remove other users' comments?
-14. **Q-012 — plain search:** Should an unprefixed query search both movie names and quote text, and in the active locale only or both locales?
-15. **Q-013 — notifications:** Suppress self-like/self-comment notifications? Does opening a notification mark only it read and navigate to the quote?
+9. **Q-006 — resolved:** Email/password accounts cannot log in or enter the feed until their email is verified; Google accounts are verified on callback.
+10. **Q-008 — resolved:** All bilingual movie fields are required. Names/directors are at most 255 characters; descriptions are at most 2,000; English/Georgian inputs use their respective scripts; year is 1888 through the current year; at least one existing genre is required; and a JPEG/PNG/WebP poster up to 10 MB is required on create and optional on update.
+11. **Q-009 — resolved:** A quote image is required on create and optional on update. Accept JPEG, PNG, or WebP up to 10 MB, with no dimension restriction.
+12. **Q-010 — resolved:** Hard-delete movies and cascade their genre links, quotes, comments, likes, media, and related notifications.
+13. **Q-011 — resolved:** Comments are create-only. Comment authors cannot edit/delete them, and quote owners cannot remove other members' comments.
+14. **Q-012 — resolved:** Unprefixed search checks movie names and quote text across both English and Georgian fields.
+15. **Q-013 — resolved:** Suppress self-like/self-comment notifications. Opening one marks only it read and navigates to its quote. Mark-all stays on the current page; its control is visible only while unread notifications exist and reappears on new real-time activity.
 16. **Q-014 — profile security:** Require current-password confirmation for username, email, and password changes? Can Google users change username?
 17. **Q-015 — seed data:** Must demo seeders reproduce Figma users, movies, quotes, comments, and images with licensed/local assets?
 

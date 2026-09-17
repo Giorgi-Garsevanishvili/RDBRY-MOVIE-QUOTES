@@ -15,6 +15,7 @@ test('landing page renders in the default locale', function () {
 test('a guest can change and persist the interface locale', function () {
 	$this->post(route('locale.update', ['locale' => 'ka']))
 		->assertRedirect()
+		->assertPlainCookie('locale', 'ka')
 		->assertSessionHas('locale', 'ka');
 
 	$this->get(route('home'))

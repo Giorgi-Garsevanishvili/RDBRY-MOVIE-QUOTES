@@ -16,5 +16,9 @@ test('password confirmation screen can be rendered', function () {
 
 test('password confirmation requires authentication', function () {
 	$this->get(route('password.confirm'))
-		->assertRedirect(route('login'));
+		->assertForbidden()
+		->assertInertia(fn (Assert $page) => $page
+			->component('errors/ErrorPage')
+			->where('locale', 'en')
+			->where('status', 403));
 });

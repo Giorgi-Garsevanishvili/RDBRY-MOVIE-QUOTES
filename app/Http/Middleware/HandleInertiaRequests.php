@@ -2,11 +2,17 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
+use App\Queries\Notifications\NotificationIndexQuery;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
 {
+	public function __construct(private readonly NotificationIndexQuery $notificationIndexQuery)
+	{
+	}
+
 	/**
 	 * The root template that's loaded on the first page visit.
 	 *
@@ -35,13 +41,18 @@ class HandleInertiaRequests extends Middleware
 	 */
 	public function share(Request $request): array
 	{
+		$user = $request->user();
+
 		return [
 			...parent::share($request),
 			'name'   => config('app.name'),
 			'locale' => app()->getLocale(),
 			'auth'   => [
-				'user' => $request->user(),
+				'user' => $user,
 			],
+			'notificationFeed' => fn (): ?array => $user instanceof User && $user->hasVerifiedEmail()
+				? $this->notificationIndexQuery->pageProps($user)
+				: null,
 			'sidebarOpen' => !$request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
 		];
 	}

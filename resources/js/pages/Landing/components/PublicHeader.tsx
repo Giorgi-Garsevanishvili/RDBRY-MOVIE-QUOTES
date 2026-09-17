@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react';
+import { LocaleMenu } from '@/components/LocaleMenu';
 import { home, login, register } from '@/routes';
-import LocaleMenu from './LocaleMenu';
 import type { PublicHeaderProps } from './publicHeaderTypes';
 
 const OUTLINE_BUTTON_CLASSES =

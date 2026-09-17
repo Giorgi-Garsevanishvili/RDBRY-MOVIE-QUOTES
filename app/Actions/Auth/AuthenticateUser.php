@@ -15,7 +15,7 @@ class AuthenticateUser
 			->whereNotNull('email_verified_at')
 			->first();
 
-		if (!$user || !Hash::check($password, $user->password))
+		if (!$user || $user->password === null || !Hash::check($password, $user->password))
 		{
 			return null;
 		}
