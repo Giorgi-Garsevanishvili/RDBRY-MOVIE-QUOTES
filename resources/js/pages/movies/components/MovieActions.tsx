@@ -15,14 +15,14 @@ export default function MovieActions({
         <div
             role="group"
             aria-label={actionsLabel}
-            className={`h-10 w-36 items-center justify-center rounded-[10px] bg-[#24222f] ${className ?? ''}`}
+            className={`h-10 w-36 items-center justify-center rounded-lg bg-[#24222f] ${className ?? ''}`}
         >
             <button
                 type="button"
                 onClick={onEdit}
                 aria-label={editLabel}
                 title={editLabel}
-                className="inline-flex h-10 w-[71px] items-center justify-center rounded-l-[10px] focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+                className="inline-flex h-10 w-17.75 items-center justify-center rounded-l-lg focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
             >
                 <PencilIcon className="size-5" />
             </button>
@@ -33,9 +33,9 @@ export default function MovieActions({
                 disabled={deleting}
                 aria-label={deleteLabel}
                 title={deleteLabel}
-                className="inline-flex h-10 w-[71px] items-center justify-center rounded-r-[10px] focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none disabled:opacity-50"
+                className="inline-flex h-10 w-17.75 items-center justify-center rounded-r-lg focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none disabled:opacity-50"
             >
-                <TrashIcon className="h-5 w-[18px]" />
+                <TrashIcon className="h-5 w-4.5" />
             </button>
         </div>
     );

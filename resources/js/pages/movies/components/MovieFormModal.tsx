@@ -42,9 +42,9 @@ export default function MovieFormModal(props: MovieFormModalProps) {
         <DialogPrimitive.Root open={props.open} onOpenChange={handleOpenChange}>
             <DialogPrimitive.Portal>
                 <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-[#11101a]/70" />
-                <DialogPrimitive.Content className="fixed top-0 left-1/2 z-50 max-h-svh w-full -translate-x-1/2 overflow-y-auto bg-[#11101a] text-white outline-none lg:top-[115px] lg:max-h-[calc(100svh-130px)] lg:w-[961px] lg:rounded-xl">
-                    <header className="relative flex h-[93px] items-center justify-center border-b border-[#efefef]/20">
-                        <DialogPrimitive.Title className="text-xl leading-[30px] font-medium lg:text-2xl lg:leading-9">
+                <DialogPrimitive.Content className="fixed top-0 left-1/2 z-50 max-h-svh w-full -translate-x-1/2 overflow-y-auto bg-[#11101a] text-white outline-none lg:top-28.75 lg:max-h-[calc(100svh-8.125rem)] lg:w-240.25 lg:rounded-xl">
+                    <header className="relative flex h-23.25 items-center justify-center border-b border-[#efefef]/20">
+                        <DialogPrimitive.Title className="text-xl leading-7.5 font-medium lg:text-2xl lg:leading-9">
                             {title}
                         </DialogPrimitive.Title>
                         <DialogPrimitive.Close
@@ -55,15 +55,15 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                         </DialogPrimitive.Close>
                     </header>
 
-                    <form onSubmit={handleSubmit} className="px-8 pt-[29px] pb-11 lg:pb-[47px]">
+                    <form onSubmit={handleSubmit} className="px-8 pt-7.25 pb-11 lg:pb-11.75">
                         <div className="mb-7 flex items-center gap-4 lg:mb-7">
-                            <Avatar className="size-10 lg:size-[60px]">
+                            <Avatar className="size-10 lg:size-15">
                                 <AvatarImage src={user.avatar ?? undefined} alt="" />
                                 <AvatarFallback className="bg-[#6c6f8e] text-sm text-white">
                                     {initials}
                                 </AvatarFallback>
                             </Avatar>
-                            <strong className="self-center text-xl leading-[30px] font-medium">
+                            <strong className="self-center text-xl leading-7.5 font-medium">
                                 {user.username}
                             </strong>
                         </div>
@@ -87,7 +87,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                         aria-describedby={
                                             errors.name_en ? 'name_en-error' : undefined
                                         }
-                                        className="h-12 w-full rounded-[4px] border border-[#6c757d] bg-transparent px-4 pr-16 text-base outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
+                                        className="h-12 w-full rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 pr-16 text-base outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
                                     />
                                     <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-base lg:text-xl">
                                         {messages.english}
@@ -112,7 +112,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                         aria-describedby={
                                             errors.name_ka ? 'name_ka-error' : undefined
                                         }
-                                        className="h-12 w-full rounded-[4px] border border-[#6c757d] bg-transparent px-4 pr-16 text-base outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
+                                        className="h-12 w-full rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 pr-16 text-base outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
                                     />
                                     <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-base lg:text-xl">
                                         {messages.georgian}
@@ -125,14 +125,14 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                     <summary
                                         aria-invalid={Boolean(genreError)}
                                         aria-describedby={genreError ? 'genres-error' : undefined}
-                                        className="flex h-12 cursor-pointer list-none items-center rounded-[4px] border border-[#6c757d] px-4 text-base outline-none focus-visible:border-white aria-invalid:border-brand-red lg:text-xl"
+                                        className="flex h-12 cursor-pointer list-none items-center rounded-[0.25rem] border border-[#6c757d] px-4 text-base outline-none focus-visible:border-white aria-invalid:border-brand-red lg:text-xl"
                                     >
                                         <span className="truncate">{selectedGenres}</span>
                                         <span aria-hidden="true" className="ml-auto text-[#6c757d]">
                                             ⌄
                                         </span>
                                     </summary>
-                                    <div className="absolute inset-x-0 top-[52px] z-10 grid max-h-48 gap-2 overflow-y-auto rounded bg-[#24222f] p-3 shadow-xl">
+                                    <div className="absolute inset-x-0 top-13 z-10 grid max-h-48 gap-2 overflow-y-auto rounded bg-[#24222f] p-3 shadow-xl">
                                         {genreOptions.map((genre) => (
                                             <label
                                                 key={genre.id}
@@ -171,7 +171,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                     aria-describedby={
                                         errors.release_year ? 'release_year-error' : undefined
                                     }
-                                    className="h-12 w-full rounded-[4px] border border-[#6c757d] bg-transparent px-4 text-base outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
+                                    className="h-12 w-full rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 text-base outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
                                 />
                             </MovieFormField>
 
@@ -192,7 +192,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                         aria-describedby={
                                             errors.director_en ? 'director_en-error' : undefined
                                         }
-                                        className="h-12 w-full rounded-[4px] border border-[#6c757d] bg-transparent px-4 pr-16 text-base outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
+                                        className="h-12 w-full rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 pr-16 text-base outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
                                     />
                                     <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-base lg:text-xl">
                                         {messages.english}
@@ -217,7 +217,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                         aria-describedby={
                                             errors.director_ka ? 'director_ka-error' : undefined
                                         }
-                                        className="h-12 w-full rounded-[4px] border border-[#6c757d] bg-transparent px-4 pr-16 text-base outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
+                                        className="h-12 w-full rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 pr-16 text-base outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
                                     />
                                     <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-base lg:text-xl">
                                         {messages.georgian}
@@ -244,7 +244,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                                 ? 'description_en-error'
                                                 : undefined
                                         }
-                                        className="h-[86px] w-full resize-none rounded-[4px] border border-[#6c757d] bg-transparent px-4 py-2 pr-16 text-base outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
+                                        className="h-21.5 w-full resize-none rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 py-2 pr-16 text-base outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
                                     />
                                     <span className="pointer-events-none absolute top-2 right-4 text-base lg:text-xl">
                                         {messages.english}
@@ -271,7 +271,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                                 ? 'description_ka-error'
                                                 : undefined
                                         }
-                                        className="h-[86px] w-full resize-none rounded-[4px] border border-[#6c757d] bg-transparent px-4 py-2 pr-16 text-base outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
+                                        className="h-21.5 w-full resize-none rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 py-2 pr-16 text-base outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
                                     />
                                     <span className="pointer-events-none absolute top-2 right-4 text-base lg:text-xl">
                                         {messages.georgian}
@@ -284,7 +284,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                     htmlFor="poster"
                                     onDragOver={handlePosterDragOver}
                                     onDrop={handlePosterDrop}
-                                    className="flex min-h-[82px] cursor-pointer items-center gap-3 rounded-[4px] border border-[#6c757d] px-4 py-4 outline-none focus-within:border-white aria-invalid:border-brand-red lg:min-h-[84px]"
+                                    className="flex min-h-20.5 cursor-pointer items-center gap-3 rounded-[0.25rem] border border-[#6c757d] px-4 py-4 outline-none focus-within:border-white aria-invalid:border-brand-red lg:min-h-21"
                                 >
                                     {currentPosterUrl === null ? (
                                         <>
@@ -308,7 +308,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                             <img
                                                 src={currentPosterUrl}
                                                 alt=""
-                                                className="h-[110px] w-[177px] shrink-0 rounded object-cover lg:h-[147px] lg:w-[433px]"
+                                                className="h-27.5 w-44.25 shrink-0 rounded object-cover lg:h-36.75 lg:w-108.25"
                                             />
                                             <span className="grid min-w-0 gap-2 text-base lg:text-xl">
                                                 <span className="truncate">{posterPrompt}</span>
@@ -342,7 +342,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                             <button
                                 type="submit"
                                 disabled={processing}
-                                className="mt-6 inline-flex h-12 w-full items-center justify-center rounded-[4px] bg-brand-red px-4 text-xl leading-[30px] font-normal transition-opacity hover:opacity-90 disabled:opacity-60 lg:mt-4"
+                                className="mt-6 inline-flex h-12 w-full items-center justify-center rounded-[0.25rem] bg-brand-red px-4 text-xl leading-7.5 font-normal transition-opacity hover:opacity-90 disabled:opacity-60 lg:mt-4"
                             >
                                 {submitLabel}
                             </button>

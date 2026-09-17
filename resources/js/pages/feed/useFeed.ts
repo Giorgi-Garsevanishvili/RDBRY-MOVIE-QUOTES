@@ -8,7 +8,7 @@ import { dashboard } from '@/routes';
 import type { FeedProps, FeedQuoteCardView } from './feedTypes';
 
 const MOBILE_FEED_QUERY =
-    typeof window === 'undefined' ? undefined : window.matchMedia('(max-width: 1023px)');
+    typeof window === 'undefined' ? undefined : window.matchMedia('(max-width: 63.9375rem)');
 
 function subscribeToFeedViewport(callback: (event: MediaQueryListEvent) => void) {
     MOBILE_FEED_QUERY?.addEventListener('change', callback);

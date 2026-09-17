@@ -28,7 +28,7 @@ export default function NotificationMenu(props: NotificationMenuProps) {
                 >
                     <NotificationIcon className="size-6 lg:size-8" />
                     {hasUnread && (
-                        <span className="absolute top-0 right-0 inline-flex min-h-5 min-w-5 items-center justify-center rounded-full bg-brand-red px-1 text-[11px] leading-none font-medium text-white lg:-top-1 lg:-right-1">
+                        <span className="absolute top-0 right-0 inline-flex min-h-5 min-w-5 items-center justify-center rounded-full bg-brand-red px-1 text-[0.6875rem] leading-none font-medium text-white lg:-top-1 lg:-right-1">
                             {badgeText}
                         </span>
                     )}
@@ -36,18 +36,18 @@ export default function NotificationMenu(props: NotificationMenuProps) {
             </DialogPrimitive.Trigger>
 
             <DialogPrimitive.Portal>
-                <DialogPrimitive.Overlay className="fixed inset-x-0 top-[86px] bottom-0 z-40 bg-[#11101a]/70 lg:inset-0 lg:bg-transparent" />
+                <DialogPrimitive.Overlay className="fixed inset-x-0 top-21.5 bottom-0 z-40 bg-[#11101a]/70 lg:inset-0 lg:bg-transparent" />
                 <DialogPrimitive.Content
                     id="notification-menu"
-                    className="fixed inset-x-0 top-[62px] z-50 m-0 w-full max-w-none bg-transparent p-0 text-white outline-none lg:inset-x-auto lg:right-16 lg:w-[min(961px,calc(100vw-128px))]"
+                    className="fixed inset-x-0 top-15.5 z-50 m-0 w-full max-w-none bg-transparent p-0 text-white outline-none lg:inset-x-auto lg:right-16 lg:w-[min(60.0625rem,calc(100vw-8rem))]"
                 >
                     <span
                         aria-hidden="true"
-                        className="absolute top-3 right-6 size-8 rotate-45 bg-black lg:right-[226px]"
+                        className="absolute top-3 right-6 size-8 rotate-45 bg-black lg:right-56.5"
                     />
-                    <div className="mt-6 max-h-[calc(100svh-86px)] overflow-y-auto rounded-t-xl bg-black px-[35px] pb-8 lg:max-h-[812px] lg:rounded-xl lg:px-8 lg:pb-9">
-                        <header className="flex min-h-[76px] items-center justify-between gap-4 lg:min-h-[111px]">
-                            <DialogPrimitive.Title className="text-xl font-medium lg:text-[32px] lg:leading-[48px]">
+                    <div className="mt-6 max-h-[calc(100svh-5.375rem)] overflow-y-auto rounded-t-xl bg-black px-8.75 pb-8 lg:max-h-203 lg:rounded-xl lg:px-8 lg:pb-9">
+                        <header className="flex min-h-19 items-center justify-between gap-4 lg:min-h-27.75">
+                            <DialogPrimitive.Title className="text-xl font-medium lg:text-[2rem] lg:leading-12">
                                 {messages.title}
                             </DialogPrimitive.Title>
                             {hasUnread && (
@@ -73,10 +73,10 @@ export default function NotificationMenu(props: NotificationMenuProps) {
                                         type="button"
                                         data-notification-id={item.id}
                                         onClick={onNotificationOpen}
-                                        className="relative flex min-h-[121px] w-full gap-3 rounded border border-[#6c757d] px-4 py-4 text-left focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none lg:min-h-[117px] lg:gap-6 lg:px-6 lg:py-[18px]"
+                                        className="relative flex min-h-30.25 w-full gap-3 rounded border border-[#6c757d] px-4 py-4 text-left focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none lg:min-h-29.25 lg:gap-6 lg:px-6 lg:py-4.5"
                                     >
                                         <Avatar
-                                            className={`size-[60px] shrink-0 lg:size-20 ${item.avatarClassName}`}
+                                            className={`size-15 shrink-0 lg:size-20 ${item.avatarClassName}`}
                                         >
                                             <AvatarImage
                                                 src={item.actorAvatarUrl ?? undefined}
@@ -87,14 +87,14 @@ export default function NotificationMenu(props: NotificationMenuProps) {
                                             </AvatarFallback>
                                         </Avatar>
                                         <span className="min-w-0 flex-1">
-                                            <strong className="block truncate text-xl leading-[30px] font-normal">
+                                            <strong className="block truncate text-xl leading-7.5 font-normal">
                                                 {item.actorName}
                                             </strong>
                                             <span className="mt-1 flex items-center gap-3 text-base text-[#ced4da] lg:text-xl">
                                                 {item.type === 'quote_commented' ? (
                                                     <QuoteCommentIcon className="size-6 shrink-0" />
                                                 ) : (
-                                                    <QuoteHeartIcon className="h-6 w-[26px] shrink-0" />
+                                                    <QuoteHeartIcon className="h-6 w-6.5 shrink-0" />
                                                 )}
                                                 <span className="truncate">{item.action}</span>
                                             </span>
@@ -103,7 +103,7 @@ export default function NotificationMenu(props: NotificationMenuProps) {
                                                     {item.relativeTime}
                                                 </span>
                                                 {item.isUnread && (
-                                                    <span className="text-[#198754] lg:absolute lg:top-[50px] lg:right-0">
+                                                    <span className="text-[#198754] lg:absolute lg:top-12.5 lg:right-0">
                                                         {messages.new}
                                                     </span>
                                                 )}

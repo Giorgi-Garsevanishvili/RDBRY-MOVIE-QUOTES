@@ -38,8 +38,8 @@ export default function Profile() {
         <>
             <Head title={messages.pageTitle} />
 
-            <section className="relative min-h-[calc(100svh-86px)] pt-16 pb-10 lg:pt-8 lg:pr-8">
-                <h1 className="ml-[120px] hidden text-2xl leading-9 font-medium lg:block">
+            <section className="relative min-h-[calc(100svh-5.375rem)] pt-16 pb-10 lg:pt-8 lg:pr-8">
+                <h1 className="ml-30 hidden text-2xl leading-9 font-medium lg:block">
                     {messages.myProfile}
                 </h1>
 
@@ -51,8 +51,8 @@ export default function Profile() {
                     <ProfileBackIcon className="size-8" />
                 </Link>
 
-                <div className="relative min-h-[765px] w-full rounded-t-xl bg-[#24222f] pt-6 pb-8 lg:mt-[54px] lg:mr-8 lg:ml-[60px] lg:min-h-0 lg:max-w-[998px] lg:rounded-none lg:bg-transparent lg:pt-[73px] lg:pb-0">
-                    <div className="lg:min-h-[703px] lg:rounded-xl lg:bg-[#11101a] lg:pt-[194px] lg:pb-[68px]">
+                <div className="relative min-h-191.25 w-full rounded-t-xl bg-[#24222f] pt-6 pb-8 lg:mt-13.5 lg:mr-8 lg:ml-15 lg:min-h-0 lg:max-w-249.5 lg:rounded-none lg:bg-transparent lg:pt-18.25 lg:pb-0">
+                    <div className="lg:min-h-175.75 lg:rounded-xl lg:bg-[#11101a] lg:pt-48.5 lg:pb-17">
                         <div className="lg:absolute lg:top-0 lg:left-1/2 lg:-translate-x-1/2">
                             <ProfileAvatar
                                 avatarUrl={user.avatar}
@@ -67,8 +67,8 @@ export default function Profile() {
                             />
                         </div>
 
-                        <div className="mx-auto mt-[60px] w-full max-w-[677px] px-8 lg:mt-0 lg:px-8">
-                            <div className="grid gap-[31px] lg:gap-10">
+                        <div className="mx-auto mt-15 w-full max-w-169.25 px-8 lg:mt-0 lg:px-8">
+                            <div className="grid gap-7.75 lg:gap-10">
                                 <ProfileField
                                     label={messages.username}
                                     value={user.username}

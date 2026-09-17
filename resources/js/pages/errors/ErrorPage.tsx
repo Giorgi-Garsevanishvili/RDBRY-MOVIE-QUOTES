@@ -15,13 +15,13 @@ export default function ErrorPage({ status }: ErrorPageProps) {
                     aria-labelledby="error-title"
                     className="flex w-full flex-col items-center gap-8 text-center"
                 >
-                    <div className="relative flex h-[261px] w-full max-w-96 items-start justify-center">
+                    <div className="relative flex h-65.25 w-full max-w-96 items-start justify-center">
                         {isForbidden && (
                             <img
                                 src={union}
                                 alt=""
                                 aria-hidden="true"
-                                className="absolute top-[70px] h-[147px] w-[235px]"
+                                className="absolute top-17.5 h-36.75 w-58.75"
                             />
                         )}
                         <img

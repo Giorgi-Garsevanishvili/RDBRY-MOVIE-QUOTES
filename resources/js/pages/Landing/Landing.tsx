@@ -24,8 +24,8 @@ export default function Landing() {
             />
 
             <main>
-                <section className="flex h-[485px] items-center justify-center bg-[linear-gradient(180deg,#11101a_0%,#15141f_100%)] px-8 pt-14 text-center md:h-[808px] md:px-16 md:pt-10">
-                    <div className="flex max-w-[780px] flex-col items-center">
+                <section className="flex h-121.25 items-center justify-center bg-[linear-gradient(180deg,#11101a_0%,#15141f_100%)] px-8 pt-14 text-center md:h-202 md:px-16 md:pt-10">
+                    <div className="flex max-w-195 flex-col items-center">
                         <h1 className="font-display text-2xl leading-[1.5] font-bold text-brand-gold md:text-6xl md:leading-[1.25]">
                             {messages.heroTitle}
                         </h1>

@@ -23,7 +23,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
                     {movie.name} ({movie.releaseYear})
                 </h2>
 
-                <div className="flex items-center gap-3 text-xl leading-[30px] font-medium">
+                <div className="flex items-center gap-3 text-xl leading-7.5 font-medium">
                     <span>{movie.quoteCount}</span>
                     <ChatQuoteIcon className="size-8 shrink-0" />
                 </div>

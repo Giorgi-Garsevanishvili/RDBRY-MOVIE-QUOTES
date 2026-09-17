@@ -14,10 +14,10 @@ export default function AppHeader({
     onLocaleChange,
 }: AppHeaderProps) {
     return (
-        <header className="fixed inset-x-0 top-0 z-40 h-[86px] border-b border-white/5 bg-[#222030] text-white">
+        <header className="fixed inset-x-0 top-0 z-40 h-21.5 border-b border-white/5 bg-[#222030] text-white">
             <nav
                 aria-label={messages.primaryNavigation}
-                className="flex h-full items-center justify-between px-9 lg:px-[70px]"
+                className="flex h-full items-center justify-between px-9 lg:px-17.5"
             >
                 <DialogPrimitive.Trigger asChild>
                     <button
@@ -50,7 +50,7 @@ export default function AppHeader({
                         <Link
                             href={logoutUrl}
                             as="button"
-                            className="inline-flex h-[38px] items-center justify-center rounded border border-white px-6 text-base transition-colors hover:bg-white hover:text-brand-night focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+                            className="inline-flex h-9.5 items-center justify-center rounded border border-white px-6 text-base transition-colors hover:bg-white hover:text-brand-night focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
                         >
                             {messages.logOut}
                         </Link>

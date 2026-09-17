@@ -22,7 +22,7 @@ export default function FeedMobileSearch({
                         {messages.search}
                     </DialogPrimitive.Title>
                     <form onSubmit={onSearchSubmit}>
-                        <div className="flex h-[63px] items-center border-b border-[#efefef]/20 px-12">
+                        <div className="flex h-15.75 items-center border-b border-[#efefef]/20 px-12">
                             <DialogPrimitive.Close asChild>
                                 <button
                                     type="button"
@@ -46,7 +46,7 @@ export default function FeedMobileSearch({
                             </label>
                         </div>
 
-                        <div className="space-y-[22px] pt-[21px] pl-[74px] text-base text-[#ced4da]">
+                        <div className="space-y-5.5 pt-5.25 pl-18.5 text-base text-[#ced4da]">
                             <p>{messages.searchMoviesHint}</p>
                             <p>{messages.searchQuotesHint}</p>
                         </div>
