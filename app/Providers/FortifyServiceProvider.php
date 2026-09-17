@@ -2,20 +2,30 @@
 
 namespace App\Providers;
 
-/* @chisel-registration */
-
-use App\Actions\Fortify\CreateNewUser;
-/* @end-chisel-registration */
+use App\Actions\Auth\AuthenticateUser;
 use App\Actions\Fortify\ResetUserPassword;
+use App\Http\Requests\Auth\LoginRequest as MovieQuotesLoginRequest;
+use App\Http\Requests\Auth\SendPasswordResetLinkRequest as MovieQuotesPasswordResetLinkRequest;
+use App\Http\Responses\PasswordResetLinkSentResponse;
+use App\Http\Responses\PasswordResetResponse;
+use App\Models\User;
+use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\Password as PasswordBroker;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
 use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
+use Laravel\Fortify\Http\Requests\SendPasswordResetLinkRequest as FortifyPasswordResetLinkRequest;
+use Laravel\Fortify\Contracts\PasswordResetResponse as PasswordResetResponseContract;
+use Laravel\Fortify\Contracts\SuccessfulPasswordResetLinkRequestResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -24,6 +34,10 @@ class FortifyServiceProvider extends ServiceProvider
 	 */
 	public function register(): void
 	{
+		$this->app->bind(FortifyLoginRequest::class, MovieQuotesLoginRequest::class);
+		$this->app->bind(FortifyPasswordResetLinkRequest::class, MovieQuotesPasswordResetLinkRequest::class);
+		$this->app->bind(SuccessfulPasswordResetLinkRequestResponse::class, PasswordResetLinkSentResponse::class);
+		$this->app->bind(PasswordResetResponseContract::class, PasswordResetResponse::class);
 	}
 
 	/**
@@ -32,8 +46,71 @@ class FortifyServiceProvider extends ServiceProvider
 	public function boot(): void
 	{
 		$this->configureActions();
+		$this->configureNotifications();
 		$this->configureViews();
 		$this->configureRateLimiting();
+	}
+
+	private function configureNotifications(): void
+	{
+		VerifyEmail::createUrlUsing(fn (User $notifiable): string => URL::temporarySignedRoute(
+			'activation.verify',
+			now()->addMinutes((int) config('auth.verification.expire')),
+			[
+				'user' => $notifiable->getKey(),
+				'hash' => sha1($notifiable->getEmailForVerification()),
+			],
+		));
+
+		VerifyEmail::toMailUsing(fn (User $notifiable, string $url): MailMessage => $this->authMail(
+			__('mail.verification.subject'),
+			__('mail.greeting', ['username' => $notifiable->username]),
+			__('mail.verification.intro'),
+			__('mail.verification.action'),
+			$url,
+		));
+
+		ResetPasswordNotification::toMailUsing(function (User $notifiable, string $token): MailMessage {
+			$url = route('password.reset', [
+				'token' => $token,
+				'email' => $notifiable->getEmailForPasswordReset(),
+			]);
+
+			return $this->authMail(
+				__('mail.reset.subject'),
+				__('mail.greeting', ['username' => $notifiable->username]),
+				__('mail.reset.intro', [
+					'count' => config('auth.passwords.users.expire'),
+				]),
+				__('mail.reset.action'),
+				$url,
+			);
+		});
+	}
+
+	private function authMail(
+		string $subject,
+		string $greeting,
+		string $intro,
+		string $actionText,
+		string $actionUrl,
+	): MailMessage {
+		$data = [
+			'subject'    => $subject,
+			'brand'      => __('mail.brand'),
+			'greeting'   => $greeting,
+			'intro'      => $intro,
+			'actionText' => $actionText,
+			'actionUrl'  => $actionUrl,
+			'fallback'   => __('mail.fallback'),
+			'support'    => __('mail.support', ['email' => 'support@moviequotes.ge']),
+			'closing'    => __('mail.closing'),
+		];
+
+		return (new MailMessage)
+			->subject($subject)
+			->view('mail.auth.action', $data)
+			->text('mail.auth.action-text', $data);
 	}
 
 	/**
@@ -42,9 +119,12 @@ class FortifyServiceProvider extends ServiceProvider
 	private function configureActions(): void
 	{
 		Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
-		/* @chisel-registration */
-		Fortify::createUsersUsing(CreateNewUser::class);
-		/* @end-chisel-registration */
+		Fortify::authenticateUsing(
+			fn (Request $request) => app(AuthenticateUser::class)->handle(
+				$request->string(Fortify::username())->toString(),
+				$request->string('password')->toString(),
+			),
+		);
 	}
 
 	/**
@@ -52,40 +132,31 @@ class FortifyServiceProvider extends ServiceProvider
 	 */
 	private function configureViews(): void
 	{
-		Fortify::loginView(fn (Request $request) => Inertia::render('auth/login', [
+		Fortify::loginView(fn (Request $request) => Inertia::render('auth/Login', [
 			'canResetPassword' => Features::enabled(Features::resetPasswords()),
 			'status'           => $request->session()->get('status'),
 		]));
 
-		Fortify::resetPasswordView(fn (Request $request) => Inertia::render('auth/reset-password', [
-			'email'         => $request->email,
-			'token'         => $request->route('token'),
-			'passwordRules' => Password::defaults()->toPasswordRulesString(),
-		]));
+		Fortify::resetPasswordView(function (Request $request) {
+			$email = Str::lower($request->string('email')->toString());
+			$token = (string) $request->route('token');
+			$user = User::query()->where('email', $email)->first();
 
-		Fortify::requestPasswordResetLinkView(fn (Request $request) => Inertia::render('auth/forgot-password', [
-			'status' => $request->session()->get('status'),
-		]));
+			if ($user === null || !PasswordBroker::broker()->tokenExists($user, $token))
+			{
+				return Inertia::render('auth/PasswordResetExpired');
+			}
 
-		/* @chisel-email-verification */
-		Fortify::verifyEmailView(fn (Request $request) => Inertia::render('auth/verify-email', [
-			'status' => $request->session()->get('status'),
-		]));
-		/* @end-chisel-email-verification */
+			return Inertia::render('auth/ResetPassword', [
+				'email' => $email,
+				'token' => $token,
+			]);
+		});
 
-		/* @chisel-registration */
-		Fortify::registerView(fn () => Inertia::render('auth/register', [
-			'passwordRules' => Password::defaults()->toPasswordRulesString(),
-		]));
-		/* @end-chisel-registration */
+		Fortify::requestPasswordResetLinkView(fn () => Inertia::render('auth/ForgotPassword'));
+		Fortify::verifyEmailView(fn () => Inertia::render('auth/VerificationPending'));
 
-		/* @chisel-2fa */
-		Fortify::twoFactorChallengeView(fn () => Inertia::render('auth/two-factor-challenge'));
-		/* @end-chisel-2fa */
-
-		/* @chisel-password-confirmation */
 		Fortify::confirmPasswordView(fn () => Inertia::render('auth/confirm-password'));
-		/* @end-chisel-password-confirmation */
 	}
 
 	/**
@@ -93,24 +164,11 @@ class FortifyServiceProvider extends ServiceProvider
 	 */
 	private function configureRateLimiting(): void
 	{
-		/* @chisel-2fa */
-		RateLimiter::for('two-factor', function (Request $request) {
-			return Limit::perMinute(5)->by($request->session()->get('login.id'));
-		});
-		/* @end-chisel-2fa */
-
 		RateLimiter::for('login', function (Request $request) {
-			$throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())) . '|' . $request->ip());
+			$identity = $request->string(Fortify::username())->toString();
+			$throttleKey = Str::transliterate(Str::lower($identity) . '|' . $request->ip());
 
 			return Limit::perMinute(5)->by($throttleKey);
 		});
-
-		/* @chisel-passkeys */
-		RateLimiter::for('passkeys', function (Request $request) {
-			return Limit::perMinute(10)->by(
-				($request->input('credential.id') ?: $request->session()->getId()) . '|' . $request->ip(),
-			);
-		});
-		/* @end-chisel-passkeys */
 	}
 }

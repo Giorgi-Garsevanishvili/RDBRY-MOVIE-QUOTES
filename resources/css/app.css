@@ -1,6 +1,31 @@
 @import 'tailwindcss';
 
 @import 'tw-animate-css';
+@import '@fontsource/montserrat/latin-700.css';
+
+@font-face {
+    font-family: 'Helvetica Neue LT GEO';
+    src: url('../js/assets/fonts/helvetica-neue-lt-geo-roman.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Helvetica Neue LT GEO';
+    src: url('../js/assets/fonts/helvetica-neue-lt-geo-medium.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Helvetica Neue LT GEO';
+    src: url('../js/assets/fonts/helvetica-neue-lt-geo-bold.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+}
 
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -9,8 +34,14 @@
 
 @theme {
     --font-sans:
-        'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+        'Helvetica Neue LT GEO', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
         'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-display: 'Montserrat', 'Helvetica Neue LT GEO', ui-sans-serif, system-ui, sans-serif;
+
+    --color-brand-red: #e31221;
+    --color-brand-gold: #ddccaa;
+    --color-brand-night: #11101a;
+    --color-brand-ink: #0d0d0d;
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
@@ -138,5 +169,33 @@
 
     body {
         @apply bg-background text-foreground;
+    }
+}
+
+.landing-quote-backdrop {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.landing-quote-content {
+    will-change: transform;
+}
+
+@media (min-width: 651px) {
+    .landing-quote-backdrop {
+        background-position: center !important;
+    }
+}
+
+@media (max-width: 650px), (prefers-reduced-motion: reduce) {
+    .landing-quote-backdrop {
+        background-attachment: scroll;
+    }
+
+    .landing-quote-content {
+        transform: none !important;
+        will-change: auto;
     }
 }

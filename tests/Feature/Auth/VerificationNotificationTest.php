@@ -1,48 +1,139 @@
 <?php
 
-namespace Tests\Feature\Auth;
-
+use App\Http\Controllers\Auth\VerificationPendingController;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Auth\Notifications\VerifyEmail;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
-use Laravel\Fortify\Features;
-use Tests\TestCase;
+use Illuminate\Support\Facades\URL;
 
-class VerificationNotificationTest extends TestCase
-{
-	use RefreshDatabase;
+test('registration sends a signed activation link to the new account', function () {
+	Notification::fake();
 
-	protected function setUp(): void
+	$this->post(route('register.store'), [
+		'username'              => 'moviefan7',
+		'email'                 => 'viewer@example.com',
+		'password'              => 'password1',
+		'password_confirmation' => 'password1',
+	]);
+
+	$user = User::query()->sole();
+
+	Notification::assertSentTo($user, VerifyEmail::class, function (VerifyEmail $notification) use ($user) {
+		$mail = $notification->toMail($user);
+		$actionUrl = (string) $mail->viewData['actionUrl'];
+
+		expect($actionUrl)
+			->not->toBeEmpty()
+			->and(URL::hasValidSignature(Request::create($actionUrl)))->toBeTrue()
+			->and(parse_url($actionUrl, PHP_URL_PATH))->toBe(
+				route('activation.verify', ['user' => $user, 'hash' => sha1($user->email)], false),
+			)
+			->and($mail->subject)->toBe('Please verify your email address')
+			->and($mail->view)->toBe([
+				'html' => 'mail.auth.action',
+				'text' => 'mail.auth.action-text',
+			]);
+
+		return true;
+	});
+});
+
+test('the registered event sends no activation email to an already verified account', function () {
+	Notification::fake();
+	$user = User::factory()->create();
+
+	event(new Registered($user));
+
+	Notification::assertNothingSent();
+});
+
+test('a guest can resend activation to the account stored in the registration session', function () {
+	Notification::fake();
+	$user = User::factory()->unverified()->create();
+
+	$this->from(route('activation.notice'))
+		->withSession([
+			VerificationPendingController::EMAIL_SESSION_KEY => $user->email,
+		])
+		->post(route('activation.resend'))
+		->assertRedirect(route('activation.notice'))
+		->assertSessionHas('status', 'A new activation link has been sent to your email.');
+
+	Notification::assertSentTo($user, VerifyEmail::class);
+});
+
+test('activation resend silently sends nothing without a registration session', function () {
+	Notification::fake();
+	User::factory()->unverified()->create();
+
+	$this->from(route('activation.notice'))
+		->post(route('activation.resend'))
+		->assertRedirect(route('activation.notice'))
+		->assertSessionHas('status', 'A new activation link has been sent to your email.');
+
+	Notification::assertNothingSent();
+});
+
+test('activation resend silently sends nothing when the account is already verified', function () {
+	Notification::fake();
+	$user = User::factory()->create();
+
+	$this->from(route('activation.notice'))
+		->withSession([
+			VerificationPendingController::EMAIL_SESSION_KEY => $user->email,
+		])
+		->post(route('activation.resend'))
+		->assertRedirect(route('activation.notice'));
+
+	Notification::assertNothingSent();
+});
+
+test('activation resend status is localized in Georgian', function () {
+	Notification::fake();
+	$user = User::factory()->unverified()->create();
+
+	$this->from(route('activation.notice'))
+		->withSession([
+			'locale'                                         => 'ka',
+			VerificationPendingController::EMAIL_SESSION_KEY => $user->email,
+		])
+		->post(route('activation.resend'))
+		->assertSessionHas('status', 'აქტივაციის ახალი ბმული თქვენს ელფოსტაზე გაიგზავნა.');
+
+	Notification::assertSentTo($user, VerifyEmail::class);
+});
+
+test('activation resend is rate limited', function () {
+	Notification::fake();
+	$user = User::factory()->unverified()->create();
+	$session = [VerificationPendingController::EMAIL_SESSION_KEY => $user->email];
+
+	for ($attempt = 0; $attempt < 6; $attempt++)
 	{
-		parent::setUp();
-
-		$this->skipUnlessFortifyHas(Features::emailVerification());
+		$this->withSession($session)
+			->post(route('activation.resend'))
+			->assertRedirect();
 	}
 
-	public function test_sends_verification_notification(): void
-	{
-		Notification::fake();
+	$this->withSession($session)
+		->post(route('activation.resend'))
+		->assertTooManyRequests();
 
-		$user = User::factory()->unverified()->create();
+	Notification::assertSentToTimes($user, VerifyEmail::class, 6);
+});
 
-		$this->actingAs($user)
-			->post(route('verification.send'))
-			->assertRedirect(route('home'));
+test('activation and recovery emails are localized in Georgian', function () {
+	app()->setLocale('ka');
+	$user = User::factory()->unverified()->create(['username' => 'moviefan7']);
 
-		Notification::assertSentTo($user, VerifyEmail::class);
-	}
+	$verificationMail = (new VerifyEmail)->toMail($user);
+	$resetMail = (new ResetPassword('reset-token'))->toMail($user);
 
-	public function test_does_not_send_verification_notification_if_email_is_verified(): void
-	{
-		Notification::fake();
-
-		$user = User::factory()->create();
-
-		$this->actingAs($user)
-			->post(route('verification.send'))
-			->assertRedirect(route('dashboard', absolute: false));
-
-		Notification::assertNothingSent();
-	}
-}
+	expect($verificationMail->subject)->toBe('დაადასტურეთ თქვენი ელფოსტა')
+		->and($verificationMail->viewData['greeting'])->toBe('გამარჯობა, moviefan7!')
+		->and($resetMail->subject)->toBe('პაროლის აღდგენა')
+		->and($resetMail->viewData['actionText'])->toBe('პაროლის აღდგენა');
+});

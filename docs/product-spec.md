@@ -23,7 +23,7 @@ The registration form contains:
 - password: required, 8–15 characters, lowercase Latin letters and digits only;
 - password confirmation: required and equal to password.
 
-Invalid controls receive the Figma error visual and a localized field-level message. A valid submission creates a pending account, sends an activation link, and redirects to the check-email screen. Following a valid link activates the account and displays the account-activated screen.
+Invalid controls receive the Figma error visual and a localized field-level message. A valid submission creates a pending account, sends an activation link, and redirects to the check-email screen. From that screen, the same guest registration session can request another rate-limited activation email without signing in or supplying an address. Following a valid link activates the account and displays the account-activated screen.
 
 Registration/authentication with Google is mandatory.
 

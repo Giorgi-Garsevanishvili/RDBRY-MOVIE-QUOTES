@@ -1,119 +1,93 @@
 <?php
 
-namespace Tests\Feature\Auth;
-
+use App\Http\Controllers\Auth\VerificationPendingController;
 use App\Models\User;
 use Illuminate\Auth\Events\Verified;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
-use Laravel\Fortify\Features;
-use Tests\TestCase;
+use Inertia\Testing\AssertableInertia as Assert;
 
-class EmailVerificationTest extends TestCase
-{
-	use RefreshDatabase;
+test('activation pending screen can be rendered by a guest', function () {
+	$this->get(route('activation.notice'))
+		->assertOk()
+		->assertInertia(fn (Assert $page) => $page
+			->component('auth/VerificationPending')
+			->where('canResend', false)
+			->where('status', null));
+});
 
-	protected function setUp(): void
-	{
-		parent::setUp();
+test('activation pending screen enables resend after registration', function () {
+	$user = User::factory()->unverified()->create();
 
-		$this->skipUnlessFortifyHas(Features::emailVerification());
-	}
+	$this->withSession([
+		VerificationPendingController::EMAIL_SESSION_KEY => $user->email,
+	])->get(route('activation.notice'))
+		->assertOk()
+		->assertInertia(fn (Assert $page) => $page
+			->component('auth/VerificationPending')
+			->where('canResend', true));
+});
 
-	public function test_email_verification_screen_can_be_rendered()
-	{
-		$user = User::factory()->unverified()->create();
+test('a valid signed activation link verifies the account without logging in', function () {
+	$user = User::factory()->unverified()->create();
+	Event::fake([Verified::class]);
 
-		$response = $this->actingAs($user)->get(route('verification.notice'));
+	$response = $this->withSession([
+		VerificationPendingController::EMAIL_SESSION_KEY => $user->email,
+	])->get(URL::temporarySignedRoute(
+		'activation.verify',
+		now()->addMinutes(60),
+		['user' => $user, 'hash' => sha1($user->email)],
+	));
 
-		$response->assertOk();
-	}
+	$response->assertRedirect(route('activation.success'));
+	$response->assertSessionMissing(VerificationPendingController::EMAIL_SESSION_KEY);
+	$this->assertGuest();
+	expect($user->fresh()->hasVerifiedEmail())->toBeTrue();
+	Event::assertDispatched(Verified::class, fn (Verified $event) => $event->user->is($user));
+});
 
-	public function test_email_can_be_verified()
-	{
-		$user = User::factory()->unverified()->create();
+test('activation fails when the signed hash does not match the account', function () {
+	$user = User::factory()->unverified()->create();
+	Event::fake([Verified::class]);
 
-		Event::fake();
+	$this->get(URL::temporarySignedRoute(
+		'activation.verify',
+		now()->addMinutes(60),
+		['user' => $user, 'hash' => sha1('wrong@example.com')],
+	))->assertForbidden();
 
-		$verificationUrl = URL::temporarySignedRoute(
-			'verification.verify',
-			now()->addMinutes(60),
-			['id' => $user->id, 'hash' => sha1($user->email)],
-		);
+	expect($user->fresh()->hasVerifiedEmail())->toBeFalse();
+	Event::assertNotDispatched(Verified::class);
+});
 
-		$response = $this->actingAs($user)->get($verificationUrl);
+test('an expired activation link is rejected', function () {
+	$user = User::factory()->unverified()->create();
 
-		Event::assertDispatched(Verified::class);
+	$this->get(URL::temporarySignedRoute(
+		'activation.verify',
+		now()->subMinute(),
+		['user' => $user, 'hash' => sha1($user->email)],
+	))->assertForbidden();
 
-		$this->assertTrue($user->fresh()->hasVerifiedEmail());
-		$response->assertRedirect(route('dashboard', absolute: false) . '?verified=1');
-	}
+	expect($user->fresh()->hasVerifiedEmail())->toBeFalse();
+});
 
-	public function test_email_is_not_verified_with_invalid_hash()
-	{
-		$user = User::factory()->unverified()->create();
+test('an already verified account is not verified twice', function () {
+	$user = User::factory()->create();
+	Event::fake([Verified::class]);
 
-		Event::fake();
+	$this->get(URL::temporarySignedRoute(
+		'activation.verify',
+		now()->addMinutes(60),
+		['user' => $user, 'hash' => sha1($user->email)],
+	))->assertRedirect(route('activation.success'));
 
-		$verificationUrl = URL::temporarySignedRoute(
-			'verification.verify',
-			now()->addMinutes(60),
-			['id' => $user->id, 'hash' => sha1('wrong-email')],
-		);
+	Event::assertNotDispatched(Verified::class);
+});
 
-		$this->actingAs($user)->get($verificationUrl);
-
-		Event::assertNotDispatched(Verified::class);
-		$this->assertFalse($user->fresh()->hasVerifiedEmail());
-	}
-
-	public function test_email_is_not_verified_with_invalid_user_id(): void
-	{
-		$user = User::factory()->unverified()->create();
-
-		Event::fake();
-
-		$verificationUrl = URL::temporarySignedRoute(
-			'verification.verify',
-			now()->addMinutes(60),
-			['id' => 123, 'hash' => sha1($user->email)],
-		);
-
-		$this->actingAs($user)->get($verificationUrl);
-
-		Event::assertNotDispatched(Verified::class);
-		$this->assertFalse($user->fresh()->hasVerifiedEmail());
-	}
-
-	public function test_verified_user_is_redirected_to_dashboard_from_verification_prompt(): void
-	{
-		$user = User::factory()->create();
-
-		Event::fake();
-
-		$response = $this->actingAs($user)->get(route('verification.notice'));
-
-		Event::assertNotDispatched(Verified::class);
-		$response->assertRedirect(route('dashboard', absolute: false));
-	}
-
-	public function test_already_verified_user_visiting_verification_link_is_redirected_without_firing_event_again(): void
-	{
-		$user = User::factory()->create();
-
-		Event::fake();
-
-		$verificationUrl = URL::temporarySignedRoute(
-			'verification.verify',
-			now()->addMinutes(60),
-			['id' => $user->id, 'hash' => sha1($user->email)],
-		);
-
-		$this->actingAs($user)->get($verificationUrl)
-			->assertRedirect(route('dashboard', absolute: false) . '?verified=1');
-
-		Event::assertNotDispatched(Verified::class);
-		$this->assertTrue($user->fresh()->hasVerifiedEmail());
-	}
-}
+test('activation success screen can be rendered by a guest', function () {
+	$this->get(route('activation.success'))
+		->assertOk()
+		->assertInertia(fn (Assert $page) => $page->component('auth/VerificationSuccess'));
+});

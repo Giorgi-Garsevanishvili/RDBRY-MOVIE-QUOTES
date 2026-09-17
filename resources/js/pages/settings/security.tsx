@@ -2,25 +2,14 @@ import { Form, Head } from '@inertiajs/react';
 import { useRef } from 'react';
 import SecurityController from '@/actions/App/Http/Controllers/Settings/SecurityController';
 import Heading from '@/components/heading';
-import InputError from '@/components/input-error';
-import PasswordInput from '@/components/password-input';
+import InputError from '@/components/InputError';
+import PasswordInput from '@/components/PasswordInput';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { edit } from '@/routes/security';
-/* @chisel-passkeys */
-import type { Props as ManagePasskeysProps } from '@/components/manage-passkeys';
-import ManagePasskeys from '@/components/manage-passkeys';
-/* @end-chisel-passkeys */
-/* @chisel-2fa */
-import type { Props as ManageTwoFactorProps } from '@/components/manage-two-factor';
-import ManageTwoFactor from '@/components/manage-two-factor';
-/* @end-chisel-2fa */
-
-// oxfmt-ignore
 type Props = {
     passwordRules: string;
-} /* @chisel-passkeys */ & ManagePasskeysProps /* @end-chisel-passkeys */ /* @chisel-2fa */ &
-    ManageTwoFactorProps /* @end-chisel-2fa */;
+};
 
 export default function Security(props: Props) {
     const passwordInput = useRef<HTMLInputElement>(null);
@@ -114,18 +103,6 @@ export default function Security(props: Props) {
                     )}
                 </Form>
             </div>
-
-            {/* @chisel-2fa */}
-            <ManageTwoFactor
-                canManageTwoFactor={props.canManageTwoFactor}
-                requiresConfirmation={props.requiresConfirmation}
-                twoFactorEnabled={props.twoFactorEnabled}
-            />
-            {/* @end-chisel-2fa */}
-
-            {/* @chisel-passkeys */}
-            <ManagePasskeys canManagePasskeys={props.canManagePasskeys} passkeys={props.passkeys} />
-            {/* @end-chisel-passkeys */}
         </>
     );
 }

@@ -1,92 +1,96 @@
 <?php
 
-namespace Tests\Feature\Auth;
-
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\RateLimiter;
-use Laravel\Fortify\Features;
-use Tests\TestCase;
 
-class AuthenticationTest extends TestCase
-{
-	use RefreshDatabase;
+test('login screen can be rendered', function () {
+	$this->get(route('login'))->assertOk();
+});
 
-	public function test_login_screen_can_be_rendered()
-	{
-		$response = $this->get(route('login'));
+test('users can authenticate with their email', function () {
+	$user = User::factory()->create();
 
-		$response->assertOk();
-	}
+	$response = $this->post(route('login.store'), [
+		'login'    => $user->email,
+		'password' => 'password',
+	]);
 
-	public function test_users_can_authenticate_using_the_login_screen()
-	{
-		$user = User::factory()->create();
+	$this->assertAuthenticatedAs($user);
+	$response->assertRedirect(route('dashboard', absolute: false));
+});
 
-		$response = $this->post(route('login.store'), [
-			'email'    => $user->email,
-			'password' => 'password',
-		]);
+test('users can authenticate with their username', function () {
+	$user = User::factory()->create();
 
-		$this->assertAuthenticated();
-		$response->assertRedirect(route('dashboard', absolute: false));
-	}
+	$response = $this->post(route('login.store'), [
+		'login'    => $user->username,
+		'password' => 'password',
+	]);
 
-	public function test_users_with_two_factor_enabled_are_redirected_to_two_factor_challenge()
-	{
-		$this->skipUnlessFortifyHas(Features::twoFactorAuthentication());
+	$this->assertAuthenticatedAs($user);
+	$response->assertRedirect(route('dashboard', absolute: false));
+});
 
-		Features::twoFactorAuthentication([
-			'confirm'         => true,
-			'confirmPassword' => true,
-		]);
+test('unverified users cannot authenticate', function (string $identityField) {
+	$user = User::factory()->unverified()->create();
 
-		$user = User::factory()->withTwoFactor()->create();
+	$this->post(route('login.store'), [
+		'login'    => $user->{$identityField},
+		'password' => 'password',
+	])->assertSessionHasErrors([
+		'login' => __('auth.failed'),
+	]);
 
-		$response = $this->post(route('login'), [
-			'email'    => $user->email,
-			'password' => 'password',
-		]);
+	$this->assertGuest();
+})->with(['email', 'username']);
 
-		$response->assertRedirect(route('two-factor.login'));
-		$response->assertSessionHas('login.id', $user->id);
-		$this->assertGuest();
-	}
+test('users cannot authenticate with an invalid password', function () {
+	$user = User::factory()->create();
 
-	public function test_users_can_not_authenticate_with_invalid_password()
-	{
-		$user = User::factory()->create();
+	$this->post(route('login.store'), [
+		'login'    => $user->email,
+		'password' => 'wrong-password',
+	]);
 
-		$this->post(route('login.store'), [
-			'email'    => $user->email,
-			'password' => 'wrong-password',
-		]);
+	$this->assertGuest();
+});
 
-		$this->assertGuest();
-	}
+test('login identity and password are required', function () {
+	$this->post(route('login.store'), [
+		'login'    => 'ab',
+		'password' => null,
+	])->assertSessionHasErrors(['login', 'password']);
 
-	public function test_users_can_logout()
-	{
-		$user = User::factory()->create();
+	$this->assertGuest();
+});
 
-		$response = $this->actingAs($user)->post(route('logout'));
+test('login validation is localized in Georgian', function () {
+	app()->setLocale('ka');
 
-		$response->assertRedirect(route('home'));
+	$this->post(route('login.store'), [
+		'login'    => null,
+		'password' => 'password',
+	])->assertSessionHasErrors([
+		'login' => 'ელფოსტის ან მომხმარებლის სახელის ველი სავალდებულოა.',
+	]);
+});
 
-		$this->assertGuest();
-	}
+test('users can log out', function () {
+	$user = User::factory()->create();
 
-	public function test_users_are_rate_limited()
-	{
-		$user = User::factory()->create();
+	$this->actingAs($user)
+		->post(route('logout'))
+		->assertRedirect(route('home'));
 
-		RateLimiter::increment(md5('login' . implode('|', [$user->email, '127.0.0.1'])), amount: 5);
+	$this->assertGuest();
+});
 
-		$response = $this->post(route('login.store'), [
-			'email'    => $user->email,
-			'password' => 'wrong-password',
-		]);
+test('login attempts are rate limited', function () {
+	$user = User::factory()->create();
+	RateLimiter::increment(md5('login' . implode('|', [$user->email, '127.0.0.1'])), amount: 5);
 
-		$response->assertTooManyRequests();
-	}
-}
+	$this->post(route('login.store'), [
+		'login'    => $user->email,
+		'password' => 'wrong-password',
+	])->assertTooManyRequests();
+});
