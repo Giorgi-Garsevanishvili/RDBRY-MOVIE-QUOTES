@@ -4,7 +4,7 @@ Last updated: 2026-09-17
 
 - Phase: Delivery
 - Active slice: PR 21 — content, account, and sizing consistency
-- State: Full automated verification complete; user review remains pending
+- State: Committed and pushed; remote review remains pending
 - Dependency: PR 21 is stacked on pushed PR 20 branch `codex/chore/realistic-seeder` at `1634d78`
 - Blocker: None
 
@@ -183,10 +183,11 @@ Last updated: 2026-09-17
 - Replaced authored pixel measurements across React, CSS, JavaScript media/animation paths, and the HTML email template with Tailwind's rem-backed numeric scale or exact rem values while retaining intentional Tailwind hairline utilities.
 - Confirmed the generated production CSS contains the converted fractional utilities, including `px-8.75`, `h-21.5`, and `lg:w-240.25`.
 - Browser-verified the converted landing and registration surfaces at 1,440×900 desktop and 390×844 mobile viewports without layout regressions.
+- Committed and pushed the verified PR 21 stack on `codex/fix/content-account-rules` as separate behavior/test and rem-sizing/documentation commits.
 
 ## Next
 
-1. Review and commit PR 21 after approval.
+1. Open and review PR 21 against its PR 20 base.
 2. Configure Pusher application credentials for a live provider check.
 3. Configure the protected GitHub `production` environment and complete the first user-managed server deployment.
 4. Record the green production deploy and key-journey smoke-test evidence.
