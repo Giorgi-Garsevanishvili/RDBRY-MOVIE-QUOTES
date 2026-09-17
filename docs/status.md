@@ -171,7 +171,7 @@ Last updated: 2026-09-17
 - Attached every seeded poster and quote image through the existing named Spatie Media Library collections without moving the source artwork.
 - Made the demo dataset safe to seed repeatedly without duplicate domain or media records and documented the shared development credentials.
 - Added focused Pest coverage for dataset completeness, ownership, media storage, credentials, notification state, and repeat execution.
-- Passed the complete restacked PR 20 gate: deployment-script syntax, ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 226 Pest tests with 1,416 assertions.
+- Passed the complete restacked PR 20 gate: deployment-script syntax, ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 225 Pest tests with 1,414 assertions.
 - Committed and pushed the verified PR 20 stack on `codex/chore/realistic-seeder`.
 
 ## Next
