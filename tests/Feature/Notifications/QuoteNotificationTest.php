@@ -135,10 +135,10 @@ test('a member cannot read another members notification', function () {
 
 test('only a verified member can authorize their private notification channel', function () {
 	config()->set([
-		'broadcasting.default'                   => 'reverb',
-		'broadcasting.connections.reverb.key'    => 'test-key',
-		'broadcasting.connections.reverb.secret' => 'test-secret',
-		'broadcasting.connections.reverb.app_id' => 'test-app',
+		'broadcasting.default'                   => 'pusher',
+		'broadcasting.connections.pusher.key'    => 'test-key',
+		'broadcasting.connections.pusher.secret' => 'test-secret',
+		'broadcasting.connections.pusher.app_id' => 'test-app',
 	]);
 	require base_path('routes/channels.php');
 

@@ -28,7 +28,7 @@ Answer by ID; short answers, rules, examples, and links are welcome.
 ## P2 — operations
 
 18. **Q-018 — server:** What provider, operating system, path, domain, and deployment user will be used?
-19. **Q-019 — services:** Reverb is accepted for real-time delivery. What persistent production SQLite path and backup policy, S3/local media, mail provider, and production queue driver should be used?
+19. **Q-019 — services:** Pusher Channels is accepted for real-time delivery. What Pusher application credentials/cluster, persistent production SQLite path and backup policy, S3/local media, mail provider, and production queue driver should be used?
 20. **Q-020 — environments:** Production only or staging plus production; which branches deploy?
 21. **Q-021 — observability:** What health checks, logging/error tracking, uptime alerts, and backup requirements apply?
 22. **Q-022 — deployment authority:** Prepare the workflow only, or configure secrets/server and execute deployment when credentials are supplied?

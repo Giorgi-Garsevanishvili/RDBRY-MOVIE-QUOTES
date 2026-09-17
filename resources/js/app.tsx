@@ -2,14 +2,12 @@ import { createInertiaApp } from '@inertiajs/react';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { initializeTheme } from '@/hooks/use-appearance';
+import { configureBroadcasting } from '@/helpers/configureBroadcasting';
 import AppLayout from '@/layouts/app/AppLayout';
 import AuthLayout from '@/layouts/AuthLayout';
 import SettingsLayout from '@/layouts/settings/layout';
-import { configureEcho } from '@laravel/echo-react';
 
-configureEcho({
-    broadcaster: 'reverb',
-});
+configureBroadcasting();
 
 const appName = import.meta.env.VITE_APP_NAME ?? 'Movie Quotes';
 

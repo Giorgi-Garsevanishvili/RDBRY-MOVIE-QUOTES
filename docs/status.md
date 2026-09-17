@@ -1,11 +1,11 @@
 # Project status
 
-Last updated: 2026-09-13
+Last updated: 2026-09-17
 
 - Phase: Social interactions
 - Active slice: PR 16 — social UI
-- State: Complete and full-gate verified; awaiting commit and push confirmation
-- Dependency: PR 16 is stacked on pushed branch `codex/feat/notifications-backend` at `f28e5fc`
+- State: Pusher transport conversion and missing-credential fallback implemented and full-gate verified; awaiting credentials for a live provider check and commit confirmation
+- Dependency: PR 16 is stacked on pushed branch `codex/feat/notifications-backend` at `39e5f80`
 - Blocker: None
 
 ## Completed
@@ -133,17 +133,21 @@ Last updated: 2026-09-13
 - Live-verified the desktop/mobile feed interactions and notification layouts against Figma nodes `335:23914`, `635:30899`, `346:43090`, `660:30796`, `660:31720`, and `5319:33607` using an isolated temporary SQLite database.
 - Live-verified that mark-all keeps the panel open and hides at zero unread, individual opening closes the panel before quote navigation, and Georgian notification actions and relative times remain fully localized.
 - Passed the provider-independent PR 16 checkpoint gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 192 Pest tests with 1,083 assertions.
-- Accepted Laravel Reverb as the framework-native real-time transport and installed the compatible Reverb, Echo React, Laravel Echo, and Pusher-protocol client packages.
+- Accepted Pusher Channels as the hosted real-time transport and installed the compatible Pusher server SDK, Echo React, Laravel Echo, and Pusher client packages.
 - Connected the notification panel to the verified member's authorized private broadcast channel and reload only the canonical shared notification prop when like or comment activity arrives.
 - Added Pest coverage proving that only a verified member can authorize their own private notification channel.
-- Live-verified Reverb, the database queue worker, and Echo end to end: new likes/comments arrived without refresh, mark-all stayed on the current page, and new activity restored the unread control without browser errors.
-- Passed the complete PR 16 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 193 Pest tests with 1,086 assertions.
+- Preserved the verified private-channel notification flow while replacing the self-hosted Reverb transport with Pusher Channels.
+- Removed the Reverb server package/configuration and made the Pusher PHP server SDK an explicit runtime dependency.
+- Switched the Echo client and environment contract to Pusher application credentials and cluster configuration.
+- Added a no-op Echo fallback when public Pusher configuration is absent so persistent notifications remain usable without crashing the application.
+- Repaired the locale menu caret's malformed SVG path data.
+- Passed the complete Pusher-adjusted PR 16 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 194 Pest tests with 1,088 assertions.
 
 ## Next
 
-1. Commit/push PR 16 only after explicit confirmation.
-2. Start PR 17 only after the PR 16 review and stack are ready.
-3. Configure temporary Google OAuth credentials for a real-provider callback check when credentials are available.
+1. Configure Pusher application credentials for a live provider check.
+2. Review the Pusher-adjusted PR 16 correction.
+3. Commit/push PR 16 only after explicit confirmation, then restack its descendants.
 
 ## Known risks
 
