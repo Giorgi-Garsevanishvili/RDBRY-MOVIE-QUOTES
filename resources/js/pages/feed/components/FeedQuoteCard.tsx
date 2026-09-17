@@ -2,11 +2,13 @@ import { QuoteInteractions } from '@/components/quotes';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import type { FeedQuoteCardProps } from '../feedTypes';
 
+const FEED_COMMENT_PREVIEW_LIMIT = 3;
+
 export default function FeedQuoteCard({ quote, feedMessages, quoteMessages }: FeedQuoteCardProps) {
     return (
-        <article className="bg-black/30 px-[35px] py-6 lg:rounded-xl lg:bg-[#11101a] lg:p-6">
+        <article className="bg-black/30 px-8.75 py-6 lg:rounded-xl lg:bg-[#11101a] lg:p-6">
             <header className="flex items-center gap-4">
-                <Avatar className="size-10 lg:size-[52px]">
+                <Avatar className="size-10 lg:size-13">
                     <AvatarImage src={quote.authorAvatarUrl ?? undefined} alt="" />
                     <AvatarFallback className="bg-[#6c6f8e] text-sm text-white">
                         {quote.authorInitials}
@@ -17,19 +19,19 @@ export default function FeedQuoteCard({ quote, feedMessages, quoteMessages }: Fe
                 </strong>
             </header>
 
-            <p className="mt-3 text-base leading-6 lg:mt-4 lg:text-xl lg:leading-[30px]">
+            <p className="mt-3 text-base leading-6 lg:mt-4 lg:text-xl lg:leading-7.5">
                 “{quote.quote}” {feedMessages.movieLabel} -{' '}
                 <span className="font-medium text-brand-gold">{quote.movieName}.</span> (
                 {quote.releaseYear})
             </p>
 
             {quote.imageUrl === null ? (
-                <div className="mt-4 aspect-video rounded-[10px] bg-[#24222f] lg:mt-7" />
+                <div className="mt-4 aspect-video rounded-lg bg-[#24222f] lg:mt-7" />
             ) : (
                 <img
                     src={quote.imageUrl}
                     alt={quote.movieName}
-                    className="mt-4 aspect-video w-full rounded-[10px] object-cover lg:mt-7"
+                    className="mt-4 aspect-video w-full rounded-lg object-cover lg:mt-7"
                 />
             )}
 
@@ -38,6 +40,7 @@ export default function FeedQuoteCard({ quote, feedMessages, quoteMessages }: Fe
                 messages={quoteMessages}
                 viewerUsername={quote.viewerUsername}
                 viewerAvatarUrl={quote.viewerAvatarUrl}
+                commentPreviewLimit={FEED_COMMENT_PREVIEW_LIMIT}
             />
         </article>
     );

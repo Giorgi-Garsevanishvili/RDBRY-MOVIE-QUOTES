@@ -20,7 +20,7 @@ class SendPasswordResetLinkRequest extends FortifyRequest
 				'required',
 				'string',
 				'email',
-				Rule::exists(User::class, 'email'),
+				Rule::exists(User::class, 'email')->whereNotNull('password'),
 			],
 		];
 	}

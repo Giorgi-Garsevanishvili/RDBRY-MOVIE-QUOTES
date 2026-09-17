@@ -5,6 +5,7 @@ use App\Models\Like;
 use App\Models\Movie;
 use App\Models\Quote;
 use App\Models\User;
+use App\Http\Resources\QuoteFeedResource;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Inertia\Testing\AssertableInertia as Assert;
 
@@ -174,4 +175,21 @@ test('feed quote and movie pages expose real interaction counts', function () {
 				->where('movie.quotes.0.commentCount', 3)
 				->where('movie.quotes.0.likeCount', 2),
 		);
+});
+
+test('feed resources omit legacy comments whose author is missing', function () {
+	$quote = Quote::factory()->create();
+	$comment = Comment::factory()->for($quote)->create();
+
+	$quote->load(['user.media', 'movie', 'media']);
+	$comment->setRelation('user', null);
+	$quote->setRelation('comments', collect([$comment]));
+	$quote->setAttribute('comments_count', 0);
+	$quote->setAttribute('likes_count', 0);
+	$quote->setAttribute('liked_by_viewer', false);
+
+	$data = (new QuoteFeedResource($quote))->toArray(request());
+
+	expect($data['comments']->resolve(request()))->toBe([])
+		->and($data['commentCount'])->toBe(0);
 });

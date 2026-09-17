@@ -15,7 +15,7 @@ export const APP_SHELL_MESSAGES: Record<Locale, AppShellMessages> = {
         closeMenu: 'Close navigation menu',
     },
     ka: {
-        brand: 'ფილმების ციტატები',
+        brand: 'Movie Quotes',
         editProfile: 'პროფილის რედაქტირება',
         newsFeed: 'სიახლეების ლენტი',
         movieList: 'ფილმების სია',

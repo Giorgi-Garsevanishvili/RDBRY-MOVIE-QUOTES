@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Comment;
 use App\Models\Quote;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -45,7 +46,11 @@ class QuoteFeedResource extends JsonResource
 				],
 				'releaseYear' => $this->movie->release_year,
 			],
-			'comments'      => CommentResource::collection($this->comments),
+			'comments' => CommentResource::collection(
+				$this->comments
+					->filter(static fn (Comment $comment): bool => $comment->user !== null)
+					->values(),
+			),
 			'commentCount'  => (int) $this->comments_count,
 			'likeCount'     => (int) $this->likes_count,
 			'likedByViewer' => (bool) $this->liked_by_viewer,
