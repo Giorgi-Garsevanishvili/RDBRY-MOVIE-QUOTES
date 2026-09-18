@@ -4,7 +4,7 @@ import { home, login, register } from '@/routes';
 import type { PublicHeaderProps } from './publicHeaderTypes';
 
 const OUTLINE_BUTTON_CLASSES =
-    'inline-flex h-8 items-center justify-center rounded border border-white px-2 text-xs font-normal text-white transition-colors hover:bg-white hover:text-brand-night focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-night min-[380px]:h-9 min-[380px]:px-3 min-[380px]:text-sm md:h-[38px] md:px-6 md:text-base';
+    'inline-flex h-8 items-center justify-center rounded border border-white px-2 text-xs font-normal text-white transition-colors hover:bg-white hover:text-brand-night focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-night min-[23.75rem]:h-9 min-[23.75rem]:px-3 min-[23.75rem]:text-sm md:h-9.5 md:px-6 md:text-base';
 
 export default function PublicHeader({
     brand,
@@ -16,23 +16,23 @@ export default function PublicHeader({
     onLocaleChange,
 }: PublicHeaderProps) {
     return (
-        <header className="absolute inset-x-0 top-0 z-20 px-3 pt-5 min-[380px]:px-9 md:px-[70px] md:pt-7">
+        <header className="absolute inset-x-0 top-0 z-20 px-3 pt-5 min-[23.75rem]:px-9 md:px-17.5 md:pt-7">
             <nav
-                className="mx-auto flex max-w-[1780px] items-center justify-between"
+                className="mx-auto flex max-w-445 items-center justify-between"
                 aria-label={navigationLabel}
             >
                 <Link
                     href={home()}
-                    className="max-w-[72px] text-[10px] leading-3 font-medium text-brand-gold uppercase focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:outline-none min-[380px]:max-w-28 min-[380px]:text-xs min-[380px]:leading-4 sm:max-w-none sm:text-base"
+                    className="max-w-18 text-[0.625rem] leading-3 font-medium text-brand-gold uppercase focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:outline-none min-[23.75rem]:max-w-28 min-[23.75rem]:text-xs min-[23.75rem]:leading-4 sm:max-w-none sm:text-base"
                 >
                     {brand}
                 </Link>
 
-                <div className="flex items-center gap-1.5 min-[380px]:gap-2 sm:gap-3 md:gap-4">
+                <div className="flex items-center gap-1.5 min-[23.75rem]:gap-2 sm:gap-3 md:gap-4">
                     <LocaleMenu locale={locale} label={languageLabel} onChange={onLocaleChange} />
                     <Link
                         href={register()}
-                        className="inline-flex h-8 items-center justify-center rounded bg-brand-red px-2 text-xs font-normal text-white transition-colors hover:bg-red-700 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-night focus-visible:outline-none min-[380px]:h-9 min-[380px]:px-3 min-[380px]:text-sm sm:px-4 md:h-[38px] md:px-6 md:text-base"
+                        className="inline-flex h-8 items-center justify-center rounded bg-brand-red px-2 text-xs font-normal text-white transition-colors hover:bg-red-700 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-night focus-visible:outline-none min-[23.75rem]:h-9 min-[23.75rem]:px-3 min-[23.75rem]:text-sm sm:px-4 md:h-9.5 md:px-6 md:text-base"
                     >
                         {signUpLabel}
                     </Link>

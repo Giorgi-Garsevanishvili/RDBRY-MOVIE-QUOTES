@@ -51,6 +51,34 @@ test('a reset link is sent and the member is redirected to the check-email scree
 	});
 });
 
+test('passwordless Google members cannot use password recovery', function () {
+	Notification::fake();
+	$user = User::factory()->create([
+		'google_id' => 'google-password-reset-id',
+		'password'  => null,
+	]);
+
+	$this->post(route('password.email'), ['email' => $user->email])
+		->assertSessionHasErrors('email');
+
+	Notification::assertNothingSent();
+
+	$token = Password::broker()->createToken($user);
+
+	$this->get(route('password.reset', ['token' => $token, 'email' => $user->email]))
+		->assertOk()
+		->assertInertia(fn (Assert $page) => $page->component('auth/PasswordResetExpired'));
+
+	$this->post(route('password.update'), [
+		'token'                 => $token,
+		'email'                 => $user->email,
+		'password'              => 'newpassword1',
+		'password_confirmation' => 'newpassword1',
+	])->assertSessionHasErrors('email');
+
+	expect($user->fresh()->password)->toBeNull();
+});
+
 test('password recovery check-email screen can be rendered', function () {
 	$this->get(route('password.email.sent'))
 		->assertOk()

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { getScrollParallaxOffset } from '@/helpers/getScrollParallaxOffset';
 
-const MOBILE_MEDIA_QUERY = '(max-width: 650px)';
+const MOBILE_MEDIA_QUERY = '(max-width: 40.625rem)';
 const REDUCED_MOTION_MEDIA_QUERY = '(prefers-reduced-motion: reduce)';
 
 export function useQuoteSection(image: string, imagePosition: string) {
@@ -39,8 +39,12 @@ export function useQuoteSection(image: string, imagePosition: string) {
                 sectionBounds.height,
                 window.innerHeight,
             );
+            const rootFontSize = Number.parseFloat(
+                window.getComputedStyle(document.documentElement).fontSize,
+            );
+            const translateYRem = translateY / rootFontSize;
 
-            content.style.transform = `translate3d(0, ${translateY}px, 0)`;
+            content.style.transform = `translate3d(0, ${translateYRem}rem, 0)`;
         }
 
         function scheduleUpdate(): void {

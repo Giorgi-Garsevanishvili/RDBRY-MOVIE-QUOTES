@@ -33,7 +33,7 @@ Login accepts either username + password or email + password. The identity value
 
 Password recovery:
 
-1. accepts a required, valid email belonging to a system user;
+1. accepts a required, valid email belonging to a password-based system user;
 2. redirects to a check-email confirmation after a valid request;
 3. sends a reset link;
 4. opens a new-password form containing required password (8–15 lowercase Latin letters/digits) and matching confirmation;
@@ -41,9 +41,13 @@ Password recovery:
 6. updates the password and redirects to a success screen;
 7. handles expired/invalid links with the designed state.
 
+Passwordless Google accounts cannot request or use password-reset links.
+
 ## 4. Protected application shell
 
 Successful authentication opens the news feed. Desktop uses header + sidebar; mobile uses the compact header + side menu. Navigation exposes feed, personal movies, profile, notifications, locale, and logout.
+
+The Movie Quotes brand label remains in English when the interface locale changes.
 
 Unauthenticated access to a protected route renders the designed 403 page. An unknown route renders the designed 404 page.
 
@@ -51,7 +55,8 @@ Unauthenticated access to a protected route renders the designed 403 page. An un
 
 - Display all users' quote posts in newest-first order.
 - Each post displays author, movie, year, image, like count, comment count, comments, and comment input.
-- A member can like and comment on each quote.
+- Each collapsed feed post shows its three newest comments. When more comments exist, a localized control expands the complete comment history and can collapse it again.
+- A member can like and add a required text comment of at most 1,000 characters to each quote.
 - Load older posts progressively while scrolling, Facebook-style.
 - Search behavior:
     - plain text performs general search;
@@ -65,6 +70,7 @@ Unauthenticated access to a protected route renders the designed 403 page. An un
 - Change password for password-based accounts.
 - Change email only after the new address is activated through an emailed link.
 - For Google-authenticated accounts, email is read-only and the password field is hidden.
+- Passwordless Google accounts cannot use password recovery.
 
 ## 7. Personal movies
 
@@ -74,7 +80,7 @@ Unauthenticated access to a protected route renders the designed 403 page. An un
 - The owner can edit all movie information and delete the movie.
 - The owner can start quote creation from the movie details page and navigate from the list to a quote.
 
-The create/edit design contains required English and Georgian name, director, and description fields. Names and directors accept at most 255 characters, descriptions at most 2,000, and each localized value must use its respective English or Georgian script. Release year is required from 1888 through the current year, and at least one existing genre is required. A JPEG, PNG, or WebP poster up to 10 MB is required on create and optional on update.
+The create/edit design contains required English and Georgian name, director, and description fields. Names and directors accept at most 255 characters, descriptions at most 2,000, and each localized value must use its respective English or Georgian script. Long description content wraps within its form and detail containers without widening the layout. Release year is required from 1888 through the current year, and at least one existing genre is required. A JPEG, PNG, or WebP poster up to 10 MB is required on create and optional on update.
 
 Movies are hard-deleted. Deletion cascades genre links, quotes, quote comments and likes, movie/quote media, and related notifications.
 
@@ -114,6 +120,7 @@ Use the same fields, but preselect the current movie and prevent changing it.
 - Validate and authorize on the server, including ownership and upload rules.
 - Use stable pagination for progressive lists and avoid duplicate results and N+1 queries.
 - Store uploads through Media Library and remove or replace media consistently.
+- Deleting a member removes their comments, likes, owned quotes, owned movies, and associated media without removing content owned by other members.
 - Provide an English README, database relationship diagram, semantic Git history, automated CI/CD, server deployment, and Swagger/OpenAPI for JSON API routes.
 
 ## Explicitly outside current evidence

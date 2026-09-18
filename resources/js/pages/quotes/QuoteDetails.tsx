@@ -29,9 +29,9 @@ export default function QuoteDetails(props: QuoteDetailsProps) {
             <DialogPrimitive.Root open onOpenChange={handleQuoteOpenChange}>
                 <DialogPrimitive.Portal>
                     <DialogPrimitive.Overlay className="fixed inset-0 z-40 bg-[#11101a]/70" />
-                    <DialogPrimitive.Content className="fixed top-0 left-1/2 z-40 max-h-svh w-full -translate-x-1/2 overflow-y-auto bg-[#11101a] text-white outline-none lg:top-[115px] lg:max-h-[calc(100svh-130px)] lg:w-[961px] lg:rounded-xl">
-                        <header className="relative flex h-[93px] items-center justify-center border-b border-[#efefef]/20">
-                            <DialogPrimitive.Title className="text-xl leading-[30px] font-medium lg:text-2xl lg:leading-9">
+                    <DialogPrimitive.Content className="fixed top-0 left-1/2 z-40 max-h-svh w-full -translate-x-1/2 overflow-y-auto bg-[#11101a] text-white outline-none lg:top-28.75 lg:max-h-[calc(100svh-8.125rem)] lg:w-240.25 lg:rounded-xl">
+                        <header className="relative flex h-23.25 items-center justify-center border-b border-[#efefef]/20">
+                            <DialogPrimitive.Title className="text-xl leading-7.5 font-medium lg:text-2xl lg:leading-9">
                                 {messages.viewQuote}
                             </DialogPrimitive.Title>
                             <DialogPrimitive.Close
@@ -42,19 +42,19 @@ export default function QuoteDetails(props: QuoteDetailsProps) {
                             </DialogPrimitive.Close>
                         </header>
 
-                        <div className="px-[35px] pt-7 pb-11 lg:px-8 lg:pb-12">
+                        <div className="px-8.75 pt-7 pb-11 lg:px-8 lg:pb-12">
                             {quote.canManage && (
                                 <div
                                     role="group"
                                     aria-label={messages.actions}
-                                    className="mb-7 flex h-10 w-36 items-center justify-center rounded-[10px] bg-[#24222f]"
+                                    className="mb-7 flex h-10 w-36 items-center justify-center rounded-lg bg-[#24222f]"
                                 >
                                     <button
                                         type="button"
                                         onClick={openEditQuote}
                                         aria-label={messages.edit}
                                         title={messages.edit}
-                                        className="inline-flex h-10 w-[71px] items-center justify-center rounded-l-[10px] focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+                                        className="inline-flex h-10 w-17.75 items-center justify-center rounded-l-lg focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
                                     >
                                         <PencilIcon className="size-5" aria-hidden="true" />
                                     </button>
@@ -68,7 +68,7 @@ export default function QuoteDetails(props: QuoteDetailsProps) {
                                         disabled={isDeleting}
                                         aria-label={messages.delete}
                                         title={messages.delete}
-                                        className="inline-flex h-10 w-[71px] items-center justify-center rounded-r-[10px] focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none disabled:opacity-50"
+                                        className="inline-flex h-10 w-17.75 items-center justify-center rounded-r-lg focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none disabled:opacity-50"
                                     >
                                         <TrashIcon className="size-5" aria-hidden="true" />
                                     </button>
@@ -76,13 +76,13 @@ export default function QuoteDetails(props: QuoteDetailsProps) {
                             )}
 
                             <div className="mb-7 flex items-center gap-4">
-                                <Avatar className="size-10 lg:size-[60px]">
+                                <Avatar className="size-10 lg:size-15">
                                     <AvatarImage src={quote.author.avatar ?? undefined} alt="" />
                                     <AvatarFallback className="bg-[#6c6f8e] text-sm text-white">
                                         {authorInitials}
                                     </AvatarFallback>
                                 </Avatar>
-                                <strong className="text-xl leading-[30px] font-medium">
+                                <strong className="text-xl leading-7.5 font-medium">
                                     {quote.author.username}
                                 </strong>
                             </div>
@@ -94,24 +94,24 @@ export default function QuoteDetails(props: QuoteDetailsProps) {
                             <div className="grid gap-4 lg:gap-6">
                                 <p
                                     lang="en"
-                                    className="min-h-[53px] rounded-[4px] border border-[#6c757d] px-4 py-2 pr-16 text-xl leading-[30px] italic"
+                                    className="min-h-13.25 rounded-[0.25rem] border border-[#6c757d] px-4 py-2 pr-16 text-xl leading-7.5 italic"
                                 >
                                     “{quote.text.en}”
                                 </p>
                                 <p
                                     lang="ka"
-                                    className="min-h-[53px] rounded-[4px] border border-[#6c757d] px-4 py-2 pr-16 text-xl leading-[30px] italic"
+                                    className="min-h-13.25 rounded-[0.25rem] border border-[#6c757d] px-4 py-2 pr-16 text-xl leading-7.5 italic"
                                 >
                                     “{quote.text.ka}”
                                 </p>
 
                                 {quote.imageUrl === null ? (
-                                    <div className="h-[302px] rounded bg-[#24222f] lg:h-[513px]" />
+                                    <div className="h-75.5 rounded bg-[#24222f] lg:h-128.25" />
                                 ) : (
                                     <img
                                         src={quote.imageUrl}
                                         alt={localizedQuote.movie.name}
-                                        className="h-[302px] w-full rounded object-cover lg:h-[513px]"
+                                        className="h-75.5 w-full rounded object-cover lg:h-128.25"
                                     />
                                 )}
                             </div>

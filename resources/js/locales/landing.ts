@@ -31,7 +31,7 @@ export const LANDING_MESSAGES: Record<Locale, LandingMessages> = {
     ka: {
         pageTitle: 'ფილმების ციტატები',
         pageDescription: 'აღმოაჩინე დასამახსოვრებელი ფრაზები საყვარელი ფილმებიდან.',
-        brand: 'ფილმების ციტატები',
+        brand: 'Movie Quotes',
         heroTitle: 'იპოვე ნებისმიერი ციტატა მილიონობით ფილმის ფრაზას შორის',
         getStarted: 'დაწყება',
         signUp: 'რეგისტრაცია',

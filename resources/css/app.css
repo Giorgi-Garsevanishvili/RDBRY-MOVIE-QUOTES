@@ -44,8 +44,8 @@
     --color-brand-ink: #0d0d0d;
 
     --radius-lg: var(--radius);
-    --radius-md: calc(var(--radius) - 2px);
-    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 0.125rem);
+    --radius-sm: calc(var(--radius) - 0.25rem);
 
     --color-background: var(--background);
     --color-foreground: var(--foreground);
@@ -183,13 +183,13 @@
     will-change: transform;
 }
 
-@media (min-width: 651px) {
+@media (min-width: 40.6875rem) {
     .landing-quote-backdrop {
         background-position: center !important;
     }
 }
 
-@media (max-width: 650px), (prefers-reduced-motion: reduce) {
+@media (max-width: 40.625rem), (prefers-reduced-motion: reduce) {
     .landing-quote-backdrop {
         background-attachment: scroll;
     }

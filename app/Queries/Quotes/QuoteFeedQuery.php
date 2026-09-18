@@ -21,18 +21,24 @@ class QuoteFeedQuery
 			->allowedFilters(AllowedFilter::custom('search', new FiltersFeedSearch()));
 
 		$query
+			->whereHas('user')
+			->whereHas('movie')
 			->with([
 				'user:id,username',
 				'user.media',
 				'movie:id,name_en,name_ka,release_year',
 				'media',
 				'comments' => static fn ($query) => $query
+					->whereHas('user')
 					->oldest('created_at')
 					->oldest('id'),
 				'comments.user:id,username',
 				'comments.user.media',
 			])
-			->withCount(['comments', 'likes'])
+			->withCount([
+				'comments' => static fn ($query) => $query->whereHas('user'),
+				'likes',
+			])
 			->orderByDesc('created_at')
 			->orderByDesc('id');
 

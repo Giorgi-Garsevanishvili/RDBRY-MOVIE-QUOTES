@@ -36,7 +36,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
                 />
 
                 <AppSidebar
-                    className="fixed top-[120px] left-[70px] z-30 hidden w-72 flex-col text-white lg:flex"
+                    className="fixed top-30 left-17.5 z-30 hidden w-72 flex-col text-white lg:flex"
                     user={user}
                     initials={initials}
                     messages={messages}
@@ -77,7 +77,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
                     </DialogPrimitive.Content>
                 </DialogPrimitive.Portal>
 
-                <main className="min-h-svh pt-[86px] lg:pl-[430px]">{children}</main>
+                <main className="min-h-svh pt-21.5 lg:pl-107.5">{children}</main>
             </div>
         </DialogPrimitive.Root>
     );

@@ -15,9 +15,7 @@ export function useErrorPage(status: ErrorStatus) {
         content,
         homeUrl: home(),
         illustration: isForbidden ? gandalf : ghost,
-        illustrationClassName: isForbidden
-            ? 'relative z-10 h-[261px] w-[345px]'
-            : 'h-[178px] w-[122px]',
+        illustrationClassName: isForbidden ? 'relative z-10 h-65.25 w-86.25' : 'h-44.5 w-30.5',
         isForbidden,
         returnHomeLabel: messages.returnHome,
     };

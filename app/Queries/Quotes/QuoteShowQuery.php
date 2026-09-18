@@ -39,6 +39,7 @@ class QuoteShowQuery
 				'user',
 				'user.media',
 				'comments' => static fn ($query) => $query
+					->whereHas('user')
 					->oldest('created_at')
 					->oldest('id'),
 				'comments.user:id,username',
@@ -48,7 +49,10 @@ class QuoteShowQuery
 				'likes as liked_by_viewer' => static fn ($likes) => $likes
 					->where('user_id', $viewer->id),
 			])
-			->loadCount(['comments', 'likes']);
+			->loadCount([
+				'comments' => static fn ($query) => $query->whereHas('user'),
+				'likes',
+			]);
 		$movie = $quote->movie;
 
 		return [
@@ -66,6 +70,7 @@ class QuoteShowQuery
 				],
 				'movie'        => $this->movieData($movie),
 				'comments'     => array_values($quote->comments
+					->filter(static fn (Comment $comment): bool => $comment->user !== null)
 					->map(static fn (Comment $comment): array => [
 						'id'     => $comment->id,
 						'body'   => $comment->body,

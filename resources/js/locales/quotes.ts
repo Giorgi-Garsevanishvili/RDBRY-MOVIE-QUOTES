@@ -29,6 +29,8 @@ export const QUOTE_MESSAGES: Record<Locale, QuoteMessages> = {
         submitComment: 'Post comment',
         likeQuote: 'Like quote',
         unlikeQuote: 'Remove like',
+        viewAllComments: (count) => `View all ${count} comments`,
+        showFewerComments: 'Show fewer comments',
         noMovies: 'Add a movie before writing a quote.',
     },
     ka: {
@@ -59,6 +61,8 @@ export const QUOTE_MESSAGES: Record<Locale, QuoteMessages> = {
         submitComment: 'კომენტარის გამოქვეყნება',
         likeQuote: 'ციტატის მოწონება',
         unlikeQuote: 'მოწონების გაუქმება',
+        viewAllComments: (count) => `ყველა კომენტარის ნახვა (${count})`,
+        showFewerComments: 'ნაკლები კომენტარის ნახვა',
         noMovies: 'ციტატის დაწერამდე დაამატეთ ფილმი.',
     },
 };

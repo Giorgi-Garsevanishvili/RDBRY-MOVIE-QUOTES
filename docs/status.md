@@ -1,11 +1,11 @@
 # Project status
 
-Last updated: 2026-09-17
+Last updated: 2026-09-18
 
 - Phase: Delivery
-- Active slice: PR 20 — realistic demo data
-- State: Committed and pushed; production verification remains pending
-- Dependency: PR 20 is stacked on pushed branch `codex/ci/deployment` at `453ba84`
+- Active slice: PR 21 — content, account, and sizing consistency
+- State: Committed and pushed; remote review remains pending
+- Dependency: PR 21 is stacked on pushed PR 20 branch `codex/chore/realistic-seeder` at `1634d78`
 - Blocker: None
 
 ## Completed
@@ -173,11 +173,27 @@ Last updated: 2026-09-17
 - Added focused Pest coverage for dataset completeness, ownership, media storage, credentials, notification state, and repeat execution.
 - Passed the complete restacked PR 20 gate: deployment-script syntax, ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 225 Pest tests with 1,414 assertions.
 - Committed and pushed the verified PR 20 stack on `codex/chore/realistic-seeder`.
+- Prevented deleted members from leaving authored comments, likes, owned movies, owned quotes, or associated Media Library files behind during application-driven deletion.
+- Added a repair migration and defensive feed/detail reads for legacy comments whose author no longer exists.
+- Limited collapsed feed cards to the three newest comments and added localized expand/collapse controls for complete discussions without changing quote-detail behavior.
+- Kept the Movie Quotes brand label in English across locale changes while preserving localized page titles and supporting copy.
+- Rejected password-reset requests, reset-link views, and reset submissions for passwordless Google-created accounts while retaining the existing read-only email rule.
+- Browser-verified that changing the interface to Georgian preserves the English Movie Quotes brand while localizing the surrounding page content.
+- Repassed the complete PR 21 gate after the sizing conversion: deployment-script syntax, ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 228 Pest tests with 1,436 assertions.
+- Replaced authored pixel measurements across React, CSS, JavaScript media/animation paths, and the HTML email template with Tailwind's rem-backed numeric scale or exact rem values while retaining intentional Tailwind hairline utilities.
+- Confirmed the generated production CSS contains the converted fractional utilities, including `px-8.75`, `h-21.5`, and `lg:w-240.25`.
+- Browser-verified the converted landing and registration surfaces at 1,440×900 desktop and 390×844 mobile viewports without layout regressions.
+- Committed and pushed the verified PR 21 stack on `codex/fix/content-account-rules` as separate behavior/test and rem-sizing/documentation commits.
+- Limited comments to 1,000 characters in both Laravel validation and the shared comment input, with localized English and Georgian errors and exact-boundary Pest coverage.
+- Preserved the existing 2,000-character bilingual movie-description boundary and added explicit English/Georgian rejection coverage.
+- Prevented comments and movie descriptions, including unbroken text, from widening their feed, quote, movie-detail, or movie-form containers.
+- Passed the complete PR 21 content-boundary gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 232 Pest tests with 1,450 assertions.
+- Committed and pushed the content-boundary follow-up on `codex/fix/content-account-rules` for PR 21 review.
 
 ## Next
 
-1. Configure Pusher application credentials for a live provider check.
-2. Review the pushed, restacked PR 20 realistic demo dataset.
+1. Open and review PR 21 against its PR 20 base.
+2. Configure Pusher application credentials for a live provider check.
 3. Configure the protected GitHub `production` environment and complete the first user-managed server deployment.
 4. Record the green production deploy and key-journey smoke-test evidence.
 

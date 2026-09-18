@@ -143,7 +143,7 @@ class FortifyServiceProvider extends ServiceProvider
 			$token = (string) $request->route('token');
 			$user = User::query()->where('email', $email)->first();
 
-			if ($user === null || !PasswordBroker::broker()->tokenExists($user, $token))
+			if ($user === null || $user->password === null || !PasswordBroker::broker()->tokenExists($user, $token))
 			{
 				return Inertia::render('auth/PasswordResetExpired');
 			}

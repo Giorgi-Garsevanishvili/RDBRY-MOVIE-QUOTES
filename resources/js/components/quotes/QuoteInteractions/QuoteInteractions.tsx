@@ -5,9 +5,15 @@ import QuoteCommentIcon from './QuoteCommentIcon';
 import QuoteHeartIcon from './QuoteHeartIcon';
 import { useQuoteInteractions } from './useQuoteInteractions';
 
+const COMMENT_MAX_LENGTH = 1000;
+
 export default function QuoteInteractions(props: QuoteInteractionsProps) {
     const {
         comments,
+        commentsExpanded,
+        commentsListId,
+        commentsToggleLabel,
+        hasHiddenComments,
         commentBody,
         commentError,
         currentUserInitials,
@@ -18,6 +24,7 @@ export default function QuoteInteractions(props: QuoteInteractionsProps) {
         likeLabel,
         onCommentChange,
         onCommentSubmit,
+        onCommentsToggle,
         onLikeToggle,
     } = useQuoteInteractions(props);
 
@@ -40,39 +47,51 @@ export default function QuoteInteractions(props: QuoteInteractionsProps) {
                     className="inline-flex items-center gap-3 rounded text-xl focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none disabled:opacity-50"
                 >
                     <span>{props.quote.likeCount}</span>
-                    <QuoteHeartIcon
-                        className={`h-6 w-[26px] lg:h-8 lg:w-[34px] ${likeIconClassName}`}
-                    />
+                    <QuoteHeartIcon className={`h-6 w-6.5 lg:h-8 lg:w-8.5 ${likeIconClassName}`} />
                 </button>
             </div>
 
-            {comments.map((comment) => (
-                <article
-                    key={comment.id}
-                    className="flex gap-4 border-b border-[#efefef]/20 py-4 lg:gap-6 lg:py-6"
+            {hasHiddenComments && (
+                <button
+                    type="button"
+                    onClick={onCommentsToggle}
+                    aria-expanded={commentsExpanded}
+                    aria-controls={commentsListId}
+                    className="mt-4 rounded text-sm text-[#ced4da] transition-colors hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none lg:mt-5 lg:text-base"
                 >
-                    <Avatar className="size-10 shrink-0 lg:size-[52px]">
-                        <AvatarImage src={comment.authorAvatarUrl ?? undefined} alt="" />
-                        <AvatarFallback className="bg-[#6c6f8e] text-sm text-white">
-                            {comment.authorInitials}
-                        </AvatarFallback>
-                    </Avatar>
-                    <div className="min-w-0 flex-1">
-                        <strong className="text-base font-normal lg:text-xl lg:font-medium">
-                            {comment.authorName}
-                        </strong>
-                        <p className="mt-1 text-base leading-6 break-words lg:mt-2 lg:text-xl lg:leading-[30px]">
-                            {comment.body}
-                        </p>
-                    </div>
-                </article>
-            ))}
+                    {commentsToggleLabel}
+                </button>
+            )}
+
+            <div id={commentsListId}>
+                {comments.map((comment) => (
+                    <article
+                        key={comment.id}
+                        className="flex gap-4 border-b border-[#efefef]/20 py-4 lg:gap-6 lg:py-6"
+                    >
+                        <Avatar className="size-10 shrink-0 lg:size-13">
+                            <AvatarImage src={comment.authorAvatarUrl ?? undefined} alt="" />
+                            <AvatarFallback className="bg-[#6c6f8e] text-sm text-white">
+                                {comment.authorInitials}
+                            </AvatarFallback>
+                        </Avatar>
+                        <div className="min-w-0 flex-1">
+                            <strong className="text-base font-normal lg:text-xl lg:font-medium">
+                                {comment.authorName}
+                            </strong>
+                            <p className="mt-1 text-base leading-6 [overflow-wrap:anywhere] lg:mt-2 lg:text-xl lg:leading-7.5">
+                                {comment.body}
+                            </p>
+                        </div>
+                    </article>
+                ))}
+            </div>
 
             <form
                 onSubmit={onCommentSubmit}
                 className="flex items-start gap-4 pt-4 lg:gap-6 lg:pt-6"
             >
-                <Avatar className="size-10 shrink-0 lg:size-[52px]">
+                <Avatar className="size-10 shrink-0 lg:size-13">
                     <AvatarImage src={currentUserAvatarUrl ?? undefined} alt="" />
                     <AvatarFallback className="bg-[#6c6f8e] text-sm text-white">
                         {currentUserInitials}
@@ -88,6 +107,7 @@ export default function QuoteInteractions(props: QuoteInteractionsProps) {
                         type="text"
                         value={commentBody}
                         onChange={onCommentChange}
+                        maxLength={COMMENT_MAX_LENGTH}
                         disabled={isCommentSubmitting}
                         placeholder={props.messages.writeComment}
                         aria-invalid={commentError === undefined ? undefined : true}
@@ -96,7 +116,7 @@ export default function QuoteInteractions(props: QuoteInteractionsProps) {
                                 ? undefined
                                 : `quote-${props.quote.id}-comment-error`
                         }
-                        className="h-10 w-full rounded-[10px] bg-[#24222f] px-4 text-base text-white placeholder:text-[#ced4da] focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none disabled:opacity-50 lg:h-[52px] lg:px-7 lg:text-xl"
+                        className="h-10 w-full rounded-lg bg-[#24222f] px-4 text-base text-white placeholder:text-[#ced4da] focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none disabled:opacity-50 lg:h-13 lg:px-7 lg:text-xl"
                     />
                     <InputError
                         id={`quote-${props.quote.id}-comment-error`}

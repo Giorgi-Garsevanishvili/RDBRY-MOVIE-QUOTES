@@ -27,19 +27,19 @@ export default function MovieDetails(props: MovieDetailsProps) {
         <>
             <Head title={localizedMovie.name} />
 
-            <section className="px-[35px] py-8 lg:pr-[70px] lg:pl-0">
+            <section className="px-8.75 py-8 lg:pr-17.5 lg:pl-0">
                 <h1 className="hidden text-2xl leading-9 font-medium lg:block">
                     {messages.movieDescription}
                 </h1>
 
-                <article className="mt-[7px] grid max-w-[1420px] gap-6 lg:mt-[33px] lg:grid-cols-[minmax(0,809px)_minmax(0,590px)] lg:gap-[21px]">
+                <article className="mt-1.75 grid max-w-355 gap-6 lg:mt-8.25 lg:grid-cols-[minmax(0,50.5625rem)_minmax(0,36.875rem)] lg:gap-5.25">
                     {localizedMovie.posterUrl === null ? (
-                        <div className="h-[302px] rounded-xl bg-[#11101a] lg:h-[441px]" />
+                        <div className="h-75.5 rounded-xl bg-[#11101a] lg:h-110.25" />
                     ) : (
                         <img
                             src={localizedMovie.posterUrl}
                             alt={localizedMovie.name}
-                            className="h-[302px] w-full rounded-xl bg-[#11101a] object-cover lg:h-[441px]"
+                            className="h-75.5 w-full rounded-xl bg-[#11101a] object-cover lg:h-110.25"
                         />
                     )}
 
@@ -59,14 +59,18 @@ export default function MovieDetails(props: MovieDetailsProps) {
                             ))}
                         </ul>
 
-                        <p className="mt-5 text-lg leading-[27px] uppercase">
+                        <p className="mt-5 text-lg leading-6.75 uppercase">
                             <span className="text-[#ced4da]">{messages.director}</span>{' '}
                             <strong className="font-medium">{localizedMovie.director}</strong>
                         </p>
 
-                        <div className="mt-5 grid gap-4 text-lg leading-[27px] text-[#ced4da] lg:text-xl lg:leading-[30px]">
-                            <p lang="en">{movie.description.en}</p>
-                            <p lang="ka">{movie.description.ka}</p>
+                        <div className="mt-5 grid min-w-0 gap-4 text-lg leading-6.75 text-[#ced4da] lg:text-xl lg:leading-7.5">
+                            <p lang="en" className="[overflow-wrap:anywhere]">
+                                {movie.description.en}
+                            </p>
+                            <p lang="ka" className="[overflow-wrap:anywhere]">
+                                {movie.description.ka}
+                            </p>
                         </div>
 
                         <MovieActions
@@ -81,7 +85,7 @@ export default function MovieDetails(props: MovieDetailsProps) {
                     </div>
                 </article>
 
-                <section className="mt-8 max-w-[809px] border-t border-white/20 pt-8 lg:mt-10">
+                <section className="mt-8 max-w-202.25 border-t border-white/20 pt-8 lg:mt-10">
                     <div className="flex flex-wrap items-center gap-4 lg:gap-6">
                         <h2 className="text-2xl leading-9 font-medium">
                             <span className="lg:hidden">{messages.allQuotes}</span>
@@ -91,7 +95,7 @@ export default function MovieDetails(props: MovieDetailsProps) {
                         <button
                             type="button"
                             onClick={openAddQuote}
-                            className="inline-flex h-12 items-center gap-2 rounded-[4px] bg-brand-red px-4 text-base transition-opacity hover:opacity-90 lg:text-xl"
+                            className="inline-flex h-12 items-center gap-2 rounded-[0.25rem] bg-brand-red px-4 text-base transition-opacity hover:opacity-90 lg:text-xl"
                         >
                             <PlusSquareIcon className="size-4" aria-hidden="true" />
                             {quoteMessages.addQuote}

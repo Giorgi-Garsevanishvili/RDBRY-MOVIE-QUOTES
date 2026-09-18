@@ -5,8 +5,8 @@ import { LANDING_MESSAGES } from '@/locales/landing';
 import { home } from '@/routes';
 
 const AUTH_PANEL_HEIGHTS: Record<string, string> = {
-    'auth/Register': 'md:min-h-[768px]',
-    'auth/Login': 'md:min-h-[600px]',
+    'auth/Register': 'md:min-h-192',
+    'auth/Login': 'md:min-h-150',
 };
 
 export function useAuthLayout() {

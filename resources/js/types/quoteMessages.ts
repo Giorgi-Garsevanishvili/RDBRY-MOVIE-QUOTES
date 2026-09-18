@@ -26,5 +26,7 @@ export type QuoteMessages = {
     submitComment: string;
     likeQuote: string;
     unlikeQuote: string;
+    viewAllComments: (count: number) => string;
+    showFewerComments: string;
     noMovies: string;
 };

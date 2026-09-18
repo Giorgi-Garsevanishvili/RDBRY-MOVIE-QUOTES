@@ -3,10 +3,10 @@ import PasswordInput from '@/components/PasswordInput';
 import type { ProfileEditorProps } from './profileEditorTypes';
 
 const INPUT_CLASSES =
-    'h-12 w-full rounded-[5px] border border-[#ced4da] bg-[#ced4da] px-4 text-xl leading-[30px] text-[#212529] outline-none placeholder:text-[#6c757d] focus:border-white focus:ring-2 focus:ring-white/50 aria-invalid:border-brand-red aria-invalid:ring-brand-red/30';
+    'h-12 w-full rounded-[0.3125rem] border border-[#ced4da] bg-[#ced4da] px-4 text-xl leading-7.5 text-[#212529] outline-none placeholder:text-[#6c757d] focus:border-white focus:ring-2 focus:ring-white/50 aria-invalid:border-brand-red aria-invalid:ring-brand-red/30';
 
 const ACTION_CLASSES =
-    'inline-flex h-12 items-center justify-center rounded px-[17px] text-xl leading-[30px] focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none disabled:opacity-60';
+    'inline-flex h-12 items-center justify-center rounded px-4.25 text-xl leading-7.5 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none disabled:opacity-60';
 
 export default function ProfileEditor({
     activeEditor,
@@ -49,7 +49,7 @@ export default function ProfileEditor({
                         <div>
                             <label
                                 htmlFor="profile-username"
-                                className="mb-2 block text-base leading-6 lg:text-xl lg:leading-[30px]"
+                                className="mb-2 block text-base leading-6 lg:text-xl lg:leading-7.5"
                             >
                                 {messages.newUsername}
                             </label>
@@ -81,7 +81,7 @@ export default function ProfileEditor({
                             <div>
                                 <label
                                     htmlFor="username-current-password"
-                                    className="mb-2 block text-base leading-6 lg:text-xl lg:leading-[30px]"
+                                    className="mb-2 block text-base leading-6 lg:text-xl lg:leading-7.5"
                                 >
                                     {messages.currentPassword}
                                 </label>
@@ -132,7 +132,7 @@ export default function ProfileEditor({
                         <div>
                             <label
                                 htmlFor="profile-email"
-                                className="mb-2 block text-base leading-6 lg:text-xl lg:leading-[30px]"
+                                className="mb-2 block text-base leading-6 lg:text-xl lg:leading-7.5"
                             >
                                 {messages.newEmail}
                             </label>
@@ -162,7 +162,7 @@ export default function ProfileEditor({
                         <div>
                             <label
                                 htmlFor="email-current-password"
-                                className="mb-2 block text-base leading-6 lg:text-xl lg:leading-[30px]"
+                                className="mb-2 block text-base leading-6 lg:text-xl lg:leading-7.5"
                             >
                                 {messages.currentPassword}
                             </label>
@@ -212,7 +212,7 @@ export default function ProfileEditor({
                         <div>
                             <label
                                 htmlFor="password-current-password"
-                                className="mb-2 block text-base leading-6 lg:text-xl lg:leading-[30px]"
+                                className="mb-2 block text-base leading-6 lg:text-xl lg:leading-7.5"
                             >
                                 {messages.currentPassword}
                             </label>
@@ -253,7 +253,7 @@ export default function ProfileEditor({
                         <div>
                             <label
                                 htmlFor="profile-new-password"
-                                className="mb-2 block text-base leading-6 lg:text-xl lg:leading-[30px]"
+                                className="mb-2 block text-base leading-6 lg:text-xl lg:leading-7.5"
                             >
                                 {messages.newPassword}
                             </label>
@@ -287,7 +287,7 @@ export default function ProfileEditor({
                         <div>
                             <label
                                 htmlFor="profile-password-confirmation"
-                                className="mb-2 block text-base leading-6 lg:text-xl lg:leading-[30px]"
+                                className="mb-2 block text-base leading-6 lg:text-xl lg:leading-7.5"
                             >
                                 {messages.confirmPassword}
                             </label>

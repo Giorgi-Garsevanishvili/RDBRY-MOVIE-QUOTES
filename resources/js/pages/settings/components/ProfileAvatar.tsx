@@ -14,8 +14,8 @@ export default function ProfileAvatar({
     onChange,
 }: ProfileAvatarProps) {
     return (
-        <div className="mx-auto flex w-[220px] flex-col items-center">
-            <Avatar className="size-[188px] border-0">
+        <div className="mx-auto flex w-55 flex-col items-center">
+            <Avatar className="size-47 border-0">
                 <AvatarImage src={avatarUrl ?? undefined} alt={username} className="object-cover" />
                 <AvatarFallback className="bg-[#6c6f8e] text-5xl text-white">
                     {initials}
@@ -34,7 +34,7 @@ export default function ProfileAvatar({
                 type="button"
                 disabled={processing}
                 onClick={onChoose}
-                className="mt-2 rounded text-xl leading-[30px] text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none disabled:opacity-60"
+                className="mt-2 rounded text-xl leading-7.5 text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none disabled:opacity-60"
             >
                 {uploadLabel}
             </button>

@@ -31,6 +31,13 @@ This checklist is derived from the assignment's linked Redberry resources. The s
 - Use useEffect only to synchronize with systems outside React, not for ordinary data fetching or derived/initial state.
 - Use memoization, transition, and effect variants only for demonstrated needs.
 
+## Tailwind sizing
+
+- Express layout, spacing, position, and line-height measurements through Tailwind's rem-backed numeric scale whenever an exact utility exists.
+- Preserve exact Figma geometry with rem-based arbitrary values only when the value cannot be represented by a Tailwind utility, such as custom radii, font sizes, grid tracks, shadows, and calculations.
+- Use rem units in authored CSS, JavaScript media queries, runtime transforms, and HTML email sizing instead of hard-coded pixel units.
+- Tailwind's named one-pixel hairline utilities, such as `h-px`, `w-px`, and `translate-x-px`, remain valid when the design intentionally requires a device-pixel detail.
+
 ## Files and names
 
 - resources/js is this Inertia project's source root.
