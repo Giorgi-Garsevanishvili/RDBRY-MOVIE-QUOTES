@@ -244,7 +244,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                                 ? 'description_en-error'
                                                 : undefined
                                         }
-                                        className="h-21.5 w-full resize-none rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 py-2 pr-16 text-base outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
+                                        className="h-21.5 w-full resize-none rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 py-2 pr-16 text-base [overflow-wrap:anywhere] outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
                                     />
                                     <span className="pointer-events-none absolute top-2 right-4 text-base lg:text-xl">
                                         {messages.english}
@@ -271,7 +271,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                                 ? 'description_ka-error'
                                                 : undefined
                                         }
-                                        className="h-21.5 w-full resize-none rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 py-2 pr-16 text-base outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
+                                        className="h-21.5 w-full resize-none rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 py-2 pr-16 text-base [overflow-wrap:anywhere] outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
                                     />
                                     <span className="pointer-events-none absolute top-2 right-4 text-base lg:text-xl">
                                         {messages.georgian}

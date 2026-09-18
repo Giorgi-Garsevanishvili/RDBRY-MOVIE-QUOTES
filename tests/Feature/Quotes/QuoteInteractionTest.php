@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Requests\Quotes\StoreCommentRequest;
+use App\Http\Resources\QuoteFeedResource;
 use App\Models\Comment;
 use App\Models\Like;
 use App\Models\Movie;
 use App\Models\Quote;
 use App\Models\User;
-use App\Http\Resources\QuoteFeedResource;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Inertia\Testing\AssertableInertia as Assert;
 
@@ -26,8 +27,9 @@ test('a verified member can create a comment on any quote', function (string $bo
 		->and($comment->quote_id)->toBe($quote->id)
 		->and($comment->body)->toBe($body);
 })->with([
-	'English text'  => 'A thoughtful comment.',
-	'Georgian text' => 'საინტერესო კომენტარია.',
+	'English text'   => 'A thoughtful comment.',
+	'Georgian text'  => 'საინტერესო კომენტარია.',
+	'maximum length' => str_repeat('a', StoreCommentRequest::MAX_BODY_LENGTH),
 ]);
 
 test('comment validation is localized', function (string $locale, mixed $body, string $message) {
@@ -44,6 +46,16 @@ test('comment validation is localized', function (string $locale, mixed $body, s
 })->with([
 	'English required' => ['en', null, 'The comment field is required.'],
 	'Georgian string'  => ['ka', ['invalid'], 'კომენტარი ტექსტი უნდა იყოს.'],
+	'English maximum'  => [
+		'en',
+		str_repeat('a', StoreCommentRequest::MAX_BODY_LENGTH + 1),
+		'The comment may not be greater than 1000 characters.',
+	],
+	'Georgian maximum' => [
+		'ka',
+		str_repeat('ა', StoreCommentRequest::MAX_BODY_LENGTH + 1),
+		'კომენტარი არ უნდა აღემატებოდეს 1000 სიმბოლოს.',
+	],
 ]);
 
 test('liking and unliking a quote are idempotent', function () {

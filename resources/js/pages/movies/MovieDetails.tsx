@@ -64,9 +64,13 @@ export default function MovieDetails(props: MovieDetailsProps) {
                             <strong className="font-medium">{localizedMovie.director}</strong>
                         </p>
 
-                        <div className="mt-5 grid gap-4 text-lg leading-6.75 text-[#ced4da] lg:text-xl lg:leading-7.5">
-                            <p lang="en">{movie.description.en}</p>
-                            <p lang="ka">{movie.description.ka}</p>
+                        <div className="mt-5 grid min-w-0 gap-4 text-lg leading-6.75 text-[#ced4da] lg:text-xl lg:leading-7.5">
+                            <p lang="en" className="[overflow-wrap:anywhere]">
+                                {movie.description.en}
+                            </p>
+                            <p lang="ka" className="[overflow-wrap:anywhere]">
+                                {movie.description.ka}
+                            </p>
                         </div>
 
                         <MovieActions

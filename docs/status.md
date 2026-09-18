@@ -1,6 +1,6 @@
 # Project status
 
-Last updated: 2026-09-17
+Last updated: 2026-09-18
 
 - Phase: Delivery
 - Active slice: PR 21 — content, account, and sizing consistency
@@ -184,6 +184,11 @@ Last updated: 2026-09-17
 - Confirmed the generated production CSS contains the converted fractional utilities, including `px-8.75`, `h-21.5`, and `lg:w-240.25`.
 - Browser-verified the converted landing and registration surfaces at 1,440×900 desktop and 390×844 mobile viewports without layout regressions.
 - Committed and pushed the verified PR 21 stack on `codex/fix/content-account-rules` as separate behavior/test and rem-sizing/documentation commits.
+- Limited comments to 1,000 characters in both Laravel validation and the shared comment input, with localized English and Georgian errors and exact-boundary Pest coverage.
+- Preserved the existing 2,000-character bilingual movie-description boundary and added explicit English/Georgian rejection coverage.
+- Prevented comments and movie descriptions, including unbroken text, from widening their feed, quote, movie-detail, or movie-form containers.
+- Passed the complete PR 21 content-boundary gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 232 Pest tests with 1,450 assertions.
+- Committed and pushed the content-boundary follow-up on `codex/fix/content-account-rules` for PR 21 review.
 
 ## Next
 

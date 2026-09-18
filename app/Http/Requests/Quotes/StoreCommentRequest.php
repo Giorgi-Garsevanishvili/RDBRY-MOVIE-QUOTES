@@ -8,6 +8,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCommentRequest extends FormRequest
 {
+	public const MAX_BODY_LENGTH = 1000;
+
 	public function authorize(): bool
 	{
 		$quote = $this->route('quote');
@@ -19,7 +21,7 @@ class StoreCommentRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'body' => ['required', 'string'],
+			'body' => ['required', 'string', 'max:' . self::MAX_BODY_LENGTH],
 		];
 	}
 
@@ -34,6 +36,7 @@ class StoreCommentRequest extends FormRequest
 		return [
 			'body.required' => __('comments.validation.required'),
 			'body.string'   => __('comments.validation.string'),
+			'body.max'      => __('comments.validation.max'),
 		];
 	}
 

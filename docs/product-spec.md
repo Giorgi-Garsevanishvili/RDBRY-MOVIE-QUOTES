@@ -56,7 +56,7 @@ Unauthenticated access to a protected route renders the designed 403 page. An un
 - Display all users' quote posts in newest-first order.
 - Each post displays author, movie, year, image, like count, comment count, comments, and comment input.
 - Each collapsed feed post shows its three newest comments. When more comments exist, a localized control expands the complete comment history and can collapse it again.
-- A member can like and comment on each quote.
+- A member can like and add a required text comment of at most 1,000 characters to each quote.
 - Load older posts progressively while scrolling, Facebook-style.
 - Search behavior:
     - plain text performs general search;
@@ -80,7 +80,7 @@ Unauthenticated access to a protected route renders the designed 403 page. An un
 - The owner can edit all movie information and delete the movie.
 - The owner can start quote creation from the movie details page and navigate from the list to a quote.
 
-The create/edit design contains required English and Georgian name, director, and description fields. Names and directors accept at most 255 characters, descriptions at most 2,000, and each localized value must use its respective English or Georgian script. Release year is required from 1888 through the current year, and at least one existing genre is required. A JPEG, PNG, or WebP poster up to 10 MB is required on create and optional on update.
+The create/edit design contains required English and Georgian name, director, and description fields. Names and directors accept at most 255 characters, descriptions at most 2,000, and each localized value must use its respective English or Georgian script. Long description content wraps within its form and detail containers without widening the layout. Release year is required from 1888 through the current year, and at least one existing genre is required. A JPEG, PNG, or WebP poster up to 10 MB is required on create and optional on update.
 
 Movies are hard-deleted. Deletion cascades genre links, quotes, quote comments and likes, movie/quote media, and related notifications.
 

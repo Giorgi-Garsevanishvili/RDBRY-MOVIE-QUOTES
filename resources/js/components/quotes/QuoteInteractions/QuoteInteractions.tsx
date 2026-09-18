@@ -5,6 +5,8 @@ import QuoteCommentIcon from './QuoteCommentIcon';
 import QuoteHeartIcon from './QuoteHeartIcon';
 import { useQuoteInteractions } from './useQuoteInteractions';
 
+const COMMENT_MAX_LENGTH = 1000;
+
 export default function QuoteInteractions(props: QuoteInteractionsProps) {
     const {
         comments,
@@ -77,7 +79,7 @@ export default function QuoteInteractions(props: QuoteInteractionsProps) {
                             <strong className="text-base font-normal lg:text-xl lg:font-medium">
                                 {comment.authorName}
                             </strong>
-                            <p className="mt-1 text-base leading-6 break-words lg:mt-2 lg:text-xl lg:leading-7.5">
+                            <p className="mt-1 text-base leading-6 [overflow-wrap:anywhere] lg:mt-2 lg:text-xl lg:leading-7.5">
                                 {comment.body}
                             </p>
                         </div>
@@ -105,6 +107,7 @@ export default function QuoteInteractions(props: QuoteInteractionsProps) {
                         type="text"
                         value={commentBody}
                         onChange={onCommentChange}
+                        maxLength={COMMENT_MAX_LENGTH}
                         disabled={isCommentSubmitting}
                         placeholder={props.messages.writeComment}
                         aria-invalid={commentError === undefined ? undefined : true}
