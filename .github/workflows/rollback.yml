@@ -1,0 +1,79 @@
+name: rollback
+
+on:
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+jobs:
+    rollback:
+        runs-on: ubuntu-latest
+        environment:
+            name: production
+            url: ${{ vars.DEPLOY_URL }}
+        concurrency:
+            group: production
+            cancel-in-progress: false
+
+        steps:
+            - name: Checkout rollback script
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  persist-credentials: false
+                  ref: main
+
+            - name: Configure SSH
+              env:
+                  DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+                  DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+              run: |
+                  set -Eeuo pipefail
+                  : "${DEPLOY_KNOWN_HOSTS:?DEPLOY_KNOWN_HOSTS is required}"
+                  : "${DEPLOY_SSH_KEY:?DEPLOY_SSH_KEY is required}"
+                  printf '%s\n' "$DEPLOY_SSH_KEY" > "$RUNNER_TEMP/movie-quotes-deploy-key"
+                  printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > "$RUNNER_TEMP/movie-quotes-known-hosts"
+                  chmod 600 "$RUNNER_TEMP/movie-quotes-deploy-key"
+
+            - name: Restore previous release
+              env:
+                  DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+                  DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
+                  DEPLOY_PORT: ${{ vars.DEPLOY_PORT }}
+                  DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+              run: |
+                  set -Eeuo pipefail
+                  : "${DEPLOY_HOST:?DEPLOY_HOST is required}"
+                  : "${DEPLOY_PATH:?DEPLOY_PATH is required}"
+                  : "${DEPLOY_USER:?DEPLOY_USER is required}"
+                  DEPLOY_PORT="${DEPLOY_PORT:-22}"
+                  printf -v remote_command 'DEPLOY_PATH=%q bash -s' "$DEPLOY_PATH"
+                  ssh \
+                      -i "$RUNNER_TEMP/movie-quotes-deploy-key" \
+                      -o BatchMode=yes \
+                      -o ConnectTimeout=15 \
+                      -o IdentitiesOnly=yes \
+                      -o StrictHostKeyChecking=yes \
+                      -o UserKnownHostsFile="$RUNNER_TEMP/movie-quotes-known-hosts" \
+                      -p "$DEPLOY_PORT" \
+                      "$DEPLOY_USER@$DEPLOY_HOST" \
+                      "$remote_command" \
+                      < scripts/rollback.sh
+
+            - name: Check production health
+              env:
+                  DEPLOY_URL: ${{ vars.DEPLOY_URL }}
+              run: |
+                  set -Eeuo pipefail
+                  : "${DEPLOY_URL:?DEPLOY_URL is required}"
+                  curl \
+                      --connect-timeout 10 \
+                      --fail \
+                      --location \
+                      --max-time 30 \
+                      --retry 5 \
+                      --retry-all-errors \
+                      --retry-delay 5 \
+                      --show-error \
+                      --silent \
+                      "${DEPLOY_URL%/}/up"

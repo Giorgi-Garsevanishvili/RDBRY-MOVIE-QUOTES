@@ -2,11 +2,11 @@
 
 Last updated: 2026-09-17
 
-- Phase: Hardening
-- Active slice: PR 18 — hardening
-- State: Complete; restacked onto the Pusher-adjusted profile branch
-- Dependency: PR 18 is stacked on pushed branch `codex/feat/profile` at `e36c92b`
-- Blocker: None
+- Phase: Delivery
+- Active slice: PR 19 — CD and deployment
+- State: Committed and pushed; production verification remains pending
+- Dependency: PR 19 is stacked on pushed branch `codex/chore/hardening` at `e5ceb57`
+- Blocker: Production deployment and smoke-test evidence require the user-managed server
 
 ## Completed
 
@@ -160,18 +160,25 @@ Last updated: 2026-09-17
 - Verified avatar rendering, dialog focus, Escape dismissal, trigger restoration, and current-page mark-all behavior in the running application.
 - Confirmed the locked Composer and production npm dependency trees have no reported security advisories.
 - Passed 24 focused feed, quote-page, and notification Pest tests with 277 assertions plus frontend lint, formatting, and TypeScript checks.
-- Passed the complete PR 18 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 222 Pest tests with 1,189 assertions.
+- Passed the complete restacked PR 18 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 223 Pest tests with 1,191 assertions.
+- Accepted a production-only continuous-deployment boundary: GitHub updates the self-managed server after successful `main` CI while the user owns provisioning, credentials, and the first deployment.
+- Added serialized SSH deployment of the exact tested commit, an external Laravel health check, a protected manual rollback workflow, and a pre-migration SQLite rollback snapshot.
+- Added the production runbook covering initial setup, GitHub environment configuration, queue processing, Pusher credentials, local Spatie media persistence, smoke testing, and rollback consequences.
+- Passed the complete PR 19 local gate: deployment-script syntax, ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 223 Pest tests with 1,191 assertions.
+- Committed and pushed the verified PR 19 stack on `codex/ci/deployment`.
 
 ## Next
 
 1. Configure Pusher application credentials for a live provider check.
-2. Review the pushed, restacked PR 18 hardening slice.
-3. Continue restacking PR 19 and later descendants.
+2. Review the pushed, restacked PR 19 workflow and runbook.
+3. Configure the protected GitHub `production` environment and complete the first user-managed server deployment.
+4. Record the green production deploy and key-journey smoke-test evidence.
 
 ## Known risks
 
 - The workstation runs PHP 8.5.0 while the project target is PHP 8.5.9; CI and production must use the exact target patch.
 - Production SQLite requires a persistent writable path, serialized migration deployment, and a tested backup/restore policy.
+- The per-deployment SQLite snapshot supports immediate rollback but does not replace independently scheduled database and media backups.
 - The generic Redberry CD sample is frontend-only and incomplete for a safe Laravel production deployment without adaptation.
 - Several Figma names and labels contain typos or review metadata and cannot alone define product behavior.
 - The login and mobile auth layouts are responsible responsive derivations, not claimed pixel matches, until their exact Figma contexts are available.

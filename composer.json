@@ -67,10 +67,12 @@
         ],
         "ci:check": [
             "Composer\\Config::disableProcessTimeout",
+            "@deployment:check",
             "npm run check",
             "npm run build",
             "@test"
         ],
+        "deployment:check": "bash -n scripts/deploy.sh scripts/rollback.sh",
         "types:check": [
             "phpstan analyse --memory-limit=512M"
         ],

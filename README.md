@@ -67,12 +67,12 @@ Development follows one vertical, reviewable PR slice at a time. See the [workin
 
 ## Deployment
 
-The assignment requires automated deployment after successful checks on main. The server target and secrets are still open decisions. The final runbook will document build, migration, cache, queue, media, health-check, and rollback steps.
+Successful checks on `main` trigger a protected SSH deployment to the self-managed production server. Server preparation, environment configuration, GitHub secrets, background services, health verification, and rollback are documented in the [production deployment runbook](docs/deployment.md).
 
 ## Resources
 
 - [Authoritative Redberry assignment](https://redberry.gitbook.io/assignment-v-movie-quotes-upgraded)
 - [Figma design](https://www.figma.com/design/Yt0MACroyqQ5QmGobnG0my/Movie-Quotes-Bootcamp-assignment--Copy-?node-id=0-1)
 - [Landing-page reference](https://mustapp.com/2016)
-- Database diagram: to be created after the domain decisions are accepted
+- [Database diagram](docs/database-diagram.md)
 - API documentation: not applicable while the accepted Inertia architecture has no JSON API
