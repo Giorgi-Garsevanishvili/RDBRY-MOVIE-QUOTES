@@ -62,5 +62,6 @@ Status values are confirmed, decision needed, implemented, and verified.
 | GIT-01     | Small semantic commits with specified grammar                                                   | Semantic commits resource                      | confirmed                                             |      all |
 | CD-01      | GitHub Actions checks then SSH deployment from main                                             | CD resource + D-032                            | workflow implemented; production verification pending |    01/19 |
 | CODE-01    | Follow Redberry React structure and quality rules                                               | React quality criteria                         | verified                                              |       18 |
+| DEMO-01    | Rerunnable demo data includes 20 recognizable movies and repository-local media                 | Q-015 + D-033                                  | verified                                              |       20 |
 
 Every implemented row must gain automated-test or visual-verification evidence before it becomes verified.
