@@ -49,7 +49,7 @@ export default function ForgotPassword() {
                         disabled={processing}
                         data-test="email-password-reset-link-button"
                     >
-                        {processing && <Spinner />}
+                        {processing && <Spinner aria-label={messages.loading} />}
                         {messages.sendInstructions}
                     </Button>
 

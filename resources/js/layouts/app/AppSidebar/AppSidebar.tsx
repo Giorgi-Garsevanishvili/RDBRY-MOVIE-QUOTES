@@ -30,7 +30,7 @@ export default function AppSidebar({
                     className="mb-10 flex items-center gap-4 rounded focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
                 >
                     <Avatar className="size-10">
-                        <AvatarImage src={user.avatar} alt="" />
+                        <AvatarImage src={user.avatar ?? undefined} alt="" />
                         <AvatarFallback className="bg-[#6c6f8e] text-sm text-white">
                             {initials}
                         </AvatarFallback>

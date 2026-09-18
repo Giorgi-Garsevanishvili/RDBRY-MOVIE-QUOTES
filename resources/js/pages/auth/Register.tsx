@@ -136,7 +136,7 @@ export default function Register() {
                             disabled={processing}
                             data-test="register-user-button"
                         >
-                            {processing && <Spinner />}
+                            {processing && <Spinner aria-label={messages.loading} />}
                             {messages.getStarted}
                         </Button>
 

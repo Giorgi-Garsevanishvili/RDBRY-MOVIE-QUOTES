@@ -22,13 +22,13 @@ Answer by ID; short answers, rules, examples, and links are welcome.
 13. **Q-011 — resolved:** Comments are create-only. Comment authors cannot edit/delete them, and quote owners cannot remove other members' comments.
 14. **Q-012 — resolved:** Unprefixed search checks movie names and quote text across both English and Georgian fields.
 15. **Q-013 — resolved:** Suppress self-like/self-comment notifications. Opening one marks only it read and navigates to its quote. Mark-all stays on the current page; its control is visible only while unread notifications exist and reappears on new real-time activity.
-16. **Q-014 — profile security:** Require current-password confirmation for username, email, and password changes? Can Google users change username?
+16. **Q-014 — resolved:** Password-based members confirm their current password for username, email, and password changes. Google-created passwordless members can change username without a password; email is read-only and password controls are hidden.
 17. **Q-015 — seed data:** Must demo seeders reproduce Figma users, movies, quotes, comments, and images with licensed/local assets?
 
 ## P2 — operations
 
 18. **Q-018 — server:** What provider, operating system, path, domain, and deployment user will be used?
-19. **Q-019 — services:** What persistent production SQLite path and backup policy, S3/local media, mail provider, queue driver, and Reverb/Pusher/Ably choice should be used?
+19. **Q-019 — services:** Pusher Channels is accepted for real-time delivery. What Pusher application credentials/cluster, persistent production SQLite path and backup policy, S3/local media, mail provider, and production queue driver should be used?
 20. **Q-020 — environments:** Production only or staging plus production; which branches deploy?
 21. **Q-021 — observability:** What health checks, logging/error tracking, uptime alerts, and backup requirements apply?
 22. **Q-022 — deployment authority:** Prepare the workflow only, or configure secrets/server and execute deployment when credentials are supplied?

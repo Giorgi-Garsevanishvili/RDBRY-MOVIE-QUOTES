@@ -1,11 +1,11 @@
 # Project status
 
-Last updated: 2026-09-12
+Last updated: 2026-09-17
 
-- Phase: Social interactions
-- Active slice: PR 15 — notification backend
-- State: Implemented and full-gate verified; awaiting commit and push confirmation
-- Dependency: PR 15 is stacked on pushed branch `codex/feat/likes-comments`
+- Phase: Hardening
+- Active slice: PR 18 — hardening
+- State: Complete; restacked onto the Pusher-adjusted profile branch
+- Dependency: PR 18 is stacked on pushed branch `codex/feat/profile` at `e36c92b`
 - Blocker: None
 
 ## Completed
@@ -126,12 +126,47 @@ Last updated: 2026-09-12
 - Shared newest-first notification items and unread counts across verified-member Inertia pages for the PR 16 notification interface.
 - Added focused Pest coverage for recipients, database/broadcast payloads, self and duplicate suppression, owner isolation, one/all read behavior, current-page redirects, unread transitions, and cascade cleanup.
 - Passed the complete PR 15 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 192 Pest tests with 1,045 assertions.
+- Committed and pushed the verified PR 15 stack on `codex/feat/notifications-backend`.
+- Added ordered comment presentation and viewer-specific like state to feed and quote Inertia props without introducing a separate API.
+- Added one shared, typed quote-interaction component for feed cards and quote details, with comment submission and idempotent like toggling isolated in its coordinating hook.
+- Added the responsive English/Georgian notification panel with unread badge, actor/action/time/read state, outside-click dismissal, current-page mark-all behavior, and read-one navigation.
+- Live-verified the desktop/mobile feed interactions and notification layouts against Figma nodes `335:23914`, `635:30899`, `346:43090`, `660:30796`, `660:31720`, and `5319:33607` using an isolated temporary SQLite database.
+- Live-verified that mark-all keeps the panel open and hides at zero unread, individual opening closes the panel before quote navigation, and Georgian notification actions and relative times remain fully localized.
+- Passed the provider-independent PR 16 checkpoint gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 192 Pest tests with 1,083 assertions.
+- Accepted Pusher Channels as the hosted real-time transport and installed the compatible Pusher server SDK, Echo React, Laravel Echo, and Pusher client packages.
+- Connected the notification panel to the verified member's authorized private broadcast channel and reload only the canonical shared notification prop when like or comment activity arrives.
+- Added Pest coverage proving that only a verified member can authorize their own private notification channel.
+- Preserved the verified private-channel notification flow while replacing the self-hosted Reverb transport with Pusher Channels.
+- Removed the Reverb server package/configuration and made the Pusher PHP server SDK an explicit runtime dependency.
+- Switched the Echo client and environment contract to Pusher application credentials and cluster configuration.
+- Added a no-op Echo fallback when public Pusher configuration is absent so persistent notifications remain usable without crashing the application.
+- Repaired the locale menu caret's malformed SVG path data.
+- Passed the complete Pusher-adjusted PR 16 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 194 Pest tests with 1,088 assertions.
+- Committed PR 16 as separate quote-interaction and real-time-notification commits and pushed the verified stack on `codex/feat/social-ui`.
+- Accepted current-password confirmation for password-account profile changes and passwordless Google restrictions.
+- Added Spatie Media Library avatar replacement through a named single-file collection accepting JPEG, PNG, or WebP files up to 10 MB.
+- Added focused username, pending-email activation, and password actions with localized Form Requests and signed email verification.
+- Replaced the starter settings surfaces with one responsive bilingual profile page whose state lives in `useProfile` and whose components remain presentation-only.
+- Decoded the supplied local Figma export and matched the desktop profile geometry plus the exact 428×926 mobile card, avatar, back control, and field spacing.
+- Live-verified desktop/mobile presentation, password-account username editing, Georgian copy, Google email/password restrictions, and rendered Spatie avatar replacement.
+- Passed 38 focused profile/security Pest tests with 133 assertions, frontend lint/format/types, the production build, and PHP static analysis.
+- Passed the complete PR 17 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 222 Pest tests with 1,179 assertions.
+- Split PR 17 into four reviewable semantic commits covering secure account updates, typed profile UI, page delivery, and starter-settings removal.
+- Started PR 18 on `codex/chore/hardening`, stacked directly on the pushed PR 17 branch.
+- Replaced the custom auth, notification, and mobile-navigation overlays with accessible dialogs that label their content, trap focus, close with Escape/outside interaction, and restore focus where the originating control remains on the page.
+- Fixed the feed search breakpoint mismatch so the mobile dialog is used through the full pre-`lg` range while desktop search remains inline, with keyboard focus restored to the mobile trigger on close.
+- Propagated Spatie avatar URLs to quote authors, comment authors, and notification actors while preserving bounded eager-loaded feed queries.
+- Localized previously hardcoded product navigation and loading accessibility labels in English and Georgian.
+- Verified avatar rendering, dialog focus, Escape dismissal, trigger restoration, and current-page mark-all behavior in the running application.
+- Confirmed the locked Composer and production npm dependency trees have no reported security advisories.
+- Passed 24 focused feed, quote-page, and notification Pest tests with 277 assertions plus frontend lint, formatting, and TypeScript checks.
+- Passed the complete PR 18 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 222 Pest tests with 1,189 assertions.
 
 ## Next
 
-1. Commit and push PR 15 only after explicit confirmation.
-2. Implement the exact responsive notification and quote-interaction UI in PR 16.
-3. Configure temporary Google OAuth credentials for a real-provider callback check when credentials are available.
+1. Configure Pusher application credentials for a live provider check.
+2. Review the pushed, restacked PR 18 hardening slice.
+3. Continue restacking PR 19 and later descendants.
 
 ## Known risks
 

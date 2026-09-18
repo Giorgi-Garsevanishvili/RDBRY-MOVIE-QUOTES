@@ -11,4 +11,5 @@ export type * from './navigation';
 export type * from './notification';
 export type * from './quote';
 export type * from './quoteMessages';
+export type * from './profileMessages';
 export type * from './ui';

@@ -11,6 +11,7 @@ export default function PublicHeader({
     signUpLabel,
     logInLabel,
     languageLabel,
+    navigationLabel,
     locale,
     onLocaleChange,
 }: PublicHeaderProps) {
@@ -18,7 +19,7 @@ export default function PublicHeader({
         <header className="absolute inset-x-0 top-0 z-20 px-3 pt-5 min-[380px]:px-9 md:px-[70px] md:pt-7">
             <nav
                 className="mx-auto flex max-w-[1780px] items-center justify-between"
-                aria-label="Main"
+                aria-label={navigationLabel}
             >
                 <Link
                     href={home()}

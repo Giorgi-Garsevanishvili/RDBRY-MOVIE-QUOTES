@@ -26,6 +26,7 @@ export type AuthMessages = {
     signUp: string;
     showPassword: string;
     hidePassword: string;
+    loading: string;
     closeModal: string;
     activationPendingPageTitle: string;
     activationPendingTitle: string;

@@ -12,6 +12,7 @@ export type LandingMessages = {
     signUp: string;
     logIn: string;
     languageLabel: string;
+    mainNavigation: string;
     copyright: (year: number) => string;
     quotes: readonly [LandingQuote, LandingQuote, LandingQuote];
 };

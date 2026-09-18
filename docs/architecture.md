@@ -52,7 +52,7 @@ Constraints enforce unique usernames/emails/likes and explicit foreign-key delet
 
 ## Real-time and queues
 
-Laravel broadcasting delivers like/comment notifications. The provider is open. Notifications and mail should be queued when production supports a worker; local and test environments use safe synchronous or fake drivers.
+Laravel broadcasting delivers like/comment notifications through Pusher Channels and Laravel Echo. Broadcast notifications and mail use the configured queue; tests use safe synchronous or fake drivers.
 
 ## Security
 

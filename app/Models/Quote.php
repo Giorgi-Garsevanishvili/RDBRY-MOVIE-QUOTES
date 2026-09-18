@@ -22,6 +22,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property Carbon|null $updated_at
  * @property int|null    $comments_count
  * @property int|null    $likes_count
+ * @property bool|null   $liked_by_viewer
  */
 #[Fillable(['movie_id', 'text_en', 'text_ka'])]
 class Quote extends Model implements HasMedia

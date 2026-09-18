@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Settings;
 
+use App\Actions\Profile\RequestEmailChange;
+use App\Actions\Profile\UpdateProfileAvatar;
+use App\Actions\Profile\UpdateProfileUsername;
+use App\Actions\Profile\VerifyPendingEmail;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Settings\ProfileDeleteRequest;
-use App\Http\Requests\Settings\ProfileUpdateRequest;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Http\Requests\Settings\AvatarUpdateRequest;
+use App\Http\Requests\Settings\EmailChangeRequest;
+use App\Http\Requests\Settings\UsernameUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -19,45 +23,63 @@ class ProfileController extends Controller
 	 */
 	public function edit(Request $request): Response
 	{
-		return Inertia::render('settings/profile', [
-			'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
-			'status'          => $request->session()->get('status'),
+		$user = $request->user();
+
+		assert($user instanceof User);
+
+		return Inertia::render('settings/Profile', [
+			'profile' => [
+				'pendingEmail'   => $user->pending_email,
+				'isPasswordless' => $user->password === null,
+			],
 		]);
 	}
 
-	/**
-	 * Update the user's profile information.
-	 */
-	public function update(ProfileUpdateRequest $request): RedirectResponse
-	{
-		$request->user()->fill($request->validated());
+	public function updateAvatar(
+		AvatarUpdateRequest $request,
+		UpdateProfileAvatar $updateProfileAvatar,
+	): RedirectResponse {
+		$updateProfileAvatar->handle($request->user(), $request->avatar());
 
-		if ($request->user()->isDirty('email'))
-		{
-			$request->user()->email_verified_at = null;
-		}
-
-		$request->user()->save();
-
-		Inertia::flash('toast', ['type' => 'success', 'message' => __('Profile updated.')]);
+		Inertia::flash('toast', ['type' => 'success', 'message' => __('profile.avatar_updated')]);
 
 		return to_route('profile.edit');
 	}
 
-	/**
-	 * Delete the user's profile.
-	 */
-	public function destroy(ProfileDeleteRequest $request): RedirectResponse
-	{
-		$user = $request->user();
+	public function updateUsername(
+		UsernameUpdateRequest $request,
+		UpdateProfileUsername $updateProfileUsername,
+	): RedirectResponse {
+		$updateProfileUsername->handle($request->user(), $request->string('username')->toString());
 
-		Auth::logout();
+		Inertia::flash('toast', ['type' => 'success', 'message' => __('profile.username_updated')]);
 
-		$user->delete();
+		return to_route('profile.edit');
+	}
 
-		$request->session()->invalidate();
-		$request->session()->regenerateToken();
+	public function requestEmailChange(
+		EmailChangeRequest $request,
+		RequestEmailChange $requestEmailChange,
+	): RedirectResponse {
+		$requestEmailChange->handle($request->user(), $request->string('email')->toString());
 
-		return redirect('/');
+		Inertia::flash('toast', ['type' => 'success', 'message' => __('profile.email_change_sent')]);
+
+		return to_route('profile.edit');
+	}
+
+	public function verifyEmail(
+		Request $request,
+		User $user,
+		string $hash,
+		VerifyPendingEmail $verifyPendingEmail,
+	): RedirectResponse {
+		abort_unless($verifyPendingEmail->handle($user, $hash), 403);
+
+		Inertia::flash('toast', ['type' => 'success', 'message' => __('profile.email_verified')]);
+
+		return $request->user()?->is($user) === true
+			? to_route('profile.edit')
+			: to_route('home');
 	}
 }

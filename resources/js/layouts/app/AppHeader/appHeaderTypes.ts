@@ -1,14 +1,13 @@
 import type { InertiaLinkProps } from '@inertiajs/react';
-import type { AppShellMessages, Locale } from '@/types';
+import type { AppShellMessages, Locale, NotificationFeed } from '@/types';
 
 type LinkHref = NonNullable<InertiaLinkProps['href']>;
 
 export type AppHeaderProps = {
+    userId: number;
     messages: AppShellMessages;
     locale: Locale;
-    notificationUrl: LinkHref;
+    notificationFeed: NotificationFeed;
     logoutUrl: LinkHref;
-    isNotificationActive: boolean;
     onLocaleChange: (locale: Locale) => void;
-    onOpenMenu: () => void;
 };

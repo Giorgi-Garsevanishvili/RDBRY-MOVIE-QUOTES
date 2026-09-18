@@ -12,7 +12,7 @@ class NotificationIndexQuery
 	 *     items: list<array{
 	 *         id: string,
 	 *         type: string,
-	 *         actor: array{id: int, username: string},
+	 *         actor: array{id: int, username: string, avatar: string|null},
 	 *         quoteId: int,
 	 *         readAt: string|null,
 	 *         createdAt: string
@@ -23,7 +23,7 @@ class NotificationIndexQuery
 	public function pageProps(User $user): array
 	{
 		$notifications = $user->notifications()
-			->with('actor:id,username')
+			->with(['actor:id,username', 'actor.media'])
 			->get();
 
 		return [
@@ -34,6 +34,7 @@ class NotificationIndexQuery
 					'actor' => [
 						'id'       => $notification->actor->id,
 						'username' => $notification->actor->username,
+						'avatar'   => $notification->actor->avatar,
 					],
 					'quoteId'   => $notification->quote_id,
 					'readAt'    => $notification->read_at?->toIso8601String(),

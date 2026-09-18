@@ -1,8 +1,12 @@
-import type { ChangeEvent, FormEvent } from 'react';
-import type { FeedMessages, QuoteMessages, QuoteMovieOption } from '@/types';
+import type { ChangeEvent, FormEvent, RefObject } from 'react';
+import type {
+    FeedMessages,
+    QuoteInteractionSummary,
+    QuoteMessages,
+    QuoteMovieOption,
+} from '@/types';
 
-export type FeedQuote = {
-    id: number;
+export type FeedQuote = QuoteInteractionSummary & {
     text: {
         en: string;
         ka: string;
@@ -11,6 +15,7 @@ export type FeedQuote = {
     author: {
         id: number;
         username: string;
+        avatar: string | null;
     };
     movie: {
         id: number;
@@ -20,8 +25,6 @@ export type FeedQuote = {
         };
         releaseYear: number;
     };
-    commentCount: number;
-    likeCount: number;
 };
 
 export type FeedQuotePage = {
@@ -42,12 +45,14 @@ export type FeedQuoteCardView = {
     id: number;
     authorName: string;
     authorInitials: string;
+    authorAvatarUrl: string | null;
     quote: string;
     movieName: string;
     releaseYear: number;
     imageUrl: string | null;
-    commentCount: number;
-    likeCount: number;
+    viewerUsername: string;
+    viewerAvatarUrl: string | null;
+    interactions: QuoteInteractionSummary;
 };
 
 export type FeedToolbarProps = {
@@ -57,6 +62,7 @@ export type FeedToolbarProps = {
     searchInstructions: string;
     searchValue: string;
     isSearchActive: boolean;
+    mobileSearchTriggerRef: RefObject<HTMLButtonElement | null>;
     onWriteQuote: () => void;
     onOpenSearch: () => void;
     onSearchChange: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -67,7 +73,8 @@ export type FeedMobileSearchProps = {
     open: boolean;
     messages: FeedMessages;
     searchValue: string;
-    onClose: () => void;
+    onOpenChange: (open: boolean) => void;
+    onCloseAutoFocus: (event: Event) => void;
     onSearchChange: (event: ChangeEvent<HTMLInputElement>) => void;
     onSearchSubmit: (event: FormEvent<HTMLFormElement>) => void;
 };

@@ -22,5 +22,9 @@ export type QuoteMessages = {
     director: string;
     comments: string;
     likes: string;
+    writeComment: string;
+    submitComment: string;
+    likeQuote: string;
+    unlikeQuote: string;
     noMovies: string;
 };

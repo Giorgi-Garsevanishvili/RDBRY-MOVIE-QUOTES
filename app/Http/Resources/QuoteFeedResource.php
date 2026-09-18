@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use App\Models\Quote;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /** @mixin Quote */
@@ -14,10 +15,12 @@ class QuoteFeedResource extends JsonResource
 	 *     id: int,
 	 *     text: array{en: string, ka: string},
 	 *     imageUrl: string|null,
-	 *     author: array{id: int, username: string},
+	 *     author: array{id: int, username: string, avatar: string|null},
 	 *     movie: array{id: int, name: array{en: string, ka: string}, releaseYear: int},
+	 *     comments: AnonymousResourceCollection,
 	 *     commentCount: int,
-	 *     likeCount: int
+	 *     likeCount: int,
+	 *     likedByViewer: bool
 	 * }
 	 */
 	public function toArray(Request $request): array
@@ -32,6 +35,7 @@ class QuoteFeedResource extends JsonResource
 			'author'   => [
 				'id'       => $this->user->id,
 				'username' => $this->user->username,
+				'avatar'   => $this->user->avatar,
 			],
 			'movie' => [
 				'id'   => $this->movie->id,
@@ -41,8 +45,10 @@ class QuoteFeedResource extends JsonResource
 				],
 				'releaseYear' => $this->movie->release_year,
 			],
-			'commentCount' => (int) $this->comments_count,
-			'likeCount'    => (int) $this->likes_count,
+			'comments'      => CommentResource::collection($this->comments),
+			'commentCount'  => (int) $this->comments_count,
+			'likeCount'     => (int) $this->likes_count,
+			'likedByViewer' => (bool) $this->liked_by_viewer,
 		];
 	}
 }

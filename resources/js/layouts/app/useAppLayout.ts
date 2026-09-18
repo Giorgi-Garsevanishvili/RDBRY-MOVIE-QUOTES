@@ -5,9 +5,13 @@ import { useLocale } from '@/hooks/useLocale';
 import { APP_SHELL_MESSAGES } from '@/locales/appShell';
 import { dashboard, logout } from '@/routes';
 import { index as moviesIndex } from '@/routes/movies';
-import { index as notificationsIndex } from '@/routes/notifications';
 import { edit as profileEdit } from '@/routes/profile';
-import type { Locale } from '@/types';
+import type { Locale, NotificationFeed } from '@/types';
+
+const EMPTY_NOTIFICATION_FEED = {
+    items: [],
+    unreadCount: 0,
+} satisfies NotificationFeed;
 
 export function useAppLayout() {
     const page = usePage();
@@ -22,15 +26,14 @@ export function useAppLayout() {
 
     const feedUrl = dashboard();
     const moviesUrl = moviesIndex();
-    const notificationUrl = notificationsIndex();
     const currentPath = page.url.split('?')[0];
-
-    function openMobileMenu(): void {
-        setIsMobileMenuOpen(true);
-    }
 
     function closeMobileMenu(): void {
         setIsMobileMenuOpen(false);
+    }
+
+    function handleMobileMenuOpenChange(open: boolean): void {
+        setIsMobileMenuOpen(open);
     }
 
     function handleLocaleChange(nextLocale: Locale): void {
@@ -45,16 +48,15 @@ export function useAppLayout() {
         messages: APP_SHELL_MESSAGES[locale],
         feedUrl,
         moviesUrl,
-        notificationUrl,
+        notificationFeed: page.props.notificationFeed ?? EMPTY_NOTIFICATION_FEED,
         profileUrl: profileEdit(),
         logoutUrl: logout(),
         isFeedActive: currentPath === feedUrl.url,
         isMoviesActive:
             currentPath === moviesUrl.url || currentPath.startsWith(`${moviesUrl.url}/`),
-        isNotificationActive: currentPath === notificationUrl.url,
         isMobileMenuOpen,
-        openMobileMenu,
         closeMobileMenu,
+        handleMobileMenuOpenChange,
         handleLocaleChange,
     };
 }

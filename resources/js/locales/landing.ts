@@ -11,6 +11,7 @@ export const LANDING_MESSAGES: Record<Locale, LandingMessages> = {
         signUp: 'Sign Up',
         logIn: 'Log in',
         languageLabel: 'Choose language',
+        mainNavigation: 'Main navigation',
         copyright: (year) => `© ${year} Movie Quotes. All rights reserved.`,
         quotes: [
             {
@@ -36,6 +37,7 @@ export const LANDING_MESSAGES: Record<Locale, LandingMessages> = {
         signUp: 'რეგისტრაცია',
         logIn: 'შესვლა',
         languageLabel: 'აირჩიე ენა',
+        mainNavigation: 'მთავარი ნავიგაცია',
         copyright: (year) => `© ${year} ფილმების ციტატები. ყველა უფლება დაცულია.`,
         quotes: [
             {
