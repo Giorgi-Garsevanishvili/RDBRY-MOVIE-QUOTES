@@ -17,13 +17,13 @@ export default function AppHeader({
         <header className="fixed inset-x-0 top-0 z-40 h-21.5 border-b border-white/5 bg-[#222030] text-white">
             <nav
                 aria-label={messages.primaryNavigation}
-                className="flex h-full items-center justify-between px-9 lg:px-17.5"
+                className="flex h-full items-center justify-between px-6.75 lg:px-17.5"
             >
                 <DialogPrimitive.Trigger asChild>
                     <button
                         type="button"
                         aria-label={messages.openMenu}
-                        className="inline-flex size-10 items-center justify-center rounded focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none lg:hidden"
+                        className="inline-flex size-10 items-center justify-center rounded text-[#ced4da] transition-colors hover:text-white focus-visible:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none lg:hidden"
                     >
                         <MenuIcon className="size-6" />
                     </button>

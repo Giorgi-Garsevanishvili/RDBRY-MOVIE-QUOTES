@@ -6,7 +6,7 @@ export const NOTIFICATION_MESSAGES: Record<Locale, NotificationMessages> = {
         markAllAsRead: 'Mark all as read',
         new: 'New',
         reactedToQuote: 'Reacted to your quote',
-        commentedOnQuote: 'Commented on your movie quote',
+        commentedOnQuote: 'Commented on your quote',
         noNotifications: 'You have no notifications yet.',
     },
     ka: {

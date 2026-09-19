@@ -25,7 +25,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
 
     return (
         <DialogPrimitive.Root open={isMobileMenuOpen} onOpenChange={handleMobileMenuOpenChange}>
-            <div className="min-h-svh bg-[linear-gradient(187.16deg,#181623_0.07%,#191725_51.65%,#0d0b14_98.75%)] text-white">
+            <div className="min-h-svh overflow-x-clip bg-[linear-gradient(187.16deg,#181623_0.07%,#191725_51.65%,#0d0b14_98.75%)] text-white">
                 <AppHeader
                     userId={user.id}
                     messages={messages}
@@ -36,7 +36,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
                 />
 
                 <AppSidebar
-                    className="fixed top-30 left-17.5 z-30 hidden w-72 flex-col text-white lg:flex"
+                    className="fixed top-29.5 left-17.5 z-30 hidden w-72 flex-col text-white lg:flex"
                     user={user}
                     initials={initials}
                     messages={messages}
@@ -54,7 +54,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
 
                 <DialogPrimitive.Portal>
                     <DialogPrimitive.Overlay className="fixed inset-0 z-40 bg-black/60 lg:hidden" />
-                    <DialogPrimitive.Content className="fixed inset-y-0 left-0 z-50 w-[min(24rem,calc(100vw-1.5rem))] outline-none lg:hidden">
+                    <DialogPrimitive.Content className="fixed inset-y-0 left-0 z-50 w-[min(23.875rem,calc(100vw-1.5rem))] outline-none lg:hidden">
                         <DialogPrimitive.Title className="sr-only">
                             {messages.applicationNavigation}
                         </DialogPrimitive.Title>
@@ -77,7 +77,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
                     </DialogPrimitive.Content>
                 </DialogPrimitive.Portal>
 
-                <main className="min-h-svh pt-21.5 lg:pl-107.5">{children}</main>
+                <main className="min-h-svh min-w-0 pt-21.5 lg:pl-107.5">{children}</main>
             </div>
         </DialogPrimitive.Root>
     );

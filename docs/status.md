@@ -1,11 +1,11 @@
 # Project status
 
-Last updated: 2026-09-18
+Last updated: 2026-09-19
 
 - Phase: Delivery
-- Active slice: PR 21 — content, account, and sizing consistency
-- State: Committed and pushed; remote review remains pending
-- Dependency: PR 21 is stacked on pushed PR 20 branch `codex/chore/realistic-seeder` at `1634d78`
+- Active slice: PR 22 — responsive design fidelity
+- State: Implemented and verified locally; awaiting review
+- Dependency: PR 22 starts from merged `main` after PR 21
 - Blocker: None
 
 ## Completed
@@ -189,10 +189,22 @@ Last updated: 2026-09-18
 - Prevented comments and movie descriptions, including unbroken text, from widening their feed, quote, movie-detail, or movie-form containers.
 - Passed the complete PR 21 content-boundary gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 232 Pest tests with 1,450 assertions.
 - Committed and pushed the content-boundary follow-up on `codex/fix/content-account-rules` for PR 21 review.
+- Decoded the supplied local Figma export and compared its exact mobile profile editor frame `5134:33321` with the deployed and local application.
+- Replaced the mobile profile's expanding inline editor with the dedicated full-width editing state while preserving the accepted current-password security rule and the desktop inline flow.
+- Matched the mobile profile action placement and context-specific `Edit`/`Add` labels, made the mobile back control cancel editing, and kept localized server errors inside the designed field surface.
+- Removed browser-native validation interception from product forms so Laravel's localized field errors and red invalid states remain the visible validation contract.
+- Removed the profile page's 28px desktop overflow and added defensive wrapping for member names, feed copy, movie metadata, and quote-detail text.
+- Browser-verified the feed, movie list, movie details, quote details, and profile at mobile and desktop widths; only the profile card produced a horizontal overflow before the fix.
+- Passed the complete PR 22 gate: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 232 Pest tests with 1,450 assertions.
+- Matched the notification surface to Figma nodes `660:30796` and `635:30899`: exact mobile/desktop panel geometry, card sizing, actor/action/status placement, hidden scrollbars, and responsive wrapping without horizontal overflow.
+- Aligned the 428px mobile header artwork to the Figma 35px gutters and corrected the notification pointer, panel height, sidebar width, profile spacing, and desktop sidebar icon/text geometry.
+- Implemented the supplied sidebar hover variants: the mobile full-row `#24222f` highlight, desktop muted navigation text, profile avatar red border, and consistent header/search/notification hover feedback.
+- Browser-verified the notification panel at 428×926 and 320px wide plus the shell at 1,440×1,000; all measured surfaces stayed within the viewport.
+- Repassed the complete PR 22 gate after the notification and navigation audit: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 232 Pest tests with 1,450 assertions.
 
 ## Next
 
-1. Open and review PR 21 against its PR 20 base.
+1. Review PR 22 locally before committing and pushing the branch.
 2. Configure Pusher application credentials for a live provider check.
 3. Configure the protected GitHub `production` environment and complete the first user-managed server deployment.
 4. Record the green production deploy and key-journey smoke-test evidence.
