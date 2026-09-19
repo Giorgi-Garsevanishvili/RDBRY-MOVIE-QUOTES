@@ -30,7 +30,7 @@ export default function ResetPassword(props: ResetPasswordProps) {
                 description={messages.resetPasswordDescription}
             />
 
-            <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-6">
+            <form noValidate onSubmit={handleSubmit} className="mt-6 flex flex-col gap-6">
                 <fieldset disabled={processing} className="contents">
                     <AuthField
                         id="password"

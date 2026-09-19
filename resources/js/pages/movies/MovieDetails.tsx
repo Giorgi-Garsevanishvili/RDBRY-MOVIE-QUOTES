@@ -44,7 +44,7 @@ export default function MovieDetails(props: MovieDetailsProps) {
                     )}
 
                     <div className="relative min-w-0">
-                        <h2 className="text-2xl leading-9 font-medium text-brand-gold uppercase lg:pr-40">
+                        <h2 className="text-2xl leading-9 font-medium [overflow-wrap:anywhere] text-brand-gold uppercase lg:pr-40">
                             {localizedMovie.name} ({localizedMovie.releaseYear})
                         </h2>
 
@@ -59,7 +59,7 @@ export default function MovieDetails(props: MovieDetailsProps) {
                             ))}
                         </ul>
 
-                        <p className="mt-5 text-lg leading-6.75 uppercase">
+                        <p className="mt-5 text-lg leading-6.75 [overflow-wrap:anywhere] uppercase">
                             <span className="text-[#ced4da]">{messages.director}</span>{' '}
                             <strong className="font-medium">{localizedMovie.director}</strong>
                         </p>

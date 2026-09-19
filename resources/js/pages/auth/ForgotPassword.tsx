@@ -24,7 +24,7 @@ export default function ForgotPassword() {
                 description={messages.forgotPasswordDescription}
             />
 
-            <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-6">
+            <form noValidate onSubmit={handleSubmit} className="mt-6 flex flex-col gap-6">
                 <fieldset disabled={processing} className="contents">
                     <AuthField id="email" label={messages.email} error={errors.email} required>
                         <Input

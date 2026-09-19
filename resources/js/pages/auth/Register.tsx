@@ -37,7 +37,7 @@ export default function Register() {
                 description={messages.registerDescription}
             />
 
-            <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-6">
+            <form noValidate onSubmit={handleSubmit} className="mt-6 flex flex-col gap-6">
                 <fieldset disabled={processing} className="contents">
                     <div className="grid gap-4">
                         <AuthField

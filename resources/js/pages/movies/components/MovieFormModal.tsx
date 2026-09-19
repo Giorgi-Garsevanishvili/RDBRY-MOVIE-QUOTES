@@ -55,7 +55,11 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                         </DialogPrimitive.Close>
                     </header>
 
-                    <form onSubmit={handleSubmit} className="px-8 pt-7.25 pb-11 lg:pb-11.75">
+                    <form
+                        noValidate
+                        onSubmit={handleSubmit}
+                        className="px-8 pt-7.25 pb-11 lg:pb-11.75"
+                    >
                         <div className="mb-7 flex items-center gap-4 lg:mb-7">
                             <Avatar className="size-10 lg:size-15">
                                 <AvatarImage src={user.avatar ?? undefined} alt="" />

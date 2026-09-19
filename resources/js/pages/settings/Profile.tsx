@@ -1,4 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
+import { cn } from '@/lib/utils';
 import { ProfileAvatar, ProfileBackIcon, ProfileEditor, ProfileField } from './components';
 import { useProfile } from './useProfile';
 
@@ -43,17 +44,39 @@ export default function Profile() {
                     {messages.myProfile}
                 </h1>
 
-                <Link
-                    href={feedUrl}
-                    aria-label={messages.backToFeed}
-                    className="absolute top-4 left-16 inline-flex size-8 items-center justify-center rounded focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none lg:hidden"
-                >
-                    <ProfileBackIcon className="size-8" />
-                </Link>
+                {activeEditor === null ? (
+                    <Link
+                        href={feedUrl}
+                        aria-label={messages.backToFeed}
+                        className="absolute top-4 left-16 inline-flex size-8 items-center justify-center rounded focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none lg:hidden"
+                    >
+                        <ProfileBackIcon className="size-8" />
+                    </Link>
+                ) : (
+                    <button
+                        type="button"
+                        onClick={cancelEditor}
+                        aria-label={messages.cancel}
+                        className="absolute top-4 left-16 inline-flex size-8 items-center justify-center rounded focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none lg:hidden"
+                    >
+                        <ProfileBackIcon className="size-8" />
+                    </button>
+                )}
 
-                <div className="relative min-h-191.25 w-full rounded-t-xl bg-[#24222f] pt-6 pb-8 lg:mt-13.5 lg:mr-8 lg:ml-15 lg:min-h-0 lg:max-w-249.5 lg:rounded-none lg:bg-transparent lg:pt-18.25 lg:pb-0">
+                <div
+                    className={cn(
+                        'relative min-h-191.25 w-full rounded-t-xl bg-[#24222f] pt-6 pb-8 lg:mt-13.5 lg:mr-8 lg:ml-15 lg:min-h-0 lg:w-auto lg:max-w-249.5 lg:rounded-none lg:bg-transparent lg:pt-18.25 lg:pb-0',
+                        activeEditor !== null &&
+                            'max-lg:min-h-0 max-lg:rounded-none max-lg:bg-transparent max-lg:pt-0 max-lg:pb-0',
+                    )}
+                >
                     <div className="lg:min-h-175.75 lg:rounded-xl lg:bg-[#11101a] lg:pt-48.5 lg:pb-17">
-                        <div className="lg:absolute lg:top-0 lg:left-1/2 lg:-translate-x-1/2">
+                        <div
+                            className={cn(
+                                'lg:absolute lg:top-0 lg:left-1/2 lg:-translate-x-1/2',
+                                activeEditor !== null && 'max-lg:hidden',
+                            )}
+                        >
                             <ProfileAvatar
                                 avatarUrl={user.avatar}
                                 initials={initials}
@@ -67,8 +90,18 @@ export default function Profile() {
                             />
                         </div>
 
-                        <div className="mx-auto mt-15 w-full max-w-169.25 px-8 lg:mt-0 lg:px-8">
-                            <div className="grid gap-7.75 lg:gap-10">
+                        <div
+                            className={cn(
+                                'mx-auto mt-15 w-full max-w-169.25 px-8 lg:mt-0 lg:px-8',
+                                activeEditor !== null && 'max-lg:mt-0',
+                            )}
+                        >
+                            <div
+                                className={cn(
+                                    'grid gap-7.75 lg:gap-10',
+                                    activeEditor !== null && 'max-lg:hidden',
+                                )}
+                            >
                                 <ProfileField
                                     label={messages.username}
                                     value={user.username}

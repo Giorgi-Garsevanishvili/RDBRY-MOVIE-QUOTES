@@ -14,12 +14,12 @@ export default function FeedQuoteCard({ quote, feedMessages, quoteMessages }: Fe
                         {quote.authorInitials}
                     </AvatarFallback>
                 </Avatar>
-                <strong className="text-base font-normal lg:text-xl lg:font-medium">
+                <strong className="min-w-0 text-base font-normal [overflow-wrap:anywhere] lg:text-xl lg:font-medium">
                     {quote.authorName}
                 </strong>
             </header>
 
-            <p className="mt-3 text-base leading-6 lg:mt-4 lg:text-xl lg:leading-7.5">
+            <p className="mt-3 text-base leading-6 [overflow-wrap:anywhere] lg:mt-4 lg:text-xl lg:leading-7.5">
                 “{quote.quote}” {feedMessages.movieLabel} -{' '}
                 <span className="font-medium text-brand-gold">{quote.movieName}.</span> (
                 {quote.releaseYear})

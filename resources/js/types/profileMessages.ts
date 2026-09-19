@@ -8,6 +8,7 @@ export type ProfileMessages = {
     password: string;
     hiddenPassword: string;
     edit: string;
+    add: string;
     currentPassword: string;
     newUsername: string;
     newEmail: string;
