@@ -17,6 +17,8 @@ export default function Profile() {
         usernameForm,
         emailForm,
         passwordForm,
+        validationStatuses,
+        passwordRules,
         openAvatarPicker,
         handleAvatarChange,
         openUsernameEditor,
@@ -24,8 +26,10 @@ export default function Profile() {
         openPasswordEditor,
         cancelEditor,
         handleUsernameChange,
+        handleUsernameClear,
         handleUsernameCurrentPasswordChange,
         handleEmailChange,
+        handleEmailClear,
         handleEmailCurrentPasswordChange,
         handlePasswordCurrentPasswordChange,
         handlePasswordChange,
@@ -48,7 +52,7 @@ export default function Profile() {
                     <Link
                         href={feedUrl}
                         aria-label={messages.backToFeed}
-                        className="absolute top-4 left-16 inline-flex size-8 items-center justify-center rounded focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none lg:hidden"
+                        className="absolute top-4 left-16 inline-flex size-8 items-center justify-center rounded transition-colors hover:text-[#ced4da] focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none active:text-[#a5a5ad] lg:hidden"
                     >
                         <ProfileBackIcon className="size-8" />
                     </Link>
@@ -57,7 +61,7 @@ export default function Profile() {
                         type="button"
                         onClick={cancelEditor}
                         aria-label={messages.cancel}
-                        className="absolute top-4 left-16 inline-flex size-8 items-center justify-center rounded focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none lg:hidden"
+                        className="absolute top-4 left-16 inline-flex size-8 items-center justify-center rounded transition-colors hover:text-[#ced4da] focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none active:text-[#a5a5ad] lg:hidden"
                     >
                         <ProfileBackIcon className="size-8" />
                     </button>
@@ -143,11 +147,15 @@ export default function Profile() {
                                 passwordConfirmation={passwordForm.data.password_confirmation}
                                 passwordErrors={passwordForm.errors}
                                 passwordProcessing={passwordForm.processing}
+                                validationStatuses={validationStatuses}
+                                passwordRules={passwordRules}
                                 onUsernameChange={handleUsernameChange}
+                                onUsernameClear={handleUsernameClear}
                                 onUsernameCurrentPasswordChange={
                                     handleUsernameCurrentPasswordChange
                                 }
                                 onEmailChange={handleEmailChange}
+                                onEmailClear={handleEmailClear}
                                 onEmailCurrentPasswordChange={handleEmailCurrentPasswordChange}
                                 onPasswordCurrentPasswordChange={
                                     handlePasswordCurrentPasswordChange

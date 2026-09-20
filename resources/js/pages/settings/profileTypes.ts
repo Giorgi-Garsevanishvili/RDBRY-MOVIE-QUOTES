@@ -22,3 +22,19 @@ export type PasswordFormData = {
     password: string;
     password_confirmation: string;
 };
+
+export type ProfileValidationStatuses = {
+    username?: ValidationStatus;
+    usernameCurrentPassword?: ValidationStatus;
+    email?: ValidationStatus;
+    emailCurrentPassword?: ValidationStatus;
+    passwordCurrentPassword?: ValidationStatus;
+    password?: ValidationStatus;
+    passwordConfirmation?: ValidationStatus;
+};
+
+export type PasswordRuleStatuses = {
+    minimum: boolean;
+    lowercaseAndMaximum: boolean;
+};
+import type { ValidationStatus } from '@/types';

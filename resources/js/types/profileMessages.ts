@@ -22,4 +22,5 @@ export type ProfileMessages = {
     passwordMaximum: string;
     showPassword: string;
     hidePassword: string;
+    clearField: (field: string) => string;
 };

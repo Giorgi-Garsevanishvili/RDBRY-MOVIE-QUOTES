@@ -25,6 +25,7 @@ export const PROFILE_MESSAGES: Record<Locale, ProfileMessages> = {
         passwordMaximum: '15 lowercase letters or numbers maximum',
         showPassword: 'Show password',
         hidePassword: 'Hide password',
+        clearField: (field) => `Clear ${field.toLowerCase()}`,
     },
     ka: {
         pageTitle: 'ჩემი პროფილი',
@@ -50,5 +51,6 @@ export const PROFILE_MESSAGES: Record<Locale, ProfileMessages> = {
         passwordMaximum: 'მაქსიმუმ 15 დაბალი რეგისტრის ასოს ან ციფრს',
         showPassword: 'პაროლის ჩვენება',
         hidePassword: 'პაროლის დამალვა',
+        clearField: (field) => `${field}-ის გასუფთავება`,
     },
 };
