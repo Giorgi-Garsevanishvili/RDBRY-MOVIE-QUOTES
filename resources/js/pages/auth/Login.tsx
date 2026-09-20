@@ -1,9 +1,9 @@
 import { Head } from '@inertiajs/react';
+import ClearableInput from '@/components/ClearableInput';
 import PasswordInput from '@/components/PasswordInput';
 import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import { register } from '@/routes';
@@ -12,6 +12,7 @@ import {
     AuthField,
     AuthHeading,
     AUTH_INPUT_CLASSES,
+    AUTH_PASSWORD_INPUT_CLASSES,
     AUTH_PRIMARY_BUTTON_CLASSES,
     AUTH_TEXT_LINK_CLASSES,
     GoogleAuthButton,
@@ -29,7 +30,9 @@ export default function Login(props: LoginProps) {
         data,
         processing,
         errors,
+        validationStatuses,
         handleLoginChange,
+        handleLoginClear,
         handlePasswordChange,
         handleRememberChange,
         handleSubmit,
@@ -65,15 +68,19 @@ export default function Login(props: LoginProps) {
                             id="login"
                             label={messages.loginIdentity}
                             error={errors.login}
+                            status={validationStatuses.login}
                             required
                         >
-                            <Input
+                            <ClearableInput
                                 id="login"
                                 type="text"
                                 className={AUTH_INPUT_CLASSES}
                                 name="login"
                                 value={data.login}
                                 onChange={handleLoginChange}
+                                onClear={handleLoginClear}
+                                clearLabel={messages.clearField(messages.loginIdentity)}
+                                status={validationStatuses.login}
                                 required
                                 autoFocus
                                 autoComplete="username"
@@ -88,11 +95,13 @@ export default function Login(props: LoginProps) {
                             id="password"
                             label={messages.password}
                             error={errors.password}
+                            status={validationStatuses.password}
+                            statusIconClassName="right-10"
                             required
                         >
                             <PasswordInput
                                 id="password"
-                                className={AUTH_INPUT_CLASSES}
+                                className={AUTH_PASSWORD_INPUT_CLASSES}
                                 name="password"
                                 value={data.password}
                                 onChange={handlePasswordChange}
@@ -133,6 +142,7 @@ export default function Login(props: LoginProps) {
                             type="submit"
                             className={AUTH_PRIMARY_BUTTON_CLASSES}
                             disabled={processing}
+                            data-processing={processing}
                             data-test="login-button"
                         >
                             {processing && <Spinner aria-label={messages.loading} />}

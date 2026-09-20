@@ -4,22 +4,43 @@ import { useLocale } from '@/hooks/useLocale';
 import { AUTH_MESSAGES } from '@/locales/auth';
 import { redirect as googleRedirect } from '@/routes/auth/google';
 import { store } from '@/routes/login';
-import type { LoginFormData, LoginProps } from './loginTypes';
+import type { LoginFormData, LoginProps, LoginValidationStatuses } from './loginTypes';
 
 export function useLogin({ status, googleError, canResetPassword }: LoginProps) {
     const { locale } = useLocale();
-    const { data, setData, post, processing, errors, reset } = useForm<LoginFormData>({
+    const { data, setData, post, processing, errors, reset, clearErrors } = useForm<LoginFormData>({
         login: '',
         password: '',
         remember: false,
     });
+    const validationStatuses: LoginValidationStatuses = {
+        login:
+            errors.login === undefined
+                ? data.login.trim().length >= 3
+                    ? 'valid'
+                    : undefined
+                : 'invalid',
+        password:
+            errors.password === undefined
+                ? data.password.length > 0
+                    ? 'valid'
+                    : undefined
+                : 'invalid',
+    };
 
     function handleLoginChange(event: ChangeEvent<HTMLInputElement>): void {
+        clearErrors('login');
         setData('login', event.target.value);
     }
 
     function handlePasswordChange(event: ChangeEvent<HTMLInputElement>): void {
+        clearErrors('password');
         setData('password', event.target.value);
+    }
+
+    function handleLoginClear(): void {
+        clearErrors('login');
+        setData('login', '');
     }
 
     function handleRememberChange(checked: boolean | 'indeterminate'): void {
@@ -40,7 +61,9 @@ export function useLogin({ status, googleError, canResetPassword }: LoginProps) 
         data,
         processing,
         errors,
+        validationStatuses,
         handleLoginChange,
+        handleLoginClear,
         handlePasswordChange,
         handleRememberChange,
         handleSubmit,

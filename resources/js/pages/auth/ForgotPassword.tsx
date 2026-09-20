@@ -1,7 +1,7 @@
 import { Head } from '@inertiajs/react';
+import ClearableInput from '@/components/ClearableInput';
 import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Spinner } from '@/components/ui/spinner';
 import {
     AuthField,
@@ -13,8 +13,17 @@ import {
 import { useForgotPassword } from './useForgotPassword';
 
 export default function ForgotPassword() {
-    const { messages, loginUrl, data, processing, errors, handleEmailChange, handleSubmit } =
-        useForgotPassword();
+    const {
+        messages,
+        loginUrl,
+        data,
+        processing,
+        errors,
+        validationStatus,
+        handleEmailChange,
+        handleEmailClear,
+        handleSubmit,
+    } = useForgotPassword();
 
     return (
         <>
@@ -26,13 +35,22 @@ export default function ForgotPassword() {
 
             <form noValidate onSubmit={handleSubmit} className="mt-6 flex flex-col gap-6">
                 <fieldset disabled={processing} className="contents">
-                    <AuthField id="email" label={messages.email} error={errors.email} required>
-                        <Input
+                    <AuthField
+                        id="email"
+                        label={messages.email}
+                        error={errors.email}
+                        status={validationStatus}
+                        required
+                    >
+                        <ClearableInput
                             id="email"
                             type="email"
                             name="email"
                             value={data.email}
                             onChange={handleEmailChange}
+                            onClear={handleEmailClear}
+                            clearLabel={messages.clearField(messages.email)}
+                            status={validationStatus}
                             className={AUTH_INPUT_CLASSES}
                             required
                             autoComplete="email"
@@ -47,6 +65,7 @@ export default function ForgotPassword() {
                         type="submit"
                         className={AUTH_PRIMARY_BUTTON_CLASSES}
                         disabled={processing}
+                        data-processing={processing}
                         data-test="email-password-reset-link-button"
                     >
                         {processing && <Spinner aria-label={messages.loading} />}
