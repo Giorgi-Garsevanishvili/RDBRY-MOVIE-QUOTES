@@ -1,6 +1,7 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { XIcon } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { BRAND_BUTTON_INTERACTION_CLASSES } from '@/components/ui/brandStyles';
 import QuoteFormField from './QuoteFormField';
 import QuoteImageField from './QuoteImageField';
 import type { QuoteFormModalProps } from './quoteFormModalTypes';
@@ -45,7 +46,7 @@ export default function QuoteFormModal(props: QuoteFormModalProps) {
                         </DialogPrimitive.Title>
                         <DialogPrimitive.Close
                             aria-label={messages.close}
-                            className="absolute right-8 inline-flex size-8 items-center justify-center rounded focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+                            className="absolute right-8 inline-flex size-8 items-center justify-center rounded transition-colors hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none active:bg-white/15"
                         >
                             <XIcon className="size-6" aria-hidden="true" />
                         </DialogPrimitive.Close>
@@ -160,7 +161,7 @@ export default function QuoteFormModal(props: QuoteFormModalProps) {
                                         aria-describedby={
                                             errors.movie_id ? 'movie_id-error' : undefined
                                         }
-                                        className="h-21.5 w-full rounded-[0.25rem] border border-[#6c757d] bg-[#11101a] px-4 text-base outline-none focus:border-white aria-invalid:border-brand-red lg:text-xl"
+                                        className="h-21.5 w-full rounded-[0.25rem] border border-[#6c757d] bg-[#11101a] px-4 text-base transition-[border-color,box-shadow] outline-none focus:border-white focus:ring-2 focus:ring-white/50 aria-invalid:border-brand-red aria-invalid:ring-2 aria-invalid:ring-brand-red/30 lg:text-xl"
                                     >
                                         <option value="">{messages.chooseMovie}</option>
                                         {movieOptions.map((movie) => (
@@ -178,7 +179,8 @@ export default function QuoteFormModal(props: QuoteFormModalProps) {
                                     processing ||
                                     (fixedMovie === undefined && !isEdit && movies.length === 0)
                                 }
-                                className="mt-2 inline-flex h-12 w-full items-center justify-center rounded-[0.25rem] bg-brand-red px-4 text-xl leading-7.5 transition-opacity hover:opacity-90 disabled:opacity-60 lg:mt-4"
+                                data-processing={processing}
+                                className={`mt-2 inline-flex h-12 w-full items-center justify-center rounded-[0.25rem] px-4 text-xl leading-7.5 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none lg:mt-4 ${BRAND_BUTTON_INTERACTION_CLASSES}`}
                             >
                                 {submitLabel}
                             </button>

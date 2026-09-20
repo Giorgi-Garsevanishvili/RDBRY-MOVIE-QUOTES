@@ -1,6 +1,6 @@
 # Project status
 
-Last updated: 2026-09-19
+Last updated: 2026-09-20
 
 - Phase: Delivery
 - Active slice: PR 22 — responsive design fidelity
@@ -201,10 +201,15 @@ Last updated: 2026-09-19
 - Implemented the supplied sidebar hover variants: the mobile full-row `#24222f` highlight, desktop muted navigation text, profile avatar red border, and consistent header/search/notification hover feedback.
 - Browser-verified the notification panel at 428×926 and 320px wide plus the shell at 1,440×1,000; all measured surfaces stayed within the viewport.
 - Repassed the complete PR 22 gate after the notification and navigation audit: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 232 Pest tests with 1,450 assertions.
+- Matched the supplied component-state reference across authentication and profile inputs: neutral, focused, disabled, filled with a conditional clear control, valid, and invalid with exact status artwork.
+- Aligned primary product actions to the designed normal, hover, active, processing-ring, and disabled colors while retaining each screen's required button size.
+- Browser-verified that the filled-state clear control empties and refocuses its field, then yields to the valid-status icon when the value satisfies validation.
+- Replaced fixed movie-list columns and distributed empty space with exact-width desktop cards in a consistent wrapping flow, preserving full-width mobile cards without horizontal overflow.
+- Repassed the complete PR 22 gate after the component-state follow-up: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 232 Pest tests with 1,450 assertions.
 
 ## Next
 
-1. Review PR 22 locally before committing and pushing the branch.
+1. Review the PR 22 component-state follow-up locally before committing and pushing the branch.
 2. Configure Pusher application credentials for a live provider check.
 3. Configure the protected GitHub `production` environment and complete the first user-managed server deployment.
 4. Record the green production deploy and key-journey smoke-test evidence.

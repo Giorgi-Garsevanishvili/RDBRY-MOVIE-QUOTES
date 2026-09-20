@@ -1,4 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
+import { BRAND_BUTTON_INTERACTION_CLASSES } from '@/components/ui/brandStyles';
 import { register } from '@/routes';
 import { PublicFooter, PublicHeader, QuoteSection } from './components';
 import { useLanding } from './useLanding';
@@ -31,7 +32,7 @@ export default function Landing() {
                         </h1>
                         <Link
                             href={register()}
-                            className="mt-6 inline-flex h-10 items-center justify-center rounded bg-brand-red px-4 text-base font-normal text-white transition-colors hover:bg-red-700 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-night focus-visible:outline-none md:mt-8 md:h-12 md:px-5 md:text-xl"
+                            className={`mt-6 inline-flex h-10 items-center justify-center rounded px-4 text-base font-normal text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-night focus-visible:outline-none md:mt-8 md:h-12 md:px-5 md:text-xl ${BRAND_BUTTON_INTERACTION_CLASSES}`}
                         >
                             {messages.getStarted}
                         </Link>

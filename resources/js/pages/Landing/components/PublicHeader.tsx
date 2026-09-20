@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react';
 import { LocaleMenu } from '@/components/LocaleMenu';
+import { BRAND_BUTTON_INTERACTION_CLASSES } from '@/components/ui/brandStyles';
 import { home, login, register } from '@/routes';
 import type { PublicHeaderProps } from './publicHeaderTypes';
 
@@ -32,7 +33,7 @@ export default function PublicHeader({
                     <LocaleMenu locale={locale} label={languageLabel} onChange={onLocaleChange} />
                     <Link
                         href={register()}
-                        className="inline-flex h-8 items-center justify-center rounded bg-brand-red px-2 text-xs font-normal text-white transition-colors hover:bg-red-700 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-night focus-visible:outline-none min-[23.75rem]:h-9 min-[23.75rem]:px-3 min-[23.75rem]:text-sm sm:px-4 md:h-9.5 md:px-6 md:text-base"
+                        className={`inline-flex h-8 items-center justify-center rounded px-2 text-xs font-normal text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-night focus-visible:outline-none min-[23.75rem]:h-9 min-[23.75rem]:px-3 min-[23.75rem]:text-sm sm:px-4 md:h-9.5 md:px-6 md:text-base ${BRAND_BUTTON_INTERACTION_CLASSES}`}
                     >
                         {signUpLabel}
                     </Link>

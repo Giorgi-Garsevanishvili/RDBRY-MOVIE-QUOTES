@@ -1,5 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
 import union from '@/assets/errors/union.png';
+import { BRAND_BUTTON_INTERACTION_CLASSES } from '@/components/ui/brandStyles';
 import type { ErrorPageProps } from './errorPageTypes';
 import { useErrorPage } from './useErrorPage';
 
@@ -43,7 +44,7 @@ export default function ErrorPage({ status }: ErrorPageProps) {
 
                     <Link
                         href={homeUrl}
-                        className="inline-flex min-h-12 min-w-36 items-center justify-center rounded bg-brand-red px-4 text-xl transition-colors hover:bg-red-700 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-night focus-visible:outline-none"
+                        className={`inline-flex min-h-12 min-w-36 items-center justify-center rounded px-4 text-xl focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-night focus-visible:outline-none ${BRAND_BUTTON_INTERACTION_CLASSES}`}
                     >
                         {returnHomeLabel}
                     </Link>

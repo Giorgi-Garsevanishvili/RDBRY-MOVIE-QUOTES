@@ -43,6 +43,7 @@ export function useQuoteInteractions({
     const likeLabel = quote.likedByViewer ? messages.unlikeQuote : messages.likeQuote;
 
     function onCommentChange(event: ChangeEvent<HTMLInputElement>): void {
+        commentForm.clearErrors('body');
         commentForm.setData('body', event.target.value);
     }
 

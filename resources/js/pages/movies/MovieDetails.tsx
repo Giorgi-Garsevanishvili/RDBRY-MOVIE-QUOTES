@@ -1,6 +1,7 @@
 import { Head } from '@inertiajs/react';
 import { PlusSquareIcon } from 'lucide-react';
 import { QuoteFormModal } from '@/components/quotes';
+import { BRAND_BUTTON_INTERACTION_CLASSES } from '@/components/ui/brandStyles';
 import { MovieActions, MovieFormModal, QuoteCard } from './components';
 import type { MovieDetailsProps } from './movieDetailsTypes';
 import { useMovieDetails } from './useMovieDetails';
@@ -95,7 +96,7 @@ export default function MovieDetails(props: MovieDetailsProps) {
                         <button
                             type="button"
                             onClick={openAddQuote}
-                            className="inline-flex h-12 items-center gap-2 rounded-[0.25rem] bg-brand-red px-4 text-base transition-opacity hover:opacity-90 lg:text-xl"
+                            className={`inline-flex h-12 items-center gap-2 rounded-[0.25rem] px-4 text-base focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none lg:text-xl ${BRAND_BUTTON_INTERACTION_CLASSES}`}
                         >
                             <PlusSquareIcon className="size-4" aria-hidden="true" />
                             {quoteMessages.addQuote}

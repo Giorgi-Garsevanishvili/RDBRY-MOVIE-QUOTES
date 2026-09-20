@@ -29,8 +29,8 @@ export default function QuoteImageField({
                     data-invalid={Boolean(error)}
                     className={
                         isEdit && imageUrl !== null
-                            ? 'absolute bottom-4 left-4 flex min-h-15 cursor-pointer items-center gap-3 rounded-lg bg-[#11101a]/80 px-4 py-3 outline-none focus-within:ring-2 focus-within:ring-white data-[invalid=true]:ring-2 data-[invalid=true]:ring-brand-red lg:min-h-21'
-                            : 'flex min-h-20.5 cursor-pointer items-center gap-3 rounded-[0.25rem] border border-[#6c757d] px-4 py-4 outline-none focus-within:border-white data-[invalid=true]:border-brand-red lg:min-h-21'
+                            ? 'group absolute bottom-4 left-4 flex min-h-15 cursor-pointer items-center gap-3 rounded-lg bg-[#11101a]/80 px-4 py-3 transition-colors outline-none focus-within:ring-2 focus-within:ring-white hover:bg-[#11101a] data-[invalid=true]:ring-2 data-[invalid=true]:ring-brand-red lg:min-h-21'
+                            : 'group flex min-h-20.5 cursor-pointer items-center gap-3 rounded-[0.25rem] border border-[#6c757d] px-4 py-4 transition-[border-color,box-shadow] outline-none focus-within:border-white focus-within:ring-2 focus-within:ring-white/50 hover:border-white/80 data-[invalid=true]:border-brand-red data-[invalid=true]:ring-2 data-[invalid=true]:ring-brand-red/30 lg:min-h-21'
                     }
                 >
                     <ImageIcon className="size-6 shrink-0" aria-hidden="true" />
@@ -48,7 +48,7 @@ export default function QuoteImageField({
                         )}
                     </span>
                     {!isEdit && (
-                        <span className="ml-auto shrink-0 rounded bg-[#9747ff] px-3 py-2 text-sm lg:text-base">
+                        <span className="ml-auto shrink-0 rounded bg-[#9747ff] px-3 py-2 text-sm transition-colors group-hover:bg-[#7f35dc] group-active:bg-[#6c2dbc] lg:text-base">
                             {messages.chooseFile}
                         </span>
                     )}

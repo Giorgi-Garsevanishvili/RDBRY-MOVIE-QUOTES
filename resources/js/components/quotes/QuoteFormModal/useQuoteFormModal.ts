@@ -88,18 +88,22 @@ export function useQuoteFormModal(props: QuoteFormModalProps) {
     }
 
     function handleTextEnChange(event: ChangeEvent<HTMLTextAreaElement>): void {
+        form.clearErrors('text_en');
         form.setData('text_en', event.target.value);
     }
 
     function handleTextKaChange(event: ChangeEvent<HTMLTextAreaElement>): void {
+        form.clearErrors('text_ka');
         form.setData('text_ka', event.target.value);
     }
 
     function handleMovieChange(event: ChangeEvent<HTMLSelectElement>): void {
+        form.clearErrors('movie_id');
         form.setData('movie_id', event.target.value);
     }
 
     function handleImageChange(event: ChangeEvent<HTMLInputElement>): void {
+        form.clearErrors('image');
         form.setData('image', event.target.files?.[0] ?? null);
     }
 
@@ -109,6 +113,7 @@ export function useQuoteFormModal(props: QuoteFormModalProps) {
 
     function handleImageDrop(event: DragEvent<HTMLLabelElement>): void {
         event.preventDefault();
+        form.clearErrors('image');
         form.setData('image', event.dataTransfer.files[0] ?? null);
     }
 
