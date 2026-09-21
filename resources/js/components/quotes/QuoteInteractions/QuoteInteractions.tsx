@@ -14,6 +14,9 @@ export default function QuoteInteractions(props: QuoteInteractionsProps) {
         commentsListId,
         commentsToggleLabel,
         hasHiddenComments,
+        commentCount,
+        likeCount,
+        likedByViewer,
         commentBody,
         commentError,
         currentUserInitials,
@@ -35,7 +38,7 @@ export default function QuoteInteractions(props: QuoteInteractionsProps) {
                     className="inline-flex items-center gap-3 text-xl"
                     aria-label={props.messages.comments}
                 >
-                    <span>{props.quote.commentCount}</span>
+                    <span>{commentCount}</span>
                     <QuoteCommentIcon className="size-6 lg:size-8" />
                 </span>
                 <button
@@ -43,10 +46,10 @@ export default function QuoteInteractions(props: QuoteInteractionsProps) {
                     onClick={onLikeToggle}
                     disabled={isLikeSubmitting}
                     aria-label={likeLabel}
-                    aria-pressed={props.quote.likedByViewer}
+                    aria-pressed={likedByViewer}
                     className="group inline-flex items-center gap-3 rounded text-xl transition-colors hover:text-brand-red focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none active:text-[#b80d0f] disabled:opacity-50"
                 >
-                    <span>{props.quote.likeCount}</span>
+                    <span>{likeCount}</span>
                     <QuoteHeartIcon
                         className={`h-6 w-6.5 transition-[color,transform] group-hover:text-brand-red group-active:scale-90 group-active:text-[#b80d0f] lg:h-8 lg:w-8.5 ${likeIconClassName}`}
                     />

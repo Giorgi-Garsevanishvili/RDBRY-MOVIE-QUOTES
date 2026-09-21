@@ -25,6 +25,15 @@ export type QuoteInteractionSummary = {
     likedByViewer: boolean;
 };
 
+export type QuoteInteractionBroadcastPayload = {
+    quoteId: number;
+    actorId: number;
+    commentCount: number;
+    likeCount: number;
+    comment: QuoteComment | null;
+    likedByActor: boolean | null;
+};
+
 export type QuoteListItem = {
     id: number;
     text: LocalizedMovieText;

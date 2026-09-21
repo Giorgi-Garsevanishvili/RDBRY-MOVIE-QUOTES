@@ -13,3 +13,14 @@ export type QuoteCardProps = {
     commentsLabel: string;
     likesLabel: string;
 };
+
+export type QuoteCardRealtimeCounts = {
+    quoteId: number;
+    commentCount: number;
+    likeCount: number;
+};
+
+export type UseQuoteCardResult = {
+    commentCount: number;
+    likeCount: number;
+};

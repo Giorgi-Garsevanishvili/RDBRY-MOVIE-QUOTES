@@ -11,6 +11,7 @@ export default function QuoteDetails(props: QuoteDetailsProps) {
         quote,
         localizedQuote,
         authorInitials,
+        viewerId,
         viewerUsername,
         viewerAvatarUrl,
         messages,
@@ -119,6 +120,7 @@ export default function QuoteDetails(props: QuoteDetailsProps) {
                             <QuoteInteractions
                                 quote={quote}
                                 messages={messages}
+                                viewerId={viewerId}
                                 viewerUsername={viewerUsername}
                                 viewerAvatarUrl={viewerAvatarUrl}
                             />

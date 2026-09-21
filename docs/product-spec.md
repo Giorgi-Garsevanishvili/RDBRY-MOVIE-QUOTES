@@ -57,6 +57,7 @@ Unauthenticated access to a protected route renders the designed 403 page. An un
 - Each post displays author, movie, year, image, like count, comment count, comments, and comment input.
 - Each collapsed feed post shows its three newest comments. When more comments exist, a localized control expands the complete comment history and can collapse it again.
 - A member can like and add a required text comment of at most 1,000 characters to each quote.
+- Visible feed and quote-detail posts receive newly created comments plus updated comment and like counts in real time without a browser refresh. Movie-detail quote cards receive the same live counts.
 - Load older posts progressively while scrolling, Facebook-style.
 - Search behavior:
     - plain text performs general search;

@@ -55,6 +55,7 @@ export function useQuoteDetails({ quote }: QuoteDetailsProps) {
         quote,
         localizedQuote,
         authorInitials: getInitials(quote.author.username),
+        viewerId: viewer.id,
         viewerUsername: viewer.username,
         viewerAvatarUrl: viewer.avatar,
         messages: QUOTE_MESSAGES[locale],

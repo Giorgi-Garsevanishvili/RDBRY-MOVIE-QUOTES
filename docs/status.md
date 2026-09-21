@@ -206,13 +206,17 @@ Last updated: 2026-09-20
 - Browser-verified that the filled-state clear control empties and refocuses its field, then yields to the valid-status icon when the value satisfies validation.
 - Replaced fixed movie-list columns and distributed empty space with exact-width desktop cards in a consistent wrapping flow, preserving full-width mobile cards without horizontal overflow.
 - Repassed the complete PR 22 gate after the component-state follow-up: ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 232 Pest tests with 1,450 assertions.
+- Started PR 23 on `codex/feat/realtime-post-interactions`, stacked directly on the pushed PR 22 branch.
+- Added a verified-member private interaction stream for authoritative quote comment/like counts and complete new-comment payloads.
+- Connected feed, quote-detail, and movie-card hooks to apply matching quote events locally, deduplicate comments, and preserve viewer-specific liked state.
+- Added focused Pest coverage for event payloads, idempotent like/unlike broadcasts, and verified-only channel authorization.
+- Passed the complete PR 23 gate: deployment-script syntax, ESLint, Prettier, TypeScript, Wayfinder, production build, PHP-CS-Fixer, PHPStan, and 234 Pest tests with 1,459 assertions.
+- Live-verified the configured Pusher stream across two authenticated feed tabs: a like updated both count and viewer state, then a submitted comment appeared with the new comment count without refreshing either tab.
 
 ## Next
 
-1. Review the PR 22 component-state follow-up locally before committing and pushing the branch.
-2. Configure Pusher application credentials for a live provider check.
-3. Configure the protected GitHub `production` environment and complete the first user-managed server deployment.
-4. Record the green production deploy and key-journey smoke-test evidence.
+1. Configure the protected GitHub `production` environment and complete the first user-managed server deployment.
+2. Record the green production deploy and key-journey smoke-test evidence.
 
 ## Known risks
 

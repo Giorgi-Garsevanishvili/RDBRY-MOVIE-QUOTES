@@ -38,6 +38,7 @@ export default function FeedQuoteCard({ quote, feedMessages, quoteMessages }: Fe
             <QuoteInteractions
                 quote={quote.interactions}
                 messages={quoteMessages}
+                viewerId={quote.viewerId}
                 viewerUsername={quote.viewerUsername}
                 viewerAvatarUrl={quote.viewerAvatarUrl}
                 commentPreviewLimit={FEED_COMMENT_PREVIEW_LIMIT}
