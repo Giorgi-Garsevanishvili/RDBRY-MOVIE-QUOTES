@@ -22,7 +22,7 @@ export default function MovieSearch({
                 onChange={onChange}
                 placeholder={placeholder}
                 autoComplete="off"
-                className="w-24.5 bg-transparent text-xl leading-7.5 text-white outline-none placeholder:text-[#ced4da] focus:w-64 focus:border-b focus:border-white"
+                className="w-24.5 bg-transparent text-xl leading-7.5 text-white transition-[width,border-color] outline-none placeholder:text-[#ced4da] focus:w-64 focus:border-b focus:border-white"
             />
         </form>
     );

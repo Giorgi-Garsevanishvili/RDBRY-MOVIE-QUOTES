@@ -34,7 +34,7 @@ export default function ProfileAvatar({
                 type="button"
                 disabled={processing}
                 onClick={onChoose}
-                className="mt-2 rounded text-xl leading-7.5 text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none disabled:opacity-60"
+                className="mt-2 rounded text-xl leading-7.5 text-white transition-colors hover:text-[#ced4da] focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none active:text-[#a5a5ad] disabled:opacity-60"
             >
                 {uploadLabel}
             </button>

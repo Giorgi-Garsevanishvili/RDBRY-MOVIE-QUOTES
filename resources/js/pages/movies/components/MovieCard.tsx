@@ -4,7 +4,7 @@ import ChatQuoteIcon from './ChatQuoteIcon';
 
 export default function MovieCard({ movie }: MovieCardProps) {
     return (
-        <article className="min-w-0">
+        <article className="w-full min-w-0 lg:w-110">
             <Link
                 href={movie.href}
                 className="flex min-w-0 flex-col gap-4 rounded-xl focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"

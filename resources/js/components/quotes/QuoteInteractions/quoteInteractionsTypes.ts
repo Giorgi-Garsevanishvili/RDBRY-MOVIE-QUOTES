@@ -1,12 +1,21 @@
 import type { ChangeEvent, FormEvent } from 'react';
-import type { QuoteInteractionSummary, QuoteMessages } from '@/types';
+import type { QuoteComment, QuoteInteractionSummary, QuoteMessages } from '@/types';
 
 export type QuoteInteractionsProps = {
     quote: QuoteInteractionSummary;
     messages: QuoteMessages;
+    viewerId: number;
     viewerUsername: string;
     viewerAvatarUrl: string | null;
     commentPreviewLimit?: number;
+};
+
+export type RealtimeQuoteInteractions = {
+    quoteId: number;
+    comments: readonly QuoteComment[];
+    commentCount: number;
+    likeCount: number;
+    likedByViewer: boolean | null;
 };
 
 export type QuoteCommentView = {
@@ -34,6 +43,9 @@ export type UseQuoteInteractionsResult = QuoteInteractionHandlers & {
     commentsListId: string;
     commentsToggleLabel: string;
     hasHiddenComments: boolean;
+    commentCount: number;
+    likeCount: number;
+    likedByViewer: boolean;
     commentBody: string;
     commentError: string | undefined;
     currentUserInitials: string;

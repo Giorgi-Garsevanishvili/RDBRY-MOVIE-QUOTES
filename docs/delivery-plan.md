@@ -35,6 +35,8 @@ Status: Provisional roadmap.
 |  19 | CD + deployment              | Production services, deployment, and runbook                                                                                          | Green deploy, smoke test, health/rollback                                                  |
 |  20 | Realistic demo data          | Twenty deterministic bilingual movies with members, quotes, interactions, notifications, and local media                              | Pest completeness/idempotency coverage and fresh seeded migration                          |
 |  21 | Content/account consistency  | Member-deletion cleanup, bounded feed comments, fixed brand label, passwordless Google restrictions, and rem-based UI sizing          | Pest lifecycle/auth coverage, frontend checks, build proof, and desktop/mobile Figma check |
+|  22 | Responsive design fidelity   | Dedicated mobile profile, notification, and shell fidelity with validation and overflow fixes                                         | Full gate plus desktop/mobile Figma and overflow checks                                    |
+|  23 | Real-time post interactions  | Visible quote posts receive new comments and updated comment/like counts without a browser refresh                                    | Broadcast payload/channel authorization tests, frontend checks, and live two-session proof |
 
 ## Slice lifecycle
 

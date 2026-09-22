@@ -50,6 +50,7 @@ export type FeedQuoteCardView = {
     movieName: string;
     releaseYear: number;
     imageUrl: string | null;
+    viewerId: number;
     viewerUsername: string;
     viewerAvatarUrl: string | null;
     interactions: QuoteInteractionSummary;

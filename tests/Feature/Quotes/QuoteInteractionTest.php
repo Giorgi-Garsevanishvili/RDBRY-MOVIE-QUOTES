@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\QuoteInteractionsUpdated;
 use App\Http\Requests\Quotes\StoreCommentRequest;
 use App\Http\Resources\QuoteFeedResource;
 use App\Models\Comment;
@@ -7,8 +8,16 @@ use App\Models\Like;
 use App\Models\Movie;
 use App\Models\Quote;
 use App\Models\User;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Database\UniqueConstraintViolationException;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Testing\AssertableInertia as Assert;
+
+beforeEach(function () {
+	Event::fake([QuoteInteractionsUpdated::class]);
+});
 
 test('a verified member can create a comment on any quote', function (string $body) {
 	$quoteAuthor = User::factory()->create();
@@ -31,6 +40,45 @@ test('a verified member can create a comment on any quote', function (string $bo
 	'Georgian text'  => 'საინტერესო კომენტარია.',
 	'maximum length' => str_repeat('a', StoreCommentRequest::MAX_BODY_LENGTH),
 ]);
+
+test('a new comment broadcasts its post data to verified members', function () {
+	Storage::fake('public');
+
+	$quoteAuthor = User::factory()->create();
+	$commentAuthor = User::factory()->create();
+	$commentAuthor->addMedia(UploadedFile::fake()->image('comment-author.jpg'))
+		->toMediaCollection(User::AVATAR_COLLECTION);
+	$quote = Quote::factory()->for($quoteAuthor)->create();
+	Like::factory()->for($quoteAuthor)->for($quote)->create();
+
+	$this->actingAs($commentAuthor)
+		->post(route('quotes.comments.store', $quote), ['body' => 'Visible without refresh'])
+		->assertRedirect();
+
+	$comment = Comment::query()->sole();
+
+	Event::assertDispatched(
+		QuoteInteractionsUpdated::class,
+		function (QuoteInteractionsUpdated $event) use ($comment, $commentAuthor, $quote): bool {
+			$channels = $event->broadcastOn();
+			$payload = $event->broadcastWith();
+
+			return count($channels) === 1
+				&& $channels[0] instanceof PrivateChannel
+				&& $channels[0]->name === 'private-quotes.interactions'
+				&& $event->broadcastAs() === QuoteInteractionsUpdated::BROADCAST_NAME
+				&& $payload['quoteId'] === $quote->id
+				&& $payload['actorId'] === $commentAuthor->id
+				&& $payload['commentCount'] === 1
+				&& $payload['likeCount'] === 1
+				&& $payload['likedByActor'] === null
+				&& $payload['comment']['id'] === $comment->id
+				&& $payload['comment']['body'] === 'Visible without refresh'
+				&& $payload['comment']['author']['username'] === $commentAuthor->username
+				&& str_ends_with((string) $payload['comment']['author']['avatar'], '/comment-author.jpg');
+		},
+	);
+});
 
 test('comment validation is localized', function (string $locale, mixed $body, string $message) {
 	app()->setLocale($locale);
@@ -71,11 +119,53 @@ test('liking and unliking a quote are idempotent', function () {
 	$this->actingAs($member)->put(route('quotes.likes.store', $quote))->assertRedirect();
 
 	expect(Like::query()->count())->toBe(1);
+	Event::assertDispatchedTimes(QuoteInteractionsUpdated::class, 1);
+	Event::assertDispatched(
+		QuoteInteractionsUpdated::class,
+		fn (QuoteInteractionsUpdated $event): bool => $event->actorId === $member->id
+			&& $event->likeCount === 1
+			&& $event->likedByActor === true,
+	);
 
 	$this->actingAs($member)->delete(route('quotes.likes.destroy', $quote))->assertRedirect();
 	$this->actingAs($member)->delete(route('quotes.likes.destroy', $quote))->assertRedirect();
 
 	expect(Like::query()->count())->toBe(0);
+	Event::assertDispatchedTimes(QuoteInteractionsUpdated::class, 2);
+	Event::assertDispatched(
+		QuoteInteractionsUpdated::class,
+		fn (QuoteInteractionsUpdated $event): bool => $event->actorId === $member->id
+			&& $event->likeCount === 0
+			&& $event->likedByActor === false,
+	);
+});
+
+test('only verified members can authorize the post interaction channel', function () {
+	config()->set([
+		'broadcasting.default'                   => 'pusher',
+		'broadcasting.connections.pusher.key'    => 'test-key',
+		'broadcasting.connections.pusher.secret' => 'test-secret',
+		'broadcasting.connections.pusher.app_id' => 'test-app',
+	]);
+	require base_path('routes/channels.php');
+
+	$verified = User::factory()->create();
+	$unverified = User::factory()->unverified()->create();
+	$payload = [
+		'channel_name' => 'private-quotes.interactions',
+		'socket_id'    => '1234.5678',
+	];
+
+	$this->actingAs($verified)
+		->postJson('/broadcasting/auth', $payload)
+		->assertOk();
+
+	$this->actingAs($unverified)
+		->postJson('/broadcasting/auth', $payload)
+		->assertForbidden();
+
+	$this->post(route('logout'));
+	$this->postJson('/broadcasting/auth', $payload)->assertForbidden();
 });
 
 test('the database prevents duplicate likes during competing writes', function () {

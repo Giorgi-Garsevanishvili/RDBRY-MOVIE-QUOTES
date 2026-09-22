@@ -31,6 +31,7 @@ export default function VerificationPending(props: VerificationPendingProps) {
                         type="submit"
                         className={`w-full ${AUTH_PRIMARY_BUTTON_CLASSES}`}
                         disabled={processing}
+                        data-processing={processing}
                         data-test="resend-activation-link-button"
                     >
                         {processing && <Spinner aria-label={messages.resendingEmail} />}

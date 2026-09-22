@@ -1,14 +1,15 @@
 import { Head } from '@inertiajs/react';
+import ClearableInput from '@/components/ClearableInput';
 import PasswordInput from '@/components/PasswordInput';
 import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Spinner } from '@/components/ui/spinner';
 import { login } from '@/routes';
 import {
     AuthField,
     AuthHeading,
     AUTH_INPUT_CLASSES,
+    AUTH_PASSWORD_INPUT_CLASSES,
     AUTH_PRIMARY_BUTTON_CLASSES,
     AUTH_TEXT_LINK_CLASSES,
     GoogleAuthButton,
@@ -22,8 +23,11 @@ export default function Register() {
         data,
         processing,
         errors,
+        validationStatuses,
         handleUsernameChange,
         handleEmailChange,
+        handleUsernameClear,
+        handleEmailClear,
         handlePasswordChange,
         handlePasswordConfirmationChange,
         handleSubmit,
@@ -37,16 +41,17 @@ export default function Register() {
                 description={messages.registerDescription}
             />
 
-            <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-6">
+            <form noValidate onSubmit={handleSubmit} className="mt-6 flex flex-col gap-6">
                 <fieldset disabled={processing} className="contents">
                     <div className="grid gap-4">
                         <AuthField
                             id="username"
                             label={messages.username}
                             error={errors.username}
+                            status={validationStatuses.username}
                             required
                         >
-                            <Input
+                            <ClearableInput
                                 id="username"
                                 type="text"
                                 className={AUTH_INPUT_CLASSES}
@@ -56,6 +61,9 @@ export default function Register() {
                                 name="username"
                                 value={data.username}
                                 onChange={handleUsernameChange}
+                                onClear={handleUsernameClear}
+                                clearLabel={messages.clearField(messages.username)}
+                                status={validationStatuses.username}
                                 minLength={3}
                                 maxLength={15}
                                 placeholder={messages.usernamePlaceholder}
@@ -64,8 +72,14 @@ export default function Register() {
                             />
                         </AuthField>
 
-                        <AuthField id="email" label={messages.email} error={errors.email} required>
-                            <Input
+                        <AuthField
+                            id="email"
+                            label={messages.email}
+                            error={errors.email}
+                            status={validationStatuses.email}
+                            required
+                        >
+                            <ClearableInput
                                 id="email"
                                 type="email"
                                 className={AUTH_INPUT_CLASSES}
@@ -74,6 +88,9 @@ export default function Register() {
                                 name="email"
                                 value={data.email}
                                 onChange={handleEmailChange}
+                                onClear={handleEmailClear}
+                                clearLabel={messages.clearField(messages.email)}
+                                status={validationStatuses.email}
                                 placeholder={messages.emailPlaceholder}
                                 aria-invalid={Boolean(errors.email)}
                                 aria-describedby={errors.email ? 'email-error' : undefined}
@@ -84,11 +101,13 @@ export default function Register() {
                             id="password"
                             label={messages.password}
                             error={errors.password}
+                            status={validationStatuses.password}
+                            statusIconClassName="right-10"
                             required
                         >
                             <PasswordInput
                                 id="password"
-                                className={AUTH_INPUT_CLASSES}
+                                className={AUTH_PASSWORD_INPUT_CLASSES}
                                 required
                                 autoComplete="new-password"
                                 name="password"
@@ -108,11 +127,13 @@ export default function Register() {
                             id="password_confirmation"
                             label={messages.confirmPassword}
                             error={errors.password_confirmation}
+                            status={validationStatuses.password_confirmation}
+                            statusIconClassName="right-10"
                             required
                         >
                             <PasswordInput
                                 id="password_confirmation"
-                                className={AUTH_INPUT_CLASSES}
+                                className={AUTH_PASSWORD_INPUT_CLASSES}
                                 required
                                 autoComplete="new-password"
                                 name="password_confirmation"
@@ -134,6 +155,7 @@ export default function Register() {
                             type="submit"
                             className={AUTH_PRIMARY_BUTTON_CLASSES}
                             disabled={processing}
+                            data-processing={processing}
                             data-test="register-user-button"
                         >
                             {processing && <Spinner aria-label={messages.loading} />}

@@ -11,6 +11,7 @@ export default function QuoteDetails(props: QuoteDetailsProps) {
         quote,
         localizedQuote,
         authorInitials,
+        viewerId,
         viewerUsername,
         viewerAvatarUrl,
         messages,
@@ -75,32 +76,32 @@ export default function QuoteDetails(props: QuoteDetailsProps) {
                                 </div>
                             )}
 
-                            <div className="mb-7 flex items-center gap-4">
+                            <div className="mb-7 flex min-w-0 items-center gap-4">
                                 <Avatar className="size-10 lg:size-15">
                                     <AvatarImage src={quote.author.avatar ?? undefined} alt="" />
                                     <AvatarFallback className="bg-[#6c6f8e] text-sm text-white">
                                         {authorInitials}
                                     </AvatarFallback>
                                 </Avatar>
-                                <strong className="text-xl leading-7.5 font-medium">
+                                <strong className="min-w-0 text-xl leading-7.5 font-medium [overflow-wrap:anywhere]">
                                     {quote.author.username}
                                 </strong>
                             </div>
 
-                            <h2 className="mb-6 text-xl font-medium text-brand-gold uppercase lg:text-2xl">
+                            <h2 className="mb-6 text-xl font-medium [overflow-wrap:anywhere] text-brand-gold uppercase lg:text-2xl">
                                 {localizedQuote.movie.name} ({localizedQuote.movie.releaseYear})
                             </h2>
 
                             <div className="grid gap-4 lg:gap-6">
                                 <p
                                     lang="en"
-                                    className="min-h-13.25 rounded-[0.25rem] border border-[#6c757d] px-4 py-2 pr-16 text-xl leading-7.5 italic"
+                                    className="min-h-13.25 rounded-[0.25rem] border border-[#6c757d] px-4 py-2 pr-16 text-xl leading-7.5 [overflow-wrap:anywhere] italic"
                                 >
                                     “{quote.text.en}”
                                 </p>
                                 <p
                                     lang="ka"
-                                    className="min-h-13.25 rounded-[0.25rem] border border-[#6c757d] px-4 py-2 pr-16 text-xl leading-7.5 italic"
+                                    className="min-h-13.25 rounded-[0.25rem] border border-[#6c757d] px-4 py-2 pr-16 text-xl leading-7.5 [overflow-wrap:anywhere] italic"
                                 >
                                     “{quote.text.ka}”
                                 </p>
@@ -119,6 +120,7 @@ export default function QuoteDetails(props: QuoteDetailsProps) {
                             <QuoteInteractions
                                 quote={quote}
                                 messages={messages}
+                                viewerId={viewerId}
                                 viewerUsername={viewerUsername}
                                 viewerAvatarUrl={viewerAvatarUrl}
                             />

@@ -13,3 +13,4 @@ export type * from './quote';
 export type * from './quoteMessages';
 export type * from './profileMessages';
 export type * from './ui';
+export type * from './validationStatus';

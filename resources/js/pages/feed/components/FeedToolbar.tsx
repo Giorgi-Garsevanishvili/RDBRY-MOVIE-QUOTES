@@ -31,7 +31,7 @@ export default function FeedToolbar({
                 type="button"
                 onClick={onOpenSearch}
                 aria-label={search}
-                className="fixed top-5.75 right-17.5 z-50 inline-flex size-10 items-center justify-center rounded text-[#ced4da] focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none lg:hidden"
+                className="fixed top-5.75 right-17.75 z-50 inline-flex size-10 items-center justify-center rounded text-[#ced4da] transition-colors hover:text-white focus-visible:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none lg:hidden"
             >
                 <FeedSearchIcon className="size-6" />
             </button>
@@ -56,7 +56,7 @@ export default function FeedToolbar({
                 <button
                     type="button"
                     onClick={onOpenSearch}
-                    className="ml-auto hidden h-13 items-center gap-4 text-xl text-[#ced4da] focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none lg:flex"
+                    className="ml-auto hidden h-13 items-center gap-4 text-xl text-[#ced4da] transition-colors hover:text-white focus-visible:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none lg:flex"
                 >
                     <FeedSearchIcon className="size-5" />
                     <span>{searchBy}</span>

@@ -1,4 +1,5 @@
 import { Head } from '@inertiajs/react';
+import { BRAND_BUTTON_INTERACTION_CLASSES } from '@/components/ui/brandStyles';
 import { MovieCard, MovieFormModal, MovieSearch, PlusSquareIcon } from './components';
 import type { MovieListProps } from './movieListTypes';
 import { useMovieList } from './useMovieList';
@@ -46,7 +47,7 @@ export default function MovieList(props: MovieListProps) {
                         <button
                             type="button"
                             onClick={openCreateMovie}
-                            className="mt-0.75 inline-flex h-9.5 items-center gap-2 rounded bg-brand-red px-3.25 text-base leading-6 whitespace-nowrap focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none lg:mt-0 lg:h-12 lg:px-4 lg:text-xl lg:leading-7.5"
+                            className={`mt-0.75 inline-flex h-9.5 items-center gap-2 rounded px-3.25 text-base leading-6 whitespace-nowrap focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none lg:mt-0 lg:h-12 lg:px-4 lg:text-xl lg:leading-7.5 ${BRAND_BUTTON_INTERACTION_CLASSES}`}
                         >
                             <PlusSquareIcon className="size-4 shrink-0" />
                             {messages.addMovie}
@@ -54,7 +55,7 @@ export default function MovieList(props: MovieListProps) {
                     </div>
                 </div>
 
-                <div className="mt-8.5 grid grid-cols-1 justify-between gap-y-15 lg:mt-16.5 min-[81.25rem]:grid-cols-[repeat(2,minmax(0,27.5rem))] min-[112.5rem]:grid-cols-[repeat(3,27.5rem)]">
+                <div className="mt-8.5 flex flex-wrap gap-x-10 gap-y-15 lg:mt-16.5">
                     {localizedMovies.map((movie) => (
                         <MovieCard key={movie.id} movie={movie} />
                     ))}

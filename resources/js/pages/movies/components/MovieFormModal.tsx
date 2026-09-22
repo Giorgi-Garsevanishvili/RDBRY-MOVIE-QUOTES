@@ -1,5 +1,6 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { BRAND_BUTTON_INTERACTION_CLASSES } from '@/components/ui/brandStyles';
 import CloseIcon from './CloseIcon';
 import MovieFormField from './MovieFormField';
 import type { MovieFormModalProps } from './movieFormTypes';
@@ -49,13 +50,17 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                         </DialogPrimitive.Title>
                         <DialogPrimitive.Close
                             aria-label={messages.close}
-                            className="absolute right-8 inline-flex size-8 items-center justify-center rounded focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+                            className="absolute right-8 inline-flex size-8 items-center justify-center rounded transition-colors hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none active:bg-white/15"
                         >
                             <CloseIcon className="size-8 text-white" />
                         </DialogPrimitive.Close>
                     </header>
 
-                    <form onSubmit={handleSubmit} className="px-8 pt-7.25 pb-11 lg:pb-11.75">
+                    <form
+                        noValidate
+                        onSubmit={handleSubmit}
+                        className="px-8 pt-7.25 pb-11 lg:pb-11.75"
+                    >
                         <div className="mb-7 flex items-center gap-4 lg:mb-7">
                             <Avatar className="size-10 lg:size-15">
                                 <AvatarImage src={user.avatar ?? undefined} alt="" />
@@ -87,7 +92,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                         aria-describedby={
                                             errors.name_en ? 'name_en-error' : undefined
                                         }
-                                        className="h-12 w-full rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 pr-16 text-base outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
+                                        className="h-12 w-full rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 pr-16 text-base transition-[border-color,box-shadow] outline-none placeholder:text-[#6c757d] focus:border-white focus:ring-2 focus:ring-white/50 aria-invalid:border-brand-red aria-invalid:ring-2 aria-invalid:ring-brand-red/30 lg:text-xl"
                                     />
                                     <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-base lg:text-xl">
                                         {messages.english}
@@ -112,7 +117,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                         aria-describedby={
                                             errors.name_ka ? 'name_ka-error' : undefined
                                         }
-                                        className="h-12 w-full rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 pr-16 text-base outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
+                                        className="h-12 w-full rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 pr-16 text-base transition-[border-color,box-shadow] outline-none placeholder:text-[#6c757d] focus:border-white focus:ring-2 focus:ring-white/50 aria-invalid:border-brand-red aria-invalid:ring-2 aria-invalid:ring-brand-red/30 lg:text-xl"
                                     />
                                     <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-base lg:text-xl">
                                         {messages.georgian}
@@ -125,7 +130,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                     <summary
                                         aria-invalid={Boolean(genreError)}
                                         aria-describedby={genreError ? 'genres-error' : undefined}
-                                        className="flex h-12 cursor-pointer list-none items-center rounded-[0.25rem] border border-[#6c757d] px-4 text-base outline-none focus-visible:border-white aria-invalid:border-brand-red lg:text-xl"
+                                        className="flex h-12 cursor-pointer list-none items-center rounded-[0.25rem] border border-[#6c757d] px-4 text-base transition-[border-color,box-shadow] outline-none focus-visible:border-white focus-visible:ring-2 focus-visible:ring-white/50 aria-invalid:border-brand-red aria-invalid:ring-2 aria-invalid:ring-brand-red/30 lg:text-xl"
                                     >
                                         <span className="truncate">{selectedGenres}</span>
                                         <span aria-hidden="true" className="ml-auto text-[#6c757d]">
@@ -136,7 +141,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                         {genreOptions.map((genre) => (
                                             <label
                                                 key={genre.id}
-                                                className="flex items-center gap-3 text-base"
+                                                className="flex cursor-pointer items-center gap-3 rounded px-2 py-1 text-base transition-colors hover:bg-white/10"
                                             >
                                                 <input
                                                     type="checkbox"
@@ -171,7 +176,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                     aria-describedby={
                                         errors.release_year ? 'release_year-error' : undefined
                                     }
-                                    className="h-12 w-full rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 text-base outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
+                                    className="h-12 w-full rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 text-base transition-[border-color,box-shadow] outline-none placeholder:text-[#6c757d] focus:border-white focus:ring-2 focus:ring-white/50 aria-invalid:border-brand-red aria-invalid:ring-2 aria-invalid:ring-brand-red/30 lg:text-xl"
                                 />
                             </MovieFormField>
 
@@ -192,7 +197,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                         aria-describedby={
                                             errors.director_en ? 'director_en-error' : undefined
                                         }
-                                        className="h-12 w-full rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 pr-16 text-base outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
+                                        className="h-12 w-full rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 pr-16 text-base transition-[border-color,box-shadow] outline-none placeholder:text-[#6c757d] focus:border-white focus:ring-2 focus:ring-white/50 aria-invalid:border-brand-red aria-invalid:ring-2 aria-invalid:ring-brand-red/30 lg:text-xl"
                                     />
                                     <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-base lg:text-xl">
                                         {messages.english}
@@ -217,7 +222,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                         aria-describedby={
                                             errors.director_ka ? 'director_ka-error' : undefined
                                         }
-                                        className="h-12 w-full rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 pr-16 text-base outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
+                                        className="h-12 w-full rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 pr-16 text-base transition-[border-color,box-shadow] outline-none placeholder:text-[#6c757d] focus:border-white focus:ring-2 focus:ring-white/50 aria-invalid:border-brand-red aria-invalid:ring-2 aria-invalid:ring-brand-red/30 lg:text-xl"
                                     />
                                     <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-base lg:text-xl">
                                         {messages.georgian}
@@ -244,7 +249,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                                 ? 'description_en-error'
                                                 : undefined
                                         }
-                                        className="h-21.5 w-full resize-none rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 py-2 pr-16 text-base [overflow-wrap:anywhere] outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
+                                        className="h-21.5 w-full resize-none rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 py-2 pr-16 text-base [overflow-wrap:anywhere] transition-[border-color,box-shadow] outline-none placeholder:text-[#6c757d] focus:border-white focus:ring-2 focus:ring-white/50 aria-invalid:border-brand-red aria-invalid:ring-2 aria-invalid:ring-brand-red/30 lg:text-xl"
                                     />
                                     <span className="pointer-events-none absolute top-2 right-4 text-base lg:text-xl">
                                         {messages.english}
@@ -271,7 +276,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                                 ? 'description_ka-error'
                                                 : undefined
                                         }
-                                        className="h-21.5 w-full resize-none rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 py-2 pr-16 text-base [overflow-wrap:anywhere] outline-none placeholder:text-[#6c757d] focus:border-white aria-invalid:border-brand-red lg:text-xl"
+                                        className="h-21.5 w-full resize-none rounded-[0.25rem] border border-[#6c757d] bg-transparent px-4 py-2 pr-16 text-base [overflow-wrap:anywhere] transition-[border-color,box-shadow] outline-none placeholder:text-[#6c757d] focus:border-white focus:ring-2 focus:ring-white/50 aria-invalid:border-brand-red aria-invalid:ring-2 aria-invalid:ring-brand-red/30 lg:text-xl"
                                     />
                                     <span className="pointer-events-none absolute top-2 right-4 text-base lg:text-xl">
                                         {messages.georgian}
@@ -284,7 +289,8 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                     htmlFor="poster"
                                     onDragOver={handlePosterDragOver}
                                     onDrop={handlePosterDrop}
-                                    className="flex min-h-20.5 cursor-pointer items-center gap-3 rounded-[0.25rem] border border-[#6c757d] px-4 py-4 outline-none focus-within:border-white aria-invalid:border-brand-red lg:min-h-21"
+                                    data-invalid={Boolean(errors.poster)}
+                                    className="group flex min-h-20.5 cursor-pointer items-center gap-3 rounded-[0.25rem] border border-[#6c757d] px-4 py-4 transition-[border-color,box-shadow] outline-none focus-within:border-white focus-within:ring-2 focus-within:ring-white/50 hover:border-white/80 data-[invalid=true]:border-brand-red data-[invalid=true]:ring-2 data-[invalid=true]:ring-brand-red/30 lg:min-h-21"
                                 >
                                     {currentPosterUrl === null ? (
                                         <>
@@ -299,7 +305,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                                     </span>
                                                 )}
                                             </span>
-                                            <span className="ml-auto shrink-0 rounded bg-[#9747ff] px-3 py-2 text-sm lg:text-base">
+                                            <span className="ml-auto shrink-0 rounded bg-[#9747ff] px-3 py-2 text-sm transition-colors group-hover:bg-[#7f35dc] group-active:bg-[#6c2dbc] lg:text-base">
                                                 {messages.chooseFile}
                                             </span>
                                         </>
@@ -317,7 +323,7 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                                                         {messages.selectedFile}: {selectedFileName}
                                                     </span>
                                                 )}
-                                                <span className="w-fit rounded bg-[#9747ff] px-3 py-2 text-sm lg:text-base">
+                                                <span className="w-fit rounded bg-[#9747ff] px-3 py-2 text-sm transition-colors group-hover:bg-[#7f35dc] group-active:bg-[#6c2dbc] lg:text-base">
                                                     {messages.chooseFile}
                                                 </span>
                                             </span>
@@ -342,7 +348,8 @@ export default function MovieFormModal(props: MovieFormModalProps) {
                             <button
                                 type="submit"
                                 disabled={processing}
-                                className="mt-6 inline-flex h-12 w-full items-center justify-center rounded-[0.25rem] bg-brand-red px-4 text-xl leading-7.5 font-normal transition-opacity hover:opacity-90 disabled:opacity-60 lg:mt-4"
+                                data-processing={processing}
+                                className={`mt-6 inline-flex h-12 w-full items-center justify-center rounded-[0.25rem] px-4 text-xl leading-7.5 font-normal focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none lg:mt-4 ${BRAND_BUTTON_INTERACTION_CLASSES}`}
                             >
                                 {submitLabel}
                             </button>

@@ -64,30 +64,37 @@ export function useMovieForm({ mode, genres, movie, onOpenChange }: MovieFormMod
     }
 
     function handleNameEnChange(event: ChangeEvent<HTMLInputElement>): void {
+        form.clearErrors('name_en');
         form.setData('name_en', event.target.value);
     }
 
     function handleNameKaChange(event: ChangeEvent<HTMLInputElement>): void {
+        form.clearErrors('name_ka');
         form.setData('name_ka', event.target.value);
     }
 
     function handleDirectorEnChange(event: ChangeEvent<HTMLInputElement>): void {
+        form.clearErrors('director_en');
         form.setData('director_en', event.target.value);
     }
 
     function handleDirectorKaChange(event: ChangeEvent<HTMLInputElement>): void {
+        form.clearErrors('director_ka');
         form.setData('director_ka', event.target.value);
     }
 
     function handleDescriptionEnChange(event: ChangeEvent<HTMLTextAreaElement>): void {
+        form.clearErrors('description_en');
         form.setData('description_en', event.target.value);
     }
 
     function handleDescriptionKaChange(event: ChangeEvent<HTMLTextAreaElement>): void {
+        form.clearErrors('description_ka');
         form.setData('description_ka', event.target.value);
     }
 
     function handleReleaseYearChange(event: ChangeEvent<HTMLInputElement>): void {
+        form.clearErrors('release_year');
         form.setData('release_year', event.target.value);
     }
 
@@ -97,10 +104,12 @@ export function useMovieForm({ mode, genres, movie, onOpenChange }: MovieFormMod
             ? [...form.data.genres, genreId]
             : form.data.genres.filter((selectedGenreId) => selectedGenreId !== genreId);
 
+        form.clearErrors('genres');
         form.setData('genres', nextGenres);
     }
 
     function handlePosterChange(event: ChangeEvent<HTMLInputElement>): void {
+        form.clearErrors('poster');
         form.setData('poster', event.target.files?.[0] ?? null);
     }
 
@@ -110,6 +119,7 @@ export function useMovieForm({ mode, genres, movie, onOpenChange }: MovieFormMod
 
     function handlePosterDrop(event: DragEvent<HTMLLabelElement>): void {
         event.preventDefault();
+        form.clearErrors('poster');
         form.setData('poster', event.dataTransfer.files[0] ?? null);
     }
 

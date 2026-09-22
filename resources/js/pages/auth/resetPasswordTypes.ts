@@ -9,3 +9,8 @@ export type ResetPasswordFormData = {
     password: string;
     password_confirmation: string;
 };
+
+export type ResetPasswordValidationStatuses = Partial<
+    Record<'password' | 'password_confirmation', ValidationStatus>
+>;
+import type { ValidationStatus } from '@/types';

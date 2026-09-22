@@ -9,3 +9,6 @@ export type LoginFormData = {
     password: string;
     remember: boolean;
 };
+
+export type LoginValidationStatuses = Partial<Record<'login' | 'password', ValidationStatus>>;
+import type { ValidationStatus } from '@/types';

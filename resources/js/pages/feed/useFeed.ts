@@ -55,6 +55,7 @@ export function useFeed({ movies, quotes, filters }: FeedProps) {
         movieName: quote.movie.name[locale],
         releaseYear: quote.movie.releaseYear,
         imageUrl: quote.imageUrl,
+        viewerId: viewer.id,
         viewerUsername: viewer.username,
         viewerAvatarUrl: viewer.avatar,
         interactions: {

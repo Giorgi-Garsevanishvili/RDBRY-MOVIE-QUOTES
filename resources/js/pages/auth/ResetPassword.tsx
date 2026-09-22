@@ -5,7 +5,7 @@ import { Spinner } from '@/components/ui/spinner';
 import {
     AuthField,
     AuthHeading,
-    AUTH_INPUT_CLASSES,
+    AUTH_PASSWORD_INPUT_CLASSES,
     AUTH_PRIMARY_BUTTON_CLASSES,
 } from './components';
 import type { ResetPasswordProps } from './resetPasswordTypes';
@@ -17,6 +17,7 @@ export default function ResetPassword(props: ResetPasswordProps) {
         data,
         processing,
         errors,
+        validationStatuses,
         handlePasswordChange,
         handlePasswordConfirmationChange,
         handleSubmit,
@@ -30,12 +31,14 @@ export default function ResetPassword(props: ResetPasswordProps) {
                 description={messages.resetPasswordDescription}
             />
 
-            <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-6">
+            <form noValidate onSubmit={handleSubmit} className="mt-6 flex flex-col gap-6">
                 <fieldset disabled={processing} className="contents">
                     <AuthField
                         id="password"
                         label={messages.password}
                         error={errors.password}
+                        status={validationStatuses.password}
+                        statusIconClassName="right-10"
                         required
                     >
                         <PasswordInput
@@ -43,7 +46,7 @@ export default function ResetPassword(props: ResetPasswordProps) {
                             name="password"
                             value={data.password}
                             onChange={handlePasswordChange}
-                            className={AUTH_INPUT_CLASSES}
+                            className={AUTH_PASSWORD_INPUT_CLASSES}
                             required
                             minLength={8}
                             maxLength={15}
@@ -61,6 +64,8 @@ export default function ResetPassword(props: ResetPasswordProps) {
                         id="password_confirmation"
                         label={messages.confirmPassword}
                         error={errors.password_confirmation}
+                        status={validationStatuses.password_confirmation}
+                        statusIconClassName="right-10"
                         required
                     >
                         <PasswordInput
@@ -68,7 +73,7 @@ export default function ResetPassword(props: ResetPasswordProps) {
                             name="password_confirmation"
                             value={data.password_confirmation}
                             onChange={handlePasswordConfirmationChange}
-                            className={AUTH_INPUT_CLASSES}
+                            className={AUTH_PASSWORD_INPUT_CLASSES}
                             required
                             autoComplete="new-password"
                             placeholder={messages.confirmPasswordPlaceholder}
@@ -87,6 +92,7 @@ export default function ResetPassword(props: ResetPasswordProps) {
                         type="submit"
                         className={AUTH_PRIMARY_BUTTON_CLASSES}
                         disabled={processing}
+                        data-processing={processing}
                         data-test="reset-password-button"
                     >
                         {processing && <Spinner aria-label={messages.loading} />}

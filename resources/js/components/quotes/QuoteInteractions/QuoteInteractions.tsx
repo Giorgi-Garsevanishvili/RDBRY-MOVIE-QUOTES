@@ -14,6 +14,9 @@ export default function QuoteInteractions(props: QuoteInteractionsProps) {
         commentsListId,
         commentsToggleLabel,
         hasHiddenComments,
+        commentCount,
+        likeCount,
+        likedByViewer,
         commentBody,
         commentError,
         currentUserInitials,
@@ -35,7 +38,7 @@ export default function QuoteInteractions(props: QuoteInteractionsProps) {
                     className="inline-flex items-center gap-3 text-xl"
                     aria-label={props.messages.comments}
                 >
-                    <span>{props.quote.commentCount}</span>
+                    <span>{commentCount}</span>
                     <QuoteCommentIcon className="size-6 lg:size-8" />
                 </span>
                 <button
@@ -43,11 +46,13 @@ export default function QuoteInteractions(props: QuoteInteractionsProps) {
                     onClick={onLikeToggle}
                     disabled={isLikeSubmitting}
                     aria-label={likeLabel}
-                    aria-pressed={props.quote.likedByViewer}
-                    className="inline-flex items-center gap-3 rounded text-xl focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none disabled:opacity-50"
+                    aria-pressed={likedByViewer}
+                    className="group inline-flex items-center gap-3 rounded text-xl transition-colors hover:text-brand-red focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none active:text-[#b80d0f] disabled:opacity-50"
                 >
-                    <span>{props.quote.likeCount}</span>
-                    <QuoteHeartIcon className={`h-6 w-6.5 lg:h-8 lg:w-8.5 ${likeIconClassName}`} />
+                    <span>{likeCount}</span>
+                    <QuoteHeartIcon
+                        className={`h-6 w-6.5 transition-[color,transform] group-hover:text-brand-red group-active:scale-90 group-active:text-[#b80d0f] lg:h-8 lg:w-8.5 ${likeIconClassName}`}
+                    />
                 </button>
             </div>
 
@@ -57,7 +62,7 @@ export default function QuoteInteractions(props: QuoteInteractionsProps) {
                     onClick={onCommentsToggle}
                     aria-expanded={commentsExpanded}
                     aria-controls={commentsListId}
-                    className="mt-4 rounded text-sm text-[#ced4da] transition-colors hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none lg:mt-5 lg:text-base"
+                    className="mt-4 rounded text-sm text-[#ced4da] transition-colors hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none active:text-white/80 lg:mt-5 lg:text-base"
                 >
                     {commentsToggleLabel}
                 </button>
@@ -116,7 +121,7 @@ export default function QuoteInteractions(props: QuoteInteractionsProps) {
                                 ? undefined
                                 : `quote-${props.quote.id}-comment-error`
                         }
-                        className="h-10 w-full rounded-lg bg-[#24222f] px-4 text-base text-white placeholder:text-[#ced4da] focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none disabled:opacity-50 lg:h-13 lg:px-7 lg:text-xl"
+                        className="h-10 w-full rounded-lg border border-transparent bg-[#24222f] px-4 text-base text-white transition-[border-color,box-shadow] placeholder:text-[#ced4da] focus-visible:border-white focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:outline-none disabled:opacity-50 aria-invalid:border-brand-red aria-invalid:ring-2 aria-invalid:ring-brand-red/30 lg:h-13 lg:px-7 lg:text-xl"
                     />
                     <InputError
                         id={`quote-${props.quote.id}-comment-error`}

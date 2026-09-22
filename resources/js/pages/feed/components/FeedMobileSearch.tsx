@@ -27,7 +27,7 @@ export default function FeedMobileSearch({
                                 <button
                                     type="button"
                                     aria-label={messages.closeSearch}
-                                    className="inline-flex size-4 shrink-0 items-center justify-center focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+                                    className="inline-flex size-4 shrink-0 items-center justify-center rounded transition-colors hover:text-[#ced4da] focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none active:text-[#a5a5ad]"
                                 >
                                     <FeedBackIcon className="size-4" />
                                 </button>

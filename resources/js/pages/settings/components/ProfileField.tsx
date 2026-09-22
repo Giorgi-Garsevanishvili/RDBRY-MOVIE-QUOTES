@@ -19,7 +19,7 @@ export default function ProfileField({
                     <button
                         type="button"
                         onClick={onEdit}
-                        className="shrink-0 rounded px-2 py-1 text-base leading-6 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none md:max-w-17.25 lg:h-12 lg:px-4.25 lg:text-xl lg:leading-7.5"
+                        className="shrink-0 rounded px-2 py-1 text-base leading-6 transition-colors hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none active:bg-white/15 md:max-w-17.25 lg:h-12 lg:px-4.25 lg:text-xl lg:leading-7.5"
                     >
                         {editLabel}
                     </button>
