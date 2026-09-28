@@ -43,7 +43,7 @@ export default function NotificationMenu(props: NotificationMenuProps) {
                 >
                     <span
                         aria-hidden="true"
-                        className="absolute top-0 right-6 size-11.75 rotate-45 bg-black lg:right-56.5"
+                        className="absolute top-1 right-6 size-11.75 rotate-45 bg-black lg:right-51"
                     />
                     <div className="mt-5 max-h-[min(46.875rem,calc(100svh-5.375rem))] [scrollbar-width:none] overflow-x-hidden overflow-y-auto rounded-xl bg-black px-8.75 pb-9 lg:mt-6 lg:max-h-203 lg:px-8 [&::-webkit-scrollbar]:hidden">
                         <header className="flex min-h-19 items-center justify-between gap-4 lg:min-h-27.75 lg:items-start lg:pt-10">

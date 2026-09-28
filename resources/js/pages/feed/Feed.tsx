@@ -29,7 +29,7 @@ export default function Feed(props: FeedProps) {
         <>
             <Head title={feedMessages.title} />
 
-            <section className="px-8.75 py-8 lg:px-0 lg:pr-17.5 lg:pl-25">
+            <section className="flex w-full flex-col items-center justify-start px-8.75 py-8 lg:px-0 lg:pr-17.5 lg:pl-25">
                 <h1 className="sr-only">{feedMessages.title}</h1>
 
                 <FeedToolbar
@@ -51,7 +51,7 @@ export default function Feed(props: FeedProps) {
                     onlyNext
                     preserveUrl={false}
                     buffer={600}
-                    className="-mx-8.75 mt-10 grid gap-8 lg:mx-0 lg:max-w-234.5"
+                    className="-mx-8.75 mt-10 grid w-full gap-8 lg:mx-0"
                     loading={
                         <p className="py-6 text-center text-[#ced4da]">
                             {feedMessages.loadingMore}

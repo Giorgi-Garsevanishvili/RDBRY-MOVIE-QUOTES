@@ -16,7 +16,7 @@ export default function FeedToolbar({
     onSearchSubmit,
 }: FeedToolbarProps) {
     return (
-        <div className="flex max-w-234.5 items-center lg:gap-8">
+        <div className="flex w-full justify-between lg:gap-8">
             <button
                 type="button"
                 onClick={onWriteQuote}

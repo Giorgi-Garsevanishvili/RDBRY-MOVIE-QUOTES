@@ -13,7 +13,7 @@ export default function QuoteSection({
     return (
         <section
             ref={sectionRef}
-            className="relative flex h-107.75 items-center overflow-hidden md:h-225 xl:h-300"
+            className="relative flex h-screen items-center overflow-hidden md:h-225 xl:h-300"
         >
             <div
                 aria-hidden="true"
