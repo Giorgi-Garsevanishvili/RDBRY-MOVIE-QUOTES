@@ -5,6 +5,7 @@ import { BRAND_BUTTON_INTERACTION_CLASSES } from '@/components/ui/brandStyles';
 import { MovieActions, MovieFormModal, QuoteCard } from './components';
 import type { MovieDetailsProps } from './movieDetailsTypes';
 import { useMovieDetails } from './useMovieDetails';
+import { useLocale } from '@/hooks/useLocale';
 
 export default function MovieDetails(props: MovieDetailsProps) {
     const {
@@ -23,6 +24,7 @@ export default function MovieDetails(props: MovieDetailsProps) {
         handleAddQuoteOpenChange,
         deleteMovie,
     } = useMovieDetails(props);
+    const { locale } = useLocale();
 
     return (
         <>
@@ -66,11 +68,8 @@ export default function MovieDetails(props: MovieDetailsProps) {
                         </p>
 
                         <div className="mt-5 grid min-w-0 gap-4 text-lg leading-6.75 text-[#ced4da] lg:text-xl lg:leading-7.5">
-                            <p lang="en" className="[overflow-wrap:anywhere]">
-                                {movie.description.en}
-                            </p>
-                            <p lang="ka" className="[overflow-wrap:anywhere]">
-                                {movie.description.ka}
+                            <p lang={locale} className="[overflow-wrap:anywhere]">
+                                {locale === 'en' ? movie.description.en : movie.description.ka}
                             </p>
                         </div>
 
